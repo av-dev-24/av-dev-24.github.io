@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prestige Dental Clinic of the Philippines — Makati &amp; BGC</title>
+<meta name="description" content="Prestige Dental Clinic of the Philippines — precision general, cosmetic and restorative dentistry in Makati and Bonifacio Global City, Metro Manila.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --porcelain:#FBF7F0;
+    --porcelain-dim:#F1EADC;
+    --pine:#123430;
+    --pine-2:#1E4A43;
+    --brass:#B08D4F;
+    --brass-dim:#DCC694;
+    --ink:#1A1F1C;
+    --ink-soft:#4B564F;
+    --mist:#E4E4DC;
+    --max:1180px;
+    --radius:2px;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--porcelain);
+    color:var(--ink);
+    font-family:'Work Sans',sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    line-height:1.12;
+    margin:0;
+    color:var(--pine);
+    letter-spacing:-0.01em;
+  }
+  p{margin:0;}
+  a{color:inherit;text-decoration:none;}
+  ul{margin:0;padding:0;list-style:none;}
+  img,svg{display:block;max-width:100%;}
+  button{font-family:inherit;cursor:pointer;}
+  .visually-hidden{
+    position:absolute;width:1px;height:1px;overflow:hidden;
+    clip:rect(0 0 0 0);white-space:nowrap;
+  }
+  :focus-visible{outline:2px solid var(--brass);outline-offset:3px;}
+
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 32px;}
+  @media(max-width:640px){.wrap{padding:0 20px;}}
+
+  .eyebrow{
+    font-size:0.8rem;
+    color:var(--ink-soft);
+    display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{
+    content:"";width:22px;height:1px;background:var(--brass);display:inline-block;
+  }
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:14px 26px;
+    font-size:0.95rem;font-weight:600;
+    border-radius:var(--radius);
+    border:1px solid transparent;
+    transition:transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--brass);color:var(--pine);}
+  .btn-primary:hover{background:var(--brass-dim);transform:translateY(-1px);}
+  .btn-outline{border-color:rgba(18,52,48,0.28);color:var(--pine);}
+  .btn-outline:hover{border-color:var(--pine);background:rgba(18,52,48,0.04);}
+  .btn-ghost-light{border-color:rgba(251,247,240,0.35);color:var(--porcelain);}
+  .btn-ghost-light:hover{border-color:var(--porcelain);background:rgba(251,247,240,0.08);}
+  .btn-block{width:100%;}
+
+  /* ---------- Header ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:200;
+    background:rgba(251,247,240,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid transparent;
+    transition:border-color .25s ease, box-shadow .25s ease;
+  }
+  header.scrolled{
+    border-color:var(--mist);
+    box-shadow:0 8px 24px -18px rgba(18,52,48,0.4);
+  }
+  .nav-row{
+    display:flex;align-items:center;justify-content:space-between;
+    height:82px;
+  }
+  .logo{display:flex;align-items:center;gap:12px;}
+  .logo-word{font-family:'Fraunces',serif;font-size:1.18rem;color:var(--pine);line-height:1.05;}
+  .logo-word span{display:block;font-family:'Work Sans',sans-serif;font-size:0.62rem;letter-spacing:0.14em;color:var(--ink-soft);font-weight:600;margin-top:2px;}
+
+  nav.primary-nav ul{display:flex;gap:34px;align-items:center;}
+  nav.primary-nav a{font-size:0.94rem;color:var(--ink-soft);position:relative;padding:4px 0;}
+  nav.primary-nav a:hover{color:var(--pine);}
+  .nav-actions{display:flex;align-items:center;gap:18px;}
+  .nav-phone{font-size:0.88rem;color:var(--ink-soft);display:flex;align-items:center;gap:8px;}
+  .nav-phone svg{width:16px;height:16px;flex-shrink:0;}
+
+  .nav-toggle{display:none;background:none;border:none;padding:6px;}
+  .nav-toggle svg{width:26px;height:26px;color:var(--pine);}
+
+  @media(max-width:980px){
+    .nav-phone{display:none;}
+    nav.primary-nav{
+      position:fixed;inset:82px 0 0 0;
+      background:var(--porcelain);
+      transform:translateX(100%);
+      transition:transform .3s ease;
+      padding:36px 32px;
+      overflow-y:auto;
+    }
+    nav.primary-nav.open{transform:translateX(0);}
+    nav.primary-nav ul{flex-direction:column;align-items:flex-start;gap:6px;}
+    nav.primary-nav a{display:block;padding:14px 0;font-size:1.1rem;border-bottom:1px solid var(--mist);width:100%;}
+    .nav-toggle{display:block;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:168px 0 96px;
+    overflow:hidden;
+    background:var(--porcelain);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.85fr;
+    gap:48px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(2.5rem,4.6vw,3.9rem);
+    max-width:12.5ch;
+  }
+  .hero h1 em{font-style:italic;color:var(--pine-2);}
+  .hero-sub{
+    margin-top:22px;
+    max-width:46ch;
+    color:var(--ink-soft);
+    font-size:1.08rem;
+  }
+  .hero-cta{display:flex;gap:16px;margin-top:34px;flex-wrap:wrap;}
+  .hero-chips{
+    display:flex;gap:28px;margin-top:52px;flex-wrap:wrap;
+    padding-top:28px;border-top:1px solid var(--mist);
+  }
+  .hero-chip strong{display:block;font-family:'Fraunces',serif;font-size:1.5rem;color:var(--pine);font-weight:500;}
+  .hero-chip span{font-size:0.82rem;color:var(--ink-soft);}
+
+  .hero-art{position:relative;aspect-ratio:1/1;}
+  .hero-art svg{width:100%;height:100%;}
+  .arc-draw{stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 2.1s 0.2s cubic-bezier(.4,.1,.2,1) forwards;}
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  @media (prefers-reduced-motion: reduce){
+    .arc-draw{animation:none;stroke-dashoffset:0;}
+    html{scroll-behavior:auto;}
+  }
+
+  @media(max-width:980px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-art{max-width:340px;margin:0 auto;order:-1;}
+    .hero{padding-top:132px;text-align:left;}
+  }
+
+  /* ---------- Stats strip ---------- */
+  .stats{
+    background:var(--pine);
+    color:var(--porcelain);
+    padding:40px 0;
+  }
+  .stats-row{
+    display:grid;grid-template-columns:repeat(4,1fr);
+  }
+  .stat{
+    padding:0 24px;
+    border-left:1px solid rgba(251,247,240,0.18);
+  }
+  .stat:first-child{border-left:none;}
+  .stat strong{
+    font-family:'Fraunces',serif;font-weight:500;
+    font-size:clamp(1.6rem,2.6vw,2.2rem);display:block;
+  }
+  .stat span{font-size:0.82rem;color:rgba(251,247,240,0.7);}
+  @media(max-width:760px){
+    .stats-row{grid-template-columns:1fr 1fr;row-gap:26px;}
+    .stat:nth-child(3){border-left:none;}
+  }
+
+  /* ---------- Section basics ---------- */
+  section{padding:104px 0;}
+  @media(max-width:760px){section{padding:72px 0;}}
+  .section-head{
+    display:flex;justify-content:space-between;align-items:flex-end;gap:32px;
+    margin-bottom:56px;
+  }
+  .section-head h2{font-size:clamp(1.9rem,3vw,2.6rem);max-width:14ch;}
+  .section-head p{max-width:36ch;color:var(--ink-soft);}
+  @media(max-width:760px){.section-head{flex-direction:column;align-items:flex-start;}}
+
+  .alt-bg{background:var(--porcelain-dim);}
+
+  /* ---------- About ---------- */
+  .about-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:64px;align-items:center;}
+  .about-visual{position:relative;aspect-ratio:4/5;border-radius:var(--radius);overflow:hidden;background:linear-gradient(155deg,var(--pine) 0%, var(--pine-2) 55%, #2c6058 100%);}
+  .about-visual svg{position:absolute;inset:0;width:100%;height:100%;opacity:0.9;}
+  .about-copy p + p{margin-top:18px;}
+  .about-copy p{color:var(--ink-soft);}
+  blockquote{
+    font-family:'Fraunces',serif;font-style:italic;color:var(--pine);
+    font-size:1.4rem;line-height:1.4;margin:28px 0;padding-left:22px;border-left:2px solid var(--brass);
+  }
+  blockquote cite{
+    display:block;margin-top:10px;font-family:'Work Sans',sans-serif;font-style:normal;font-size:0.85rem;color:var(--ink-soft);
+  }
+  @media(max-width:900px){.about-grid{grid-template-columns:1fr;}.about-visual{aspect-ratio:16/9;}}
+
+  /* ---------- Services (menu style) ---------- */
+  .menu-list{border-top:1px solid var(--mist);}
+  .menu-item{
+    display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;
+    padding:26px 4px;border-bottom:1px solid var(--mist);
+    transition:background .2s ease;
+  }
+  .menu-item:hover{background:rgba(176,141,79,0.06);}
+  .menu-icon{
+    width:46px;height:46px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--pine);color:var(--brass-dim);flex-shrink:0;
+  }
+  .menu-icon svg{width:22px;height:22px;}
+  .menu-body h3{font-size:1.15rem;font-weight:500;margin-bottom:4px;}
+  .menu-body p{color:var(--ink-soft);font-size:0.92rem;max-width:56ch;}
+  .menu-price{font-family:'Fraunces',serif;color:var(--pine);font-size:1.05rem;white-space:nowrap;text-align:right;}
+  .menu-price span{display:block;font-family:'Work Sans',sans-serif;font-size:0.72rem;color:var(--ink-soft);font-weight:600;}
+  @media(max-width:640px){
+    .menu-item{grid-template-columns:auto 1fr;}
+    .menu-price{grid-column:2;text-align:left;margin-top:4px;}
+  }
+
+  /* ---------- Process ---------- */
+  .process-line{
+    position:relative;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:32px;
+    margin-top:12px;
+  }
+  .process-line::before{
+    content:"";position:absolute;top:23px;left:6%;right:6%;height:1px;background:var(--mist);
+  }
+  .process-step{position:relative;}
+  .process-num{
+    width:46px;height:46px;border-radius:50%;background:var(--porcelain);
+    border:1px solid var(--brass);color:var(--pine);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-size:1.1rem;position:relative;z-index:2;margin-bottom:20px;
+  }
+  .process-step h3{font-size:1.05rem;font-weight:600;margin-bottom:8px;}
+  .process-step p{color:var(--ink-soft);font-size:0.92rem;}
+  @media(max-width:760px){
+    .process-line{grid-template-columns:1fr;gap:28px;}
+    .process-line::before{display:none;}
+  }
+
+  /* ---------- Why choose us ---------- */
+  .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--mist);border:1px solid var(--mist);}
+  .feature{background:var(--porcelain);padding:38px;}
+  .feature-icon{width:38px;height:38px;color:var(--brass);margin-bottom:20px;}
+  .feature h3{font-size:1.1rem;font-weight:600;margin-bottom:10px;}
+  .feature p{color:var(--ink-soft);font-size:0.92rem;}
+  @media(max-width:900px){.feature-grid{grid-template-columns:1fr;}}
+
+  /* ---------- Team ---------- */
+  .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;}
+  .team-card{}
+  .team-avatar{
+    aspect-ratio:4/5;border-radius:var(--radius);margin-bottom:18px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-size:2.6rem;color:var(--porcelain);
+    position:relative;overflow:hidden;
+  }
+  .team-avatar svg{position:absolute;inset:0;width:100%;height:100%;}
+  .team-avatar span{position:relative;z-index:1;}
+  .team-card h3{font-size:1.08rem;font-weight:600;margin-bottom:2px;}
+  .team-role{color:var(--brass);font-size:0.82rem;font-weight:600;margin-bottom:8px;display:block;}
+  .team-card p{color:var(--ink-soft);font-size:0.88rem;}
+  @media(max-width:900px){.team-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:520px){.team-grid{grid-template-columns:1fr;max-width:280px;margin:0 auto;}}
+
+  /* ---------- Packages ---------- */
+  .package-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--mist);}
+  .package{padding:40px 34px;border-left:1px solid var(--mist);position:relative;}
+  .package:first-child{border-left:none;}
+  .package.featured{background:var(--pine);color:var(--porcelain);}
+  .package.featured h3, .package.featured .package-price{color:var(--porcelain);}
+  .package.featured .package-tag{background:var(--brass);color:var(--pine);}
+  .package.featured ul li{border-color:rgba(251,247,240,0.18);}
+  .package.featured ul li::before{color:var(--brass-dim);}
+  .package-tag{
+    display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.03em;
+    background:var(--porcelain-dim);color:var(--pine);padding:5px 12px;border-radius:20px;margin-bottom:20px;
+  }
+  .package h3{font-size:1.3rem;margin-bottom:6px;}
+  .package-price{font-family:'Fraunces',serif;font-size:1.9rem;color:var(--pine);margin-bottom:22px;display:block;}
+  .package-price sup{font-size:0.85rem;font-family:'Work Sans',sans-serif;color:var(--ink-soft);}
+  .package.featured .package-price sup{color:rgba(251,247,240,0.65);}
+  .package ul{margin-bottom:28px;}
+  .package ul li{
+    padding:10px 0;border-bottom:1px solid var(--mist);font-size:0.9rem;
+    padding-left:22px;position:relative;
+  }
+  .package ul li::before{content:"—";position:absolute;left:0;color:var(--brass);}
+  @media(max-width:900px){
+    .package-row{grid-template-columns:1fr;}
+    .package{border-left:none;border-top:1px solid var(--mist);}
+    .package:first-child{border-top:none;}
+  }
+
+  /* ---------- Testimonials ---------- */
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;}
+  .testi-card p.quote{font-family:'Fraunces',serif;font-style:italic;color:var(--pine);font-size:1.12rem;line-height:1.5;}
+  .testi-meta{display:flex;align-items:center;gap:12px;margin-top:22px;}
+  .testi-avatar{
+    width:40px;height:40px;border-radius:50%;background:var(--pine);color:var(--brass-dim);
+    display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;flex-shrink:0;
+  }
+  .testi-meta strong{display:block;font-size:0.9rem;}
+  .testi-meta span{font-size:0.8rem;color:var(--ink-soft);}
+  .stars{color:var(--brass);font-size:0.85rem;margin-bottom:14px;letter-spacing:2px;}
+  @media(max-width:900px){.testi-grid{grid-template-columns:1fr;gap:44px;}}
+
+  /* ---------- FAQ ---------- */
+  .faq-list{max-width:840px;}
+  details{border-bottom:1px solid var(--mist);padding:22px 0;}
+  details summary{
+    list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;
+    font-family:'Fraunces',serif;font-size:1.12rem;color:var(--pine);
+  }
+  details summary::-webkit-details-marker{display:none;}
+  .faq-icon{position:relative;width:20px;height:20px;flex-shrink:0;}
+  .faq-icon::before,.faq-icon::after{
+    content:"";position:absolute;background:var(--pine);transition:transform .25s ease;
+  }
+  .faq-icon::before{top:9px;left:0;width:20px;height:1.5px;}
+  .faq-icon::after{top:0;left:9px;width:1.5px;height:20px;}
+  details[open] .faq-icon::after{transform:rotate(90deg);}
+  details p{color:var(--ink-soft);margin-top:14px;max-width:70ch;font-size:0.94rem;}
+
+  /* ---------- Contact ---------- */
+  .contact-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:60px;}
+  .contact-block + .contact-block{margin-top:34px;}
+  .contact-block h3{font-size:0.85rem;text-transform:none;color:var(--ink-soft);font-family:'Work Sans',sans-serif;font-weight:600;margin-bottom:10px;}
+  .contact-block p, .contact-block a{font-size:1rem;color:var(--pine);}
+  .hours-table{width:100%;border-collapse:collapse;margin-top:6px;}
+  .hours-table td{padding:6px 0;font-size:0.92rem;color:var(--ink-soft);border-bottom:1px solid var(--mist);}
+  .hours-table td:last-child{text-align:right;color:var(--pine);font-weight:600;}
+  .map-frame{width:100%;height:220px;border:1px solid var(--mist);margin-top:32px;filter:grayscale(0.15) contrast(1.02);}
+
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .form-grid .full{grid-column:1/-1;}
+  label{display:block;font-size:0.8rem;font-weight:600;color:var(--ink-soft);margin-bottom:8px;}
+  input,select,textarea{
+    width:100%;padding:13px 14px;border:1px solid var(--mist);background:var(--porcelain);
+    border-radius:var(--radius);font-family:inherit;font-size:0.95rem;color:var(--ink);
+  }
+  input:focus,select:focus,textarea:focus{border-color:var(--brass);outline:none;}
+  textarea{resize:vertical;min-height:100px;}
+  .contact-form{background:var(--porcelain-dim);padding:40px;border:1px solid var(--mist);}
+  .form-note{font-size:0.78rem;color:var(--ink-soft);margin-top:14px;}
+  @media(max-width:900px){.contact-grid{grid-template-columns:1fr;}.form-grid{grid-template-columns:1fr;}}
+
+  /* ---------- CTA band ---------- */
+  .cta-band{
+    background:var(--pine);color:var(--porcelain);
+    padding:80px 0;text-align:center;position:relative;overflow:hidden;
+  }
+  .cta-band h2{color:var(--porcelain);font-size:clamp(1.9rem,3.4vw,2.7rem);max-width:18ch;margin:0 auto 18px;}
+  .cta-band p{color:rgba(251,247,240,0.72);max-width:48ch;margin:0 auto 32px;}
+  .cta-actions{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--pine);color:rgba(251,247,240,0.75);padding:64px 0 28px;}
+  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:44px;border-bottom:1px solid rgba(251,247,240,0.12);}
+  .footer-grid h4{color:var(--porcelain);font-family:'Work Sans',sans-serif;font-size:0.82rem;font-weight:700;margin-bottom:16px;}
+  .footer-grid li{margin-bottom:10px;font-size:0.9rem;}
+  .footer-grid a:hover{color:var(--porcelain);}
+  .footer-logo{color:var(--porcelain);font-family:'Fraunces',serif;font-size:1.2rem;margin-bottom:12px;}
+  .footer-grid p{font-size:0.88rem;max-width:32ch;}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:26px;font-size:0.8rem;flex-wrap:wrap;gap:12px;}
+  .social-row{display:flex;gap:14px;}
+  .social-row a{width:34px;height:34px;border:1px solid rgba(251,247,240,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+  .social-row svg{width:15px;height:15px;}
+  @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;row-gap:34px;}}
+
+  /* ---------- Floating chat ---------- */
+  .chat-launcher{
+    position:fixed;bottom:26px;right:26px;z-index:300;
+    width:62px;height:62px;border-radius:50%;
+    background:var(--pine);color:var(--brass-dim);border:none;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 14px 30px -10px rgba(18,52,48,0.55);
+    transition:transform .2s ease;
+  }
+  .chat-launcher:hover{transform:translateY(-2px);}
+  .chat-launcher svg{width:26px;height:26px;}
+  .chat-launcher .icon-close{display:none;}
+  .chat-launcher.open .icon-chat{display:none;}
+  .chat-launcher.open .icon-close{display:block;}
+  .chat-dot{
+    position:absolute;top:2px;right:2px;width:14px;height:14px;background:var(--brass);
+    border-radius:50%;border:2px solid var(--porcelain);
+  }
+  .chat-launcher.open .chat-dot{display:none;}
+
+  .chat-panel{
+    position:fixed;bottom:100px;right:26px;z-index:300;
+    width:340px;max-width:calc(100vw - 40px);
+    background:var(--porcelain);border:1px solid var(--mist);border-radius:6px;
+    box-shadow:0 30px 60px -20px rgba(18,52,48,0.4);
+    display:flex;flex-direction:column;
+    height:440px;max-height:calc(100vh - 150px);
+    opacity:0;visibility:hidden;transform:translateY(14px);
+    transition:opacity .22s ease, transform .22s ease, visibility .22s;
+  }
+  .chat-panel.open{opacity:1;visibility:visible;transform:translateY(0);}
+  .chat-head{
+    background:var(--pine);color:var(--porcelain);padding:18px 20px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .chat-head-avatar{width:38px;height:38px;border-radius:50%;background:var(--brass);display:flex;align-items:center;justify-content:center;color:var(--pine);font-family:'Fraunces',serif;font-weight:600;flex-shrink:0;}
+  .chat-head strong{display:block;font-size:0.94rem;}
+  .chat-head span{font-size:0.76rem;color:rgba(251,247,240,0.65);display:flex;align-items:center;gap:6px;}
+  .chat-head span::before{content:"";width:7px;height:7px;border-radius:50%;background:#7BC49A;display:inline-block;}
+  .chat-body{flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:12px;}
+  .msg{max-width:82%;padding:10px 13px;border-radius:12px;font-size:0.87rem;line-height:1.45;}
+  .msg.bot{background:var(--porcelain-dim);color:var(--ink);align-self:flex-start;border-bottom-left-radius:2px;}
+  .msg.user{background:var(--pine);color:var(--porcelain);align-self:flex-end;border-bottom-right-radius:2px;}
+  .chat-quick{display:flex;gap:8px;flex-wrap:wrap;padding:0 16px 12px;}
+  .chat-quick button{
+    font-size:0.76rem;padding:7px 12px;border:1px solid var(--mist);background:var(--porcelain);border-radius:20px;color:var(--pine);
+  }
+  .chat-quick button:hover{border-color:var(--brass);}
+  .chat-input-row{display:flex;border-top:1px solid var(--mist);padding:10px;gap:8px;}
+  .chat-input-row input{border:none;background:none;flex:1;padding:8px;font-size:0.88rem;}
+  .chat-input-row input:focus{outline:none;}
+  .chat-send{
+    width:38px;height:38px;border-radius:50%;background:var(--brass);border:none;color:var(--pine);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .chat-send svg{width:16px;height:16px;}
+  @media(max-width:480px){
+    .chat-panel{right:16px;bottom:92px;width:calc(100vw - 32px);}
+    .chat-launcher{right:16px;bottom:18px;}
+  }
+
+  /* ---------- Modal ---------- */
+  .modal-backdrop{
+    position:fixed;inset:0;background:rgba(18,30,28,0.55);z-index:400;
+    display:flex;align-items:center;justify-content:center;padding:24px;
+    opacity:0;visibility:hidden;transition:opacity .2s ease, visibility .2s;
+  }
+  .modal-backdrop.open{opacity:1;visibility:visible;}
+  .modal{
+    background:var(--porcelain);max-width:520px;width:100%;padding:40px;position:relative;
+    border-top:3px solid var(--brass);
+    max-height:88vh;overflow-y:auto;
+  }
+  .modal-close{position:absolute;top:18px;right:18px;background:none;border:none;width:30px;height:30px;color:var(--ink-soft);}
+  .modal-close svg{width:20px;height:20px;}
+  .modal h3{font-size:1.5rem;margin-bottom:6px;}
+  .modal > p{color:var(--ink-soft);margin-bottom:26px;font-size:0.92rem;}
+</style>
+</head>
+<body>
+
+<a class="visually-hidden" href="#main">Skip to content</a>
+
+<header id="site-header">
+  <div class="wrap nav-row">
+    <a href="#top" class="logo" aria-label="Prestige Dental Clinic of the Philippines, home">
+      <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+        <circle cx="17" cy="17" r="16" stroke="#123430" stroke-width="1"/>
+        <path d="M8 19.5C10.5 24 14 25.5 17 25.5C20 25.5 23.5 24 26 19.5" stroke="#B08D4F" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="17" cy="10.5" r="1.6" fill="#123430"/>
+      </svg>
+      <span class="logo-word">Prestige Dental<span>Makati · BGC, Philippines</span></span>
+    </a>
+
+    <nav class="primary-nav" id="primary-nav">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#team">Dentists</a></li>
+        <li><a href="#packages">Packages</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Visit Us</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <a class="nav-phone" href="tel:+6328888123">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.2 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1v3.5c0 .6-.4 1-1 1C10.9 21.1 3 13.1 3 3.9c0-.6.4-1 1-1H7.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.2 1.1L6.6 10.8z"/></svg>
+        (02) 8888-1234
+      </a>
+      <a href="#book" class="btn btn-primary" data-open-modal>Book a Visit</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Metro Manila · Est. 2010</p>
+        <h1>Precision dentistry, built around <em>your</em> smile.</h1>
+        <p class="hero-sub">Prestige Dental Clinic of the Philippines brings specialist-led general, cosmetic and restorative dentistry to Makati and Bonifacio Global City — modern equipment, unhurried appointments, and a team that explains every step.</p>
+        <div class="hero-cta">
+          <a href="#book" class="btn btn-primary" data-open-modal>Book a Visit</a>
+          <a href="#services" class="btn btn-outline">View Services</a>
+        </div>
+        <div class="hero-chips">
+          <div class="hero-chip"><strong>16 yrs</strong><span>Serving Metro Manila</span></div>
+          <div class="hero-chip"><strong>30,000+</strong><span>Smiles treated</span></div>
+          <div class="hero-chip"><strong>4.9 / 5</strong><span>From 1,200+ reviews</span></div>
+          <div class="hero-chip"><strong>2</strong><span>Clinics — Makati &amp; BGC</span></div>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 400 400" fill="none">
+          <circle cx="200" cy="200" r="170" stroke="#E4E4DC" stroke-width="1"/>
+          <path class="arc-draw" d="M80 210C110 290 155 320 200 320C245 320 290 290 320 210" stroke="#B08D4F" stroke-width="2"/>
+          <path d="M110 180C135 150 165 150 190 180" stroke="#123430" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M210 180C235 150 265 150 290 180" stroke="#123430" stroke-width="1.4" stroke-linecap="round"/>
+          <circle cx="80" cy="210" r="4" fill="#123430"/>
+          <circle cx="320" cy="210" r="4" fill="#123430"/>
+          <circle cx="200" cy="320" r="4" fill="#123430"/>
+          <line x1="200" y1="60" x2="200" y2="100" stroke="#E4E4DC" stroke-width="1"/>
+          <line x1="60" y1="200" x2="100" y2="200" stroke="#E4E4DC" stroke-width="1"/>
+          <line x1="300" y1="200" x2="340" y2="200" stroke="#E4E4DC" stroke-width="1"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="wrap stats-row">
+      <div class="stat"><strong>9</strong><span>Resident specialists</span></div>
+      <div class="stat"><strong>18</strong><span>Treatment suites</span></div>
+      <div class="stat"><strong>98%</strong><span>Patients who return</span></div>
+      <div class="stat"><strong>7</strong><span>Days a week, by appointment</span></div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap about-grid">
+      <div class="about-visual" aria-hidden="true">
+        <svg viewBox="0 0 400 500" fill="none">
+          <path d="M40 380C90 460 150 480 200 480C250 480 310 460 360 380" stroke="rgba(251,247,240,0.5)" stroke-width="1.5"/>
+          <path d="M60 250C110 200 150 200 200 250C250 200 290 200 340 250" stroke="rgba(251,247,240,0.35)" stroke-width="1.2"/>
+          <circle cx="200" cy="120" r="60" stroke="rgba(176,141,79,0.6)" stroke-width="1.4"/>
+          <circle cx="40" cy="380" r="4" fill="#B08D4F"/>
+          <circle cx="360" cy="380" r="4" fill="#B08D4F"/>
+        </svg>
+      </div>
+      <div class="about-copy">
+        <p class="eyebrow">Our story</p>
+        <h2 style="margin-top:14px;font-size:clamp(1.9rem,3vw,2.5rem);">A Makati practice built on a simple idea: slow down the visit, sharpen the outcome.</h2>
+        <p style="margin-top:22px;">Prestige Dental Clinic of the Philippines opened its first chair on Ayala Avenue in 2010, founded by Dr. Antonio Reyes after a decade practicing restorative dentistry in Metro Manila and abroad. The clinic grew on referrals rather than advertising — patients who wanted a dentist who explained the "why" behind a treatment plan, not just the "what."</p>
+        <p>Today the practice runs two clinics, Makati and Bonifacio Global City, with a resident team covering general, cosmetic, orthodontic and surgical care under one roof, so a treatment plan rarely means a referral out the door.</p>
+        <blockquote>
+          "We don't measure a good appointment by how quickly it ended. We measure it by whether the patient understood their own mouth a little better than when they walked in."
+          <cite>— Dr. Antonio Reyes, DMD, Founder &amp; Chief Dentist</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="alt-bg" id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Treatment menu</p>
+          <h2 style="margin-top:14px;">Care for every stage of your smile</h2>
+        </div>
+        <p>Every plan starts with a full clinical exam and digital X-rays, so pricing below reflects typical starting costs — your dentist will confirm an exact quote at consultation.</p>
+      </div>
+
+      <div class="menu-list">
+        <div class="menu-item">
+          <div class="menu-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3c-2.5 0-4.5 1.6-4.5 4 0 2.2.7 3 1 5.5.3 2.3.6 6.5 2 6.5s1.4-3.2 1.5-4.5c.1-1.3.7-1.3.8 0 .1 1.3.1 4.5 1.5 4.5s1.7-4.2 2-6.5c.3-2.5 1-3.3 1-5.5 0-2.4-2-4-4.5-4z"/></svg></div>
+          <div class="menu-body"><h3>General &amp; Preventive Dentistry</h3><p>Comprehensive exams, digital X-rays, professional cleaning, fluoride treatment and fillings.</p></div>
+          <div class="menu-price">₱800<span>starting</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l1.6 3.6L18 6l-3 3.2.7 4.3-3.7-2-3.7 2 .7-4.3L5 6l4.4-.4L12 2z"/></svg></div>
+          <div class="menu-body"><h3>Cosmetic Dentistry &amp; Veneers</h3><p>Porcelain veneers, bonding and full smile design consultations for a natural-looking result.</p></div>
+          <div class="menu-price">₱15,000<span>per tooth, from</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div>
+          <div class="menu-body"><h3>Teeth Whitening</h3><p>In-office laser whitening or supervised take-home kits, with shade tracking across visits.</p></div>
+          <div class="menu-price">₱8,500<span>starting</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8c2-2 4-3 8-3s6 1 8 3M4 8c0 4 2 6 2 9M20 8c0 4-2 6-2 9M6 17h12"/></svg></div>
+          <div class="menu-body"><h3>Orthodontics &amp; Clear Aligners</h3><p>Traditional metal or ceramic braces, plus clear aligner therapy for adults and teens.</p></div>
+          <div class="menu-price">₱58,000<span>full treatment, from</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v7M9 6l3-3 3 3M8 11h8l-1.2 9a1 1 0 01-1 .9h-3.6a1 1 0 01-1-.9L8 11z"/></svg></div>
+          <div class="menu-body"><h3>Dental Implants</h3><p>Single-tooth to full-arch implant restoration, planned with 3D digital imaging.</p></div>
+          <div class="menu-price">₱85,000<span>per implant, from</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-4.4-9.3-9C1.2 8.4 3 5 6.5 5 8.7 5 10.6 6.3 12 8c1.4-1.7 3.3-3 5.5-3 3.5 0 5.3 3.4 3.8 7-2.3 4.6-9.3 9-9.3 9z"/></svg></div>
+          <div class="menu-body"><h3>Root Canal Therapy</h3><p>Pain relief and tooth preservation using rotary endodontics for single or multi-visit care.</p></div>
+          <div class="menu-price">₱6,500<span>per tooth, from</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="3.2"/><path d="M6 21c0-3.5 2.7-6 6-6s6 2.5 6 6"/></svg></div>
+          <div class="menu-body"><h3>Pediatric Dentistry</h3><p>Gentle first visits, fluoride and sealants, and habit counseling for children and teens.</p></div>
+          <div class="menu-price">₱1,200<span>starting</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M4 12l3-3M4 12l3 3M20 12l-3-3M20 12l-3 3"/></svg></div>
+          <div class="menu-body"><h3>Oral &amp; Maxillofacial Surgery</h3><p>Extractions, wisdom tooth removal and minor surgical procedures under local anesthesia.</p></div>
+          <div class="menu-price">₱4,500<span>starting</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L3 6v6c0 5 4 8.5 9 10 5-1.5 9-5 9-10V6l-9-4z"/></svg></div>
+          <div class="menu-body"><h3>Emergency Dental Care</h3><p>Same-day slots for dental pain, trauma and broken restorations at both branches.</p></div>
+          <div class="menu-price">₱1,500<span>starting</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Getting started</p>
+          <h2 style="margin-top:14px;">Your first visit, step by step</h2>
+        </div>
+        <p>No referral needed — most first-time patients are seen within a week at either branch.</p>
+      </div>
+      <div class="process-line">
+        <div class="process-step">
+          <div class="process-num">1</div>
+          <h3>Book online or by phone</h3>
+          <p>Choose Makati or BGC, pick a time, and tell us what's bothering you, if anything.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">2</div>
+          <h3>Full clinical exam</h3>
+          <p>Digital X-rays and a 30-minute exam so your dentist sees the whole picture, not one tooth.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">3</div>
+          <h3>Walk through the plan</h3>
+          <p>You'll see your own X-rays, get options in plain language, and a written cost estimate.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">4</div>
+          <h3>Treat, at your pace</h3>
+          <p>Same-day for simple work, or a scheduled plan for bigger cases — always your call.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="alt-bg">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Why patients stay</p>
+          <h2 style="margin-top:14px;">Modern tools, unhurried chairside manner</h2>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <div class="feature">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M8 9h8M8 13h8M8 17h4"/></svg>
+          <h3>Digital diagnostics</h3>
+          <p>Intraoral scanners and low-radiation digital X-rays mean fewer retakes and clearer explanations of what's actually happening in your mouth.</p>
+        </div>
+        <div class="feature">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z"/></svg>
+          <h3>Hospital-grade sterilization</h3>
+          <p>Autoclave sterilization, single-use disposables and documented protocols between every single patient, every single chair.</p>
+        </div>
+        <div class="feature">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v5l3 2"/></svg>
+          <h3>Unhurried appointments</h3>
+          <p>Standard slots run 45–60 minutes. Your dentist won't be juggling three chairs at once during your visit.</p>
+        </div>
+        <div class="feature">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c0 1.5 2.5 3 5 3s5-1.5 5-3v-4.5"/></svg>
+          <h3>Specialist referral network</h3>
+          <p>Orthodontics, oral surgery and pediatric care handled in-house — most complex cases never need to leave the building.</p>
+        </div>
+        <div class="feature">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 6h16v10H9l-5 4V6z"/></svg>
+          <h3>Overseas &amp; expat friendly</h3>
+          <p>Treatment summaries in English, insurance documentation on request, and flexible scheduling around short trips home.</p>
+        </div>
+        <div class="feature">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg>
+          <h3>Transparent, upfront pricing</h3>
+          <p>Written estimates before treatment starts, HMO coordination for accredited plans, and staged payment options for larger cases.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Meet the team</p>
+          <h2 style="margin-top:14px;">Dentists who stay with your case</h2>
+        </div>
+        <p>Nine resident specialists across both branches — here are the four who lead our core departments.</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar" style="background:linear-gradient(155deg,#123430,#1E4A43);">
+            <svg viewBox="0 0 200 250" style="opacity:.5;"><path d="M20 220c15-45 40-60 80-60s65 15 80 60" stroke="#B08D4F" stroke-width="2" fill="none"/></svg>
+            <span>AR</span>
+          </div>
+          <h3>Dr. Antonio Reyes</h3>
+          <span class="team-role">Founder &amp; Chief Dentist</span>
+          <p>DMD · Cosmetic &amp; Restorative Dentistry · 22 years in practice</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" style="background:linear-gradient(155deg,#1E4A43,#2c6058);">
+            <svg viewBox="0 0 200 250" style="opacity:.5;"><path d="M20 220c15-45 40-60 80-60s65 15 80 60" stroke="#B08D4F" stroke-width="2" fill="none"/></svg>
+            <span>BF</span>
+          </div>
+          <h3>Dr. Bianca Fernandez</h3>
+          <span class="team-role">Head of Orthodontics</span>
+          <p>DMD, MS Ortho · Braces &amp; clear aligner specialist · 14 years</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" style="background:linear-gradient(155deg,#123430,#2c6058);">
+            <svg viewBox="0 0 200 250" style="opacity:.5;"><path d="M20 220c15-45 40-60 80-60s65 15 80 60" stroke="#B08D4F" stroke-width="2" fill="none"/></svg>
+            <span>MT</span>
+          </div>
+          <h3>Dr. Miguel Torres</h3>
+          <span class="team-role">Oral &amp; Maxillofacial Surgeon</span>
+          <p>DMD · Implants, extractions &amp; surgical care · 17 years</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" style="background:linear-gradient(155deg,#1E4A43,#123430);">
+            <svg viewBox="0 0 200 250" style="opacity:.5;"><path d="M20 220c15-45 40-60 80-60s65 15 80 60" stroke="#B08D4F" stroke-width="2" fill="none"/></svg>
+            <span>CD</span>
+          </div>
+          <h3>Dr. Carla Domingo</h3>
+          <span class="team-role">Head of Pediatric Dentistry</span>
+          <p>DMD · Pediatric &amp; adolescent dentistry · 11 years</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKAGES -->
+  <section class="alt-bg" id="packages">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Bundled care</p>
+          <h2 style="margin-top:14px;">Smile packages</h2>
+        </div>
+        <p>Popular combinations booked as a single plan, with one written quote covering the whole course of treatment.</p>
+      </div>
+      <div class="package-row">
+        <div class="package">
+          <span class="package-tag">Maintenance</span>
+          <h3>Bright Start</h3>
+          <span class="package-price">₱4,500<sup>/ visit</sup></span>
+          <ul>
+            <li>Full exam &amp; digital X-rays</li>
+            <li>Professional cleaning</li>
+            <li>Fluoride treatment</li>
+            <li>Take-home care kit</li>
+          </ul>
+          <a href="#book" class="btn btn-outline btn-block" data-open-modal>Choose Bright Start</a>
+        </div>
+        <div class="package featured">
+          <span class="package-tag">Most booked</span>
+          <h3>Complete Smile Makeover</h3>
+          <span class="package-price">₱145,000<sup>/ course</sup></span>
+          <ul>
+            <li>Full diagnostic workup</li>
+            <li>Whitening (in-office)</li>
+            <li>Up to 6 porcelain veneers</li>
+            <li>Bite &amp; alignment check</li>
+            <li>2 follow-up reviews</li>
+          </ul>
+          <a href="#book" class="btn btn-primary btn-block" data-open-modal>Choose this Package</a>
+        </div>
+        <div class="package">
+          <span class="package-tag">For households</span>
+          <h3>Family Care Plan</h3>
+          <span class="package-price">₱12,000<sup>/ family, yr</sup></span>
+          <ul>
+            <li>2 cleanings per member, per year</li>
+            <li>Priority same-day booking</li>
+            <li>Sealants for children</li>
+            <li>10% off restorative work</li>
+          </ul>
+          <a href="#book" class="btn btn-outline btn-block" data-open-modal>Choose Family Plan</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Patient stories</p>
+          <h2 style="margin-top:14px;">What it's like in the chair</h2>
+        </div>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"They actually showed me my X-ray and explained why I needed the crown, not just that I needed it. First dentist visit in years that didn't feel rushed."</p>
+          <div class="testi-meta">
+            <div class="testi-avatar">JD</div>
+            <div><strong>Joyce D.</strong><span>Makati · Restorative care</span></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"Flew back from Singapore for my Invisalign check-ups. The BGC branch always finds a Saturday slot that works around my trips home."</p>
+          <div class="testi-meta">
+            <div class="testi-avatar">RM</div>
+            <div><strong>Rafael M.</strong><span>BGC · Orthodontics</span></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"My daughter used to cry before every dental visit. Dr. Domingo talked her through everything at her level — now she asks when her next cleaning is."</p>
+          <div class="testi-meta">
+            <div class="testi-avatar">LT</div>
+            <div><strong>Lourdes T.</strong><span>Makati · Pediatric dentistry</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="alt-bg" id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Good to know</p>
+          <h2 style="margin-top:14px;">Frequently asked questions</h2>
+        </div>
+      </div>
+      <div class="faq-list">
+        <details open>
+          <summary>Do you accept HMOs or dental insurance?<span class="faq-icon"></span></summary>
+          <p>We're accredited with most major HMOs in the Philippines for basic dental benefits. Bring your HMO card to your appointment and our front desk will verify coverage before treatment starts. For non-accredited plans, we issue official receipts and a claim form for reimbursement.</p>
+        </details>
+        <details>
+          <summary>Can I walk in, or do I need an appointment?<span class="faq-icon"></span></summary>
+          <p>Appointments are strongly recommended so we can hold a full time slot for your exam. That said, both branches keep same-day emergency slots open for dental pain, swelling or a broken tooth — call ahead and we'll fit you in.</p>
+        </details>
+        <details>
+          <summary>I live abroad — can you coordinate a visit around my trip home?<span class="faq-icon"></span></summary>
+          <p>Yes. Many of our orthodontic and implant patients are based overseas. Tell us your travel dates when booking and we'll sequence your treatment plan — including any lab work — around the days you're in Manila.</p>
+        </details>
+        <details>
+          <summary>Do you offer payment plans for larger treatments?</summary>
+          <p>Implants, full-mouth cases and orthodontic treatment can be split into staged payments tied to treatment milestones. Your dentist will lay out the full schedule in writing before you commit to anything.</p>
+        </details>
+        <details>
+          <summary>What should I bring to my first visit?</summary>
+          <p>A valid ID, your HMO card if applicable, and any recent X-rays or dental records you have on hand. If you're coming in for pain or trauma, just come as you are — paperwork can wait.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <div class="wrap">
+      <h2>Ready to get your smile looked at properly?</h2>
+      <p>Both branches take same-week appointments for new patients. It starts with one conversation.</p>
+      <div class="cta-actions">
+        <a href="#book" class="btn btn-primary" data-open-modal>Book a Visit</a>
+        <a href="tel:+6328888123" class="btn btn-ghost-light">Call (02) 8888-1234</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <p class="eyebrow">Visit us</p>
+        <h2 style="margin-top:14px;margin-bottom:34px;">Two clinics, one standard of care</h2>
+
+        <div class="contact-block">
+          <h3>Makati Branch</h3>
+          <p>12th Floor, Prestige Tower<br>6750 Ayala Avenue, Makati City, 1226</p>
+        </div>
+        <div class="contact-block">
+          <h3>BGC Branch</h3>
+          <p>Unit 5B, One Bonifacio High Street<br>5th Avenue, Taguig City, 1634</p>
+        </div>
+        <div class="contact-block">
+          <h3>Phone &amp; Messaging</h3>
+          <p><a href="tel:+6328888123">(02) 8888-1234</a> · <a href="https://wa.me/639171234567">Viber/WhatsApp +63 917 123 4567</a></p>
+        </div>
+        <div class="contact-block">
+          <h3>Email</h3>
+          <p><a href="mailto:hello@prestigedentalph.com">hello@prestigedentalph.com</a></p>
+        </div>
+        <div class="contact-block">
+          <h3>Clinic Hours</h3>
+          <table class="hours-table">
+            <tr><td>Monday – Friday</td><td>9:00 AM – 7:00 PM</td></tr>
+            <tr><td>Saturday</td><td>9:00 AM – 5:00 PM</td></tr>
+            <tr><td>Sunday</td><td>By appointment</td></tr>
+          </table>
+        </div>
+        <iframe class="map-frame" loading="lazy" src="https://www.google.com/maps?q=Ayala%20Avenue,%20Makati%20City,%20Philippines&output=embed" title="Map showing Ayala Avenue, Makati City"></iframe>
+      </div>
+
+      <div class="contact-form">
+        <h3 style="font-family:'Fraunces',serif;font-size:1.4rem;color:var(--pine);margin-bottom:8px;">Send an inquiry</h3>
+        <p style="color:var(--ink-soft);font-size:0.9rem;margin-bottom:28px;">Prefer not to call? Fill this in and our patient coordinators will get back to you within one business day.</p>
+        <form onsubmit="event.preventDefault(); this.querySelector('.form-note').textContent='Thanks — this is a prototype form, so nothing was actually sent, but a real inquiry would reach our patient coordinators now.';">
+          <div class="form-grid">
+            <div>
+              <label for="fname">Full name</label>
+              <input id="fname" type="text" placeholder="Juan Dela Cruz" required>
+            </div>
+            <div>
+              <label for="fphone">Mobile number</label>
+              <input id="fphone" type="tel" placeholder="09XX XXX XXXX" required>
+            </div>
+            <div class="full">
+              <label for="fbranch">Preferred branch</label>
+              <select id="fbranch">
+                <option>Makati</option>
+                <option>Bonifacio Global City</option>
+                <option>No preference</option>
+              </select>
+            </div>
+            <div class="full">
+              <label for="fservice">What do you need help with?</label>
+              <select id="fservice">
+                <option>General checkup / cleaning</option>
+                <option>Cosmetic dentistry / veneers</option>
+                <option>Orthodontics / Invisalign</option>
+                <option>Dental implants</option>
+                <option>Pediatric dentistry</option>
+                <option>Dental emergency</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div class="full">
+              <label for="fmsg">Message (optional)</label>
+              <textarea id="fmsg" placeholder="Tell us a bit about what's going on, or your preferred schedule."></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" style="margin-top:22px;">Send Inquiry</button>
+          <p class="form-note">We usually reply within one business day.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Prestige Dental</div>
+        <p>Prestige Dental Clinic of the Philippines — general, cosmetic and restorative dentistry in Makati and Bonifacio Global City.</p>
+        <div class="social-row" style="margin-top:22px;">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 9h3V6h-3c-1.7 0-3 1.3-3 3v2H9v3h2v6h3v-6h2.5l.5-3H14V9z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="3.5"/><circle cx="16.5" cy="7.5" r="0.8" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 4v10.5a3 3 0 11-3-3"/><path d="M14 4c.5 2.5 2 4 4.5 4.3"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Clinic</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#team">Our Dentists</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">General Dentistry</a></li>
+          <li><a href="#services">Cosmetic &amp; Veneers</a></li>
+          <li><a href="#services">Orthodontics</a></li>
+          <li><a href="#services">Dental Implants</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>(02) 8888-1234</li>
+          <li>hello@prestigedentalph.com</li>
+          <li>Makati &amp; BGC, Metro Manila</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Prestige Dental Clinic of the Philippines. Prototype site — all content for demonstration purposes.</span>
+      <span>PRC-licensed dentists · TIN on file</span>
+    </div>
+  </div>
+</footer>
+
+<!-- BOOK APPOINTMENT MODAL -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <button class="modal-close" id="modalClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <h3>Book a Visit</h3>
+    <p>Tell us a little about what you need — a coordinator will confirm your slot by phone or Viber.</p>
+    <form onsubmit="event.preventDefault(); document.getElementById('modalConfirm').style.display='block'; this.style.display='none';">
+      <div class="form-grid">
+        <div class="full">
+          <label for="mname">Full name</label>
+          <input id="mname" type="text" required>
+        </div>
+        <div>
+          <label for="mphone">Mobile number</label>
+          <input id="mphone" type="tel" required>
+        </div>
+        <div>
+          <label for="mbranch">Branch</label>
+          <select id="mbranch">
+            <option>Makati</option>
+            <option>Bonifacio Global City</option>
+          </select>
+        </div>
+        <div class="full">
+          <label for="mdate">Preferred date</label>
+          <input id="mdate" type="date">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" style="margin-top:22px;">Request Appointment</button>
+    </form>
+    <p id="modalConfirm" style="display:none;margin-top:18px;padding:14px;background:var(--porcelain-dim);color:var(--pine);font-size:0.9rem;">Request received — this is a prototype, so no real booking was made, but your details would now be with our scheduling team.</p>
+  </div>
+</div>
+
+<!-- FLOATING LIVE CHAT -->
+<button class="chat-launcher" id="chatLauncher" aria-label="Open live support chat" aria-expanded="false">
+  <span class="chat-dot"></span>
+  <svg class="icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+  <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg>
+</button>
+
+<div class="chat-panel" id="chatPanel" role="dialog" aria-label="Live support chat">
+  <div class="chat-head">
+    <div class="chat-head-avatar">PD</div>
+    <div>
+      <strong>Prestige Care Team</strong>
+      <span>Online now · Makati &amp; BGC</span>
+    </div>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <div class="msg bot">Hi! 👋 Welcome to Prestige Dental. How can we help you today?</div>
+  </div>
+  <div class="chat-quick" id="chatQuick">
+    <button data-q="Book an appointment">Book an appointment</button>
+    <button data-q="Ask about pricing">Ask about pricing</button>
+    <button data-q="Clinic hours">Clinic hours</button>
+  </div>
+  <form class="chat-input-row" id="chatForm">
+    <input id="chatInput" type="text" placeholder="Type a message…" autocomplete="off">
+    <button type="submit" class="chat-send" aria-label="Send message">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l18-7-7 18-2.5-7.5L3 11z"/></svg>
+    </button>
+  </form>
+</div>
+
+<script>
+  // Header shadow on scroll
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 12);
+  });
+
+  // Mobile nav
+  const navToggle = document.getElementById('navToggle');
+  const primaryNav = document.getElementById('primary-nav');
+  navToggle.addEventListener('click', () => {
+    const open = primaryNav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open);
+  });
+  primaryNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    primaryNav.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', false);
+  }));
+
+  // Book appointment modal
+  const modalBackdrop = document.getElementById('modalBackdrop');
+  document.querySelectorAll('[data-open-modal]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      modalBackdrop.classList.add('open');
+    });
+  });
+  document.getElementById('modalClose').addEventListener('click', () => modalBackdrop.classList.remove('open'));
+  modalBackdrop.addEventListener('click', (e) => { if (e.target === modalBackdrop) modalBackdrop.classList.remove('open'); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') modalBackdrop.classList.remove('open'); });
+
+  // Floating live chat
+  const chatLauncher = document.getElementById('chatLauncher');
+  const chatPanel = document.getElementById('chatPanel');
+  const chatBody = document.getElementById('chatBody');
+  const chatForm = document.getElementById('chatForm');
+  const chatInput = document.getElementById('chatInput');
+  const chatQuick = document.getElementById('chatQuick');
+
+  function toggleChat(force){
+    const open = force !== undefined ? force : !chatPanel.classList.contains('open');
+    chatPanel.classList.toggle('open', open);
+    chatLauncher.classList.toggle('open', open);
+    chatLauncher.setAttribute('aria-expanded', open);
+    if (open) chatInput.focus();
+  }
+  chatLauncher.addEventListener('click', () => toggleChat());
+
+  function addMsg(text, who){
+    const div = document.createElement('div');
+    div.className = 'msg ' + who;
+    div.textContent = text;
+    chatBody.appendChild(div);
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
+
+  function botReply(userText){
+    const t = userText.toLowerCase();
+    let reply = "Thanks for the message! One of our patient coordinators will follow up shortly. For anything urgent, call us at (02) 8888-1234.";
+    if (t.includes('book') || t.includes('appointment') || t.includes('schedule')){
+      reply = "Happy to help you book. You can use the \"Book a Visit\" button at the top of the page, or tell me which branch — Makati or BGC — and a preferred day.";
+    } else if (t.includes('price') || t.includes('cost') || t.includes('how much')){
+      reply = "Pricing depends on the treatment — a general checkup starts at ₱800, while veneers start around ₱15,000 per tooth. Check the Services section above, or tell me the treatment you're asking about.";
+    } else if (t.includes('hour') || t.includes('open') || t.includes('time')){
+      reply = "We're open Monday–Friday 9AM–7PM, Saturday 9AM–5PM, and Sunday by appointment at both the Makati and BGC branches.";
+    } else if (t.includes('location') || t.includes('address') || t.includes('where')){
+      reply = "Our Makati branch is at 6750 Ayala Avenue, and our BGC branch is at One Bonifacio High Street, Taguig. Both are on the Location map further down the page.";
+    } else if (t.includes('emergency') || t.includes('pain') || t.includes('hurt')){
+      reply = "Sorry to hear that. We keep same-day emergency slots open — please call (02) 8888-1234 directly so we can get you seen as soon as possible.";
+    } else if (t.includes('thank')){
+      reply = "You're very welcome! Let us know if there's anything else we can help with.";
+    }
+    setTimeout(() => addMsg(reply, 'bot'), 650);
+  }
+
+  chatForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const val = chatInput.value.trim();
+    if (!val) return;
+    addMsg(val, 'user');
+    chatInput.value = '';
+    botReply(val);
+  });
+
+  chatQuick.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-q]');
+    if (!btn) return;
+    const q = btn.dataset.q;
+    addMsg(q, 'user');
+    botReply(q);
+  });
+
+  // Auto-open a gentle nudge once, after delay (single deliberate moment, not repeated)
+  let nudged = false;
+  setTimeout(() => {
+    if (!nudged && !chatPanel.classList.contains('open')) {
+      chatLauncher.classList.add('open');
+      chatLauncher.classList.remove('open');
+    }
+  }, 4000);
+</script>
+
+</body>
+</html>
