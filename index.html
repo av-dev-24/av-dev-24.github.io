@@ -1,1 +1,200 @@
-hi
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building...</title>
+    <!-- Import a modern, bold font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+    <style>
+        /* Base page styling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #030305;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Canvas for background particles */
+        #particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Center container with a glassmorphism effect */
+        .glass-container {
+            position: relative;
+            z-index: 2;
+            padding: 3rem 6rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Animated gradient text styling */
+        .text {
+            margin: 0;
+            font-size: 8vw; /* Responsive font size */
+            font-weight: 800;
+            letter-spacing: 2px;
+            
+            /* Gradient setup */
+            background: linear-gradient(
+                90deg, 
+                #00f2fe, 
+                #4facfe, 
+                #f093fb, 
+                #f5576c, 
+                #00f2fe
+            );
+            background-size: 200% auto;
+            
+            /* Clip background to text */
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            
+            /* Flowing animation */
+            animation: gradient-flow 4s linear infinite;
+            
+            /* Subtle glow */
+            filter: drop-shadow(0 0 15px rgba(79, 172, 254, 0.4));
+        }
+
+        /* Background panning keyframes */
+        @keyframes gradient-flow {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* Sequential blinking animation for the dots */
+        .dot {
+            animation: blink 1.5s infinite;
+            opacity: 0.2;
+        }
+        
+        .dot:nth-child(1) { animation-delay: 0s; }
+        .dot:nth-child(2) { animation-delay: 0.3s; }
+        .dot:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes blink {
+            0% { opacity: 0.2; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(-5px); color: #fff; }
+            100% { opacity: 0.2; transform: translateY(0); }
+        }
+
+        /* Fallback size for smaller screens */
+        @media (max-width: 768px) {
+            .text { font-size: 15vw; }
+            .glass-container { padding: 2rem 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dynamic Canvas Background -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Main Content -->
+    <div class="glass-container">
+        <h1 class="text">
+            Building<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+        </h1>
+    </div>
+
+    <!-- Particle Animation Script -->
+    <script>
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let particles = [];
+
+        // Resize canvas to fill window
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Particle Class
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 2.5 + 0.5;
+                // Move slowly upward and slightly horizontally
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * -1 - 0.5;
+                // Alternate between blue and pink hues
+                const hue = Math.random() > 0.5 ? Math.random() * 30 + 190 : Math.random() * 30 + 310;
+                this.color = `hsl(${hue}, 100%, 70%)`;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Reset particle to bottom if it floats off top
+                if (this.y < 0) {
+                    this.y = height;
+                    this.x = Math.random() * width;
+                }
+                // Wrap around horizontally
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.opacity;
+                ctx.fill();
+            }
+        }
+
+        // Initialize particles
+        function initParticles() {
+            particles = [];
+            const particleCount = Math.floor((width * height) / 10000); // Scale count based on screen size
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+        initParticles();
+
+        // Animation Loop
+        function animate() {
+            // Clear canvas with a very slight trailing effect
+            ctx.fillStyle = 'rgba(3, 3, 5, 0.4)';
+            ctx.globalAlpha = 1;
+            ctx.fillRect(0, 0, width, height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+    </script>
+</body>
+</html>
