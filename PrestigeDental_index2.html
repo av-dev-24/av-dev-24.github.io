@@ -1,416 +1,320 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prestige Dental Clinic | Philippines</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        html {
-            scroll-behavior: smooth;
-        }
-        /* Floating Chat Button */
-        .chat-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1000;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-            transition: transform 0.2s ease-in-out;
-        }
-        .chat-btn:hover {
-            transform: scale(1.1);
-        }
-        /* Chat Box */
-        .chat-window {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 320px;
-            height: 400px;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            display: none;
-            flex-direction: column;
-            z-index: 1000;
-            overflow: hidden;
-            border: 1px solid #e5e7eb;
-        }
-        .chat-window.active {
-            display: flex;
-        }
-        .chat-header {
-            background-color: #0284c7; /* Tailwind Sky-600 */
-            color: white;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-        }
-        .chat-messages {
-            flex-grow: 1;
-            padding: 15px;
-            background-color: #f9fafb;
-            overflow-y: auto;
-        }
-        .chat-input-area {
-            display: flex;
-            padding: 10px;
-            border-top: 1px solid #e5e7eb;
-            background-color: white;
-        }
-        .chat-input-area input {
-            flex-grow: 1;
-            padding: 8px 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 20px;
-            outline: none;
-        }
-        .chat-input-area button {
-            margin-left: 10px;
-            background-color: #0284c7;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .chat-input-area button:hover {
-            background-color: #0369a1;
-        }
-        .msg-received {
-            background-color: #e0f2fe;
-            color: #0c4a6e;
-            padding: 10px;
-            border-radius: 10px 10px 10px 0;
-            margin-bottom: 10px;
-            max-width: 85%;
-            font-size: 0.875rem;
-        }
-        .msg-sent {
-            background-color: #0284c7;
-            color: white;
-            padding: 10px;
-            border-radius: 10px 10px 0 10px;
-            margin-bottom: 10px;
-            max-width: 85%;
-            font-size: 0.875rem;
-            align-self: flex-end;
-            margin-left: auto;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Prestige Dental Clinic — modern, patient-focused dental care with branches in Cebu and Laguna. Prototype website." />
+  <title>Prestige Dental Clinic | Where Prestige Meets Your Perfect Smile</title>
+  <style>
+    :root{
+  --ink:#143436;--muted:#657b7c;--line:#dce9e7;--cream:#f7fbfa;--white:#fff;--teal:#187a74;--teal-2:#0f625d;--mint:#cde9e2;--mint-2:#eaf6f3;--dark:#0d2d2f;--gold:#c99a5d;--shadow:0 18px 55px rgba(12,52,50,.12);--radius:26px
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--cream);line-height:1.55}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}.container{width:min(1180px,calc(100% - 40px));margin:0 auto}.topbar{background:var(--dark);color:#dcebea;font-size:12px}.topbar-inner{display:flex;justify-content:space-between;align-items:center;padding:9px 0}.topbar a{color:#fff;font-weight:700}.site-header{position:sticky;top:0;z-index:40;background:rgba(247,251,250,.87);backdrop-filter:blur(14px);border-bottom:1px solid rgba(220,233,231,.75)}.nav-wrap{min-height:82px;display:flex;align-items:center;justify-content:space-between;gap:32px}.brand{display:flex;align-items:center;gap:11px}.brand-mark{width:39px;height:39px;border-radius:12px;background:var(--teal);color:#fff;display:grid;place-items:center}.brand-mark svg{width:26px;height:26px}.brand strong{display:block;font-family:Georgia,serif;letter-spacing:.15em;font-size:16px}.brand small{display:block;font-size:9px;letter-spacing:.28em;color:var(--muted)}.main-nav{display:flex;align-items:center;gap:28px;font-size:14px;font-weight:700}.main-nav a:not(.nav-cta){color:#3d5557}.main-nav a:not(.nav-cta):hover{color:var(--teal)}.nav-cta{background:var(--teal);color:#fff;padding:12px 17px;border-radius:999px}.menu-toggle{display:none;border:0;background:none;font-size:25px}.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#ecf7f4 0%,#f7fbfa 52%,#eef7f7 100%);padding:92px 0 74px}.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:50px;align-items:center}.hero-copy{position:relative;z-index:2}.eyebrow{text-transform:uppercase;letter-spacing:.21em;font-size:11px;font-weight:800;color:var(--teal);margin-bottom:18px}.hero h1{font-family:Georgia,serif;font-size:clamp(46px,6.2vw,82px);line-height:.97;letter-spacing:-.045em;margin:0 0 25px;color:var(--dark)}.hero h1 span{color:var(--teal)}.hero-lead{max-width:590px;font-size:18px;color:var(--muted);margin:0 0 30px}.hero-actions{display:flex;gap:13px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;border:0;cursor:pointer;border-radius:999px;padding:14px 21px;font-weight:800;font-size:14px;transition:.2s ease}.btn-primary{background:var(--teal);color:#fff;box-shadow:0 10px 30px rgba(24,122,116,.24)}.btn-primary:hover{transform:translateY(-2px);background:var(--teal-2)}.btn-secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}.hero-trust{display:flex;gap:24px;flex-wrap:wrap;margin-top:25px;color:#5b7373;font-size:12px;font-weight:700}.hero-trust b{color:var(--gold)}.hero-trust i{display:inline-block;width:6px;height:6px;border-radius:50%;background:#59a69f;margin:0 7px 1px}.hero-visual{position:relative;min-height:470px;display:grid;place-items:center}.smile-card{position:relative;width:min(480px,90%);border-radius:34px;padding:18px;background:rgba(255,255,255,.67);border:1px solid rgba(255,255,255,.8);box-shadow:var(--shadow);backdrop-filter:blur(18px);transform:rotate(2deg)}.smile-card-top,.smile-card-bottom{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;font-size:11px;letter-spacing:.15em;font-weight:800;color:#567170}.pill{background:#e7f4f1;border:1px solid #d6ebe7;border-radius:999px;padding:6px 9px;font-size:9px;color:var(--teal)}.tooth-art{margin:6px 0}.smile-card-bottom{border-top:1px solid #dbe9e6;padding-top:15px;letter-spacing:0}.smile-card-bottom strong{display:block;font-family:Georgia,serif;font-size:15px;color:var(--dark);letter-spacing:0}.smile-card-bottom span{font-size:12px}.mini-arrow{font-size:22px;color:var(--teal)}.orb{position:absolute;border-radius:50%;filter:blur(1px)}.orb-a{width:210px;height:210px;background:#bfe0d9;top:10px;right:7%;opacity:.75}.orb-b{width:140px;height:140px;background:#dbe6f0;left:8%;bottom:20px;opacity:.7}.hero-glow{position:absolute;border-radius:50%;filter:blur(5px);opacity:.8}.hero-glow-1{width:360px;height:360px;background:#d9eee9;right:-110px;top:-130px}.hero-glow-2{width:250px;height:250px;background:#e3eaf1;left:-100px;bottom:-120px}.ticker{background:var(--dark);color:#fff}.ticker-grid{display:grid;grid-template-columns:repeat(4,1fr);padding:22px 0}.ticker-grid>div{padding:4px 25px;border-right:1px solid rgba(255,255,255,.12)}.ticker-grid>div:first-child{padding-left:0}.ticker-grid>div:last-child{border-right:0}.ticker strong{display:block;font-family:Georgia,serif;font-size:23px}.ticker span{font-size:11px;color:#bdd4d1;text-transform:uppercase;letter-spacing:.12em}.section{padding:110px 0}.section-head{margin-bottom:45px}.section-head.split{display:grid;grid-template-columns:1fr .75fr;gap:50px;align-items:end}.section h2{font-family:Georgia,serif;font-size:clamp(38px,4.4vw,62px);line-height:1.02;letter-spacing:-.035em;margin:0;color:var(--dark)}.section h2 em{color:var(--teal);font-style:normal}.section-head p{color:var(--muted);margin:0;font-size:16px}.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.service-card{min-height:265px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;padding:24px;position:relative;transition:.2s ease;overflow:hidden}.service-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}.service-card.featured{background:linear-gradient(160deg,#1e817a 0%,#115d59 100%);color:#fff}.service-number{position:absolute;top:20px;right:22px;font-size:10px;font-weight:800;opacity:.45}.service-icon{width:43px;height:43px;border-radius:14px;display:grid;place-items:center;background:#e9f5f2;color:var(--teal);font-weight:900;font-size:19px;margin-bottom:44px}.featured .service-icon{background:rgba(255,255,255,.14);color:#fff}.service-card h3{font-size:18px;line-height:1.15;margin:0 0 10px}.service-card p{font-size:13px;color:#647b7c;margin:0}.featured p{color:#d4ebe7}.service-card a{display:inline-block;margin-top:16px;font-size:12px;font-weight:800}.philosophy{background:#edf6f4}.philosophy-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:70px;align-items:center}.philosophy-panel p{color:var(--muted);max-width:600px}.check-list{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px;color:#365657;font-size:14px;font-weight:700}.check-list span{display:inline-grid;place-items:center;width:23px;height:23px;border-radius:50%;background:#d5ebe7;color:var(--teal);margin-right:7px}.experience-stack{display:flex;flex-direction:column;gap:14px}.experience-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:25px}.experience-card.large{min-height:230px;background:linear-gradient(145deg,#0f625d,#204b4c);color:#fff;display:flex;flex-direction:column;justify-content:center}.quote-mark{font-family:Georgia,serif;font-size:70px;line-height:.7;color:#8ec6bf}.experience-card.large p{font-family:Georgia,serif;font-size:28px;line-height:1.08;margin:10px 0 18px;max-width:620px}.experience-card.large small{color:#b5d5d2}.experience-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.experience-card strong{display:block;font-size:11px;color:var(--teal);margin-bottom:40px}.experience-card span{font-family:Georgia,serif;font-size:22px;display:block}.experience-card small{font-size:11px;color:var(--muted)}.experience-card.dark{background:#d9ebe7}.locations{background:#fff}.location-grid{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:17px}.location-card{border:1px solid var(--line);border-radius:26px;padding:27px;background:#f8fbfa}.location-card.main-location{background:linear-gradient(155deg,#eef8f5,#ffffff)}.location-tag{text-transform:uppercase;letter-spacing:.16em;font-size:10px;font-weight:800;color:var(--teal);margin-bottom:16px}.location-card h3{font-family:Georgia,serif;font-size:26px;line-height:1.08;margin:0 0 13px;color:var(--dark)}.location-card p{font-size:13px;color:var(--muted);min-height:62px}.location-meta{display:grid;gap:8px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:12px;color:#486263}.hours{display:grid;gap:4px;margin:16px 0 18px;font-size:12px;color:#5b7172}.hours strong{color:var(--ink);margin-bottom:3px}.text-link{font-size:12px;font-weight:800;color:var(--teal)}.testimonials{background:#f7fbfa}.quote-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}.quote-card{background:#fff;border:1px solid var(--line);border-radius:26px;padding:28px;min-height:250px;display:flex;flex-direction:column}.quote-card.accent{background:#dff0ec;border-color:#d1e9e4}.stars{letter-spacing:.15em;font-size:12px;color:var(--gold);margin-bottom:25px}.quote-card p{font-family:Georgia,serif;font-size:20px;line-height:1.25;margin:0 0 24px;color:#214142}.quote-card span{font-size:11px;color:#6b7d7e;margin-top:auto}.contact{background:var(--dark);color:#fff}.contact-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:start}.contact h2{color:#fff}.contact p{color:#bdd4d2;max-width:530px}.contact-cards{display:grid;gap:12px;margin-top:26px}.contact-cards a{padding:17px 19px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(255,255,255,.04)}.contact-cards span{display:block;text-transform:uppercase;letter-spacing:.15em;font-size:9px;color:#8fb4b0}.contact-cards strong{display:block;margin-top:4px}.appointment-form{background:#fff;color:var(--ink);border-radius:28px;padding:27px;display:grid;gap:15px}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:15px}.appointment-form label{display:grid;gap:7px;font-size:11px;font-weight:800}.appointment-form input,.appointment-form select,.appointment-form textarea{width:100%;border:1px solid var(--line);border-radius:14px;padding:12px 13px;outline:none;background:#fbfdfd;color:var(--ink);resize:vertical}.appointment-form input:focus,.appointment-form select:focus,.appointment-form textarea:focus{border-color:#86b8b2;box-shadow:0 0 0 4px #e3f1ee}.form-note{font-size:10px;color:#7f8f90}.form-status{font-size:12px;color:var(--teal);min-height:18px}.site-footer{background:#092527;color:#c6dcda;padding:28px 0 22px}.footer-top{display:flex;justify-content:space-between;align-items:center;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.09)}.footer-brand strong{color:#fff}.footer-links{display:flex;gap:22px;font-size:12px}.footer-links a:hover{color:#fff}.footer-bottom{display:flex;justify-content:space-between;gap:20px;padding-top:18px;font-size:10px;color:#8aa7a5}.chat-fab{position:fixed;right:22px;bottom:22px;z-index:70;border:0;border-radius:999px;background:var(--teal);color:#fff;box-shadow:0 18px 45px rgba(10,45,44,.28);display:flex;align-items:center;gap:9px;padding:14px 17px;font-size:13px;font-weight:800;cursor:pointer}.chat-fab svg{width:20px;height:20px}.chat-dot{width:8px;height:8px;border-radius:50%;background:#b6f0e3;box-shadow:0 0 0 3px rgba(182,240,227,.14)}.chat-panel{position:fixed;right:22px;bottom:86px;width:min(360px,calc(100vw - 30px));height:500px;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:0 25px 70px rgba(11,53,52,.24);z-index:69;display:grid;grid-template-rows:auto 1fr auto;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(15px) scale(.98);transition:.2s ease}.chat-panel.open{opacity:1;pointer-events:auto;transform:none}.chat-header{background:linear-gradient(145deg,#0f625d,#1a827a);color:#fff;padding:18px;display:flex;justify-content:space-between}.chat-header strong{display:block}.chat-header span{display:block;color:#c4e5e0;font-size:10px;margin-top:3px}.chat-header i{display:inline-block;width:6px;height:6px;border-radius:50%;background:#aef1de;margin-right:5px}.chat-header button{border:0;background:transparent;color:#fff;font-size:25px;line-height:1;cursor:pointer}.chat-messages{padding:17px;overflow:auto;background:#f5faf9}.chat-bubble{max-width:86%;border-radius:17px;padding:12px 13px;font-size:12px;margin-bottom:12px}.chat-bubble.agent{background:#fff;border:1px solid var(--line)}.chat-bubble.user{margin-left:auto;background:#dcefe9;color:#234445}.quick-replies{display:flex;flex-wrap:wrap;gap:7px}.quick-replies button{border:1px solid #cfe4df;background:#fff;border-radius:999px;padding:8px 10px;font-size:10px;color:#2e5d5a;cursor:pointer}.chat-input{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}.chat-input input{flex:1;border:0;outline:none;padding:8px}.chat-input button{width:38px;height:38px;border:0;border-radius:50%;background:var(--teal);color:#fff;cursor:pointer}
+@media (max-width:980px){.main-nav{gap:16px}.hero-grid,.philosophy-grid,.contact-grid{grid-template-columns:1fr}.hero{padding-top:70px}.hero-visual{min-height:390px}.services-grid{grid-template-columns:repeat(2,1fr)}.location-grid{grid-template-columns:1fr 1fr}.location-card.main-location{grid-column:1/-1}.quote-grid{grid-template-columns:1fr 1fr}.section-head.split{grid-template-columns:1fr}.ticker-grid{grid-template-columns:repeat(2,1fr);row-gap:16px}.ticker-grid>div:nth-child(2){border-right:0}.contact-grid{gap:40px}}
+@media (max-width:740px){.container{width:min(100% - 28px,1180px)}.topbar{display:none}.site-header{position:sticky}.nav-wrap{min-height:72px}.menu-toggle{display:block}.main-nav{position:absolute;left:14px;right:14px;top:72px;display:none;flex-direction:column;align-items:stretch;background:#fff;padding:14px;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}.main-nav.open{display:flex}.nav-cta{text-align:center}.hero{padding:58px 0 50px}.hero h1{font-size:48px}.hero-lead{font-size:16px}.hero-visual{min-height:330px}.smile-card{width:100%;max-width:430px}.section{padding:78px 0}.services-grid{grid-template-columns:1fr}.service-card{min-height:230px}.location-grid,.quote-grid{grid-template-columns:1fr}.location-card.main-location{grid-column:auto}.experience-row,.form-row{grid-template-columns:1fr}.check-list{grid-template-columns:1fr}.footer-top,.footer-bottom{align-items:flex-start;flex-direction:column}.chat-fab{right:14px;bottom:14px}.chat-panel{right:14px;bottom:74px;height:490px}.ticker-grid{grid-template-columns:1fr 1fr}.ticker-grid>div{padding:3px 13px}.ticker-grid>div:first-child{padding-left:0}.ticker strong{font-size:19px}.ticker span{font-size:9px}.appointment-form{padding:20px}}
+  </style>
 </head>
-<body class="font-sans text-gray-800 bg-gray-50">
-
-    <!-- Navigation Bar -->
-    <header class="bg-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20 items-center">
-                <div class="flex items-center">
-                    <i class="fas fa-tooth text-sky-600 text-3xl mr-3"></i>
-                    <span class="font-bold text-2xl text-gray-800 tracking-tight">Prestige <span class="text-sky-600">Dental</span></span>
-                </div>
-                <nav class="hidden md:flex space-x-8">
-                    <a href="#home" class="text-gray-600 hover:text-sky-600 font-medium transition">Home</a>
-                    <a href="#services" class="text-gray-600 hover:text-sky-600 font-medium transition">Services</a>
-                    <a href="#team" class="text-gray-600 hover:text-sky-600 font-medium transition">Our Team</a>
-                    <a href="#locations" class="text-gray-600 hover:text-sky-600 font-medium transition">Locations</a>
-                </nav>
-                <div class="hidden md:flex">
-                    <a href="#locations" class="bg-sky-600 text-white px-5 py-2 rounded-full font-medium hover:bg-sky-700 transition shadow">Book Appointment</a>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section id="home" class="relative bg-white overflow-hidden">
-        <div class="max-w-7xl mx-auto">
-            <div class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32 pt-20">
-                <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-                    <div class="sm:text-center lg:text-left">
-                        <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                            <span class="block xl:inline">Premium Dental Care in the</span>
-                            <span class="block text-sky-600 xl:inline">Philippines</span>
-                        </h1>
-                        <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                            Experience world-class dentistry with a gentle touch. At Prestige Dental Clinic, our experienced specialists offer everything from routine cleanings to advanced oral surgery and orthodontics.
-                        </p>
-                        <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                            <div class="rounded-md shadow">
-                                <a href="#locations" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 md:py-4 md:text-lg">
-                                    Find a Clinic
-                                </a>
-                            </div>
-                            <div class="mt-3 sm:mt-0 sm:ml-3">
-                                <a href="#services" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-sky-700 bg-sky-100 hover:bg-sky-200 md:py-4 md:text-lg">
-                                    Our Services
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-            </div>
-        </div>
-        <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-            <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Modern Dental Clinic">
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h2 class="text-base text-sky-600 font-semibold tracking-wide uppercase">Treatments</h2>
-                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                    Comprehensive Dental Services
-                </p>
-                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
-                    From preventative care to complete smile makeovers, we have you covered. Consultations start at just ₱400.
-                </p>
-            </div>
-
-            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Service 1 -->
-                <div class="bg-white rounded-xl shadow-sm p-8 border border-gray-100 hover:shadow-md transition">
-                    <div class="w-12 h-12 bg-sky-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-teeth-open text-sky-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">General Dentistry</h3>
-                    <p class="text-gray-600">Routine dental cleanings, extractions, and high-quality tooth fillings to maintain your optimal oral health.</p>
-                </div>
-                <!-- Service 2 -->
-                <div class="bg-white rounded-xl shadow-sm p-8 border border-gray-100 hover:shadow-md transition">
-                    <div class="w-12 h-12 bg-sky-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-smile-beam text-sky-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Cosmetic & Whitening</h3>
-                    <p class="text-gray-600">Enhance your smile with our professional cosmetic dentistry and advanced tooth whitening treatments.</p>
-                </div>
-                <!-- Service 3 -->
-                <div class="bg-white rounded-xl shadow-sm p-8 border border-gray-100 hover:shadow-md transition">
-                    <div class="w-12 h-12 bg-sky-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-magic text-sky-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Orthodontics</h3>
-                    <p class="text-gray-600">Straighten your teeth effectively with our personalized orthodontic braces and aligner solutions.</p>
-                </div>
-                <!-- Service 4 -->
-                <div class="bg-white rounded-xl shadow-sm p-8 border border-gray-100 hover:shadow-md transition">
-                    <div class="w-12 h-12 bg-sky-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-syringe text-sky-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Oral Surgery & Implants</h3>
-                    <p class="text-gray-600">Safe and comfortable oral surgery, periodontic flap surgery, and durable dental implants to restore missing teeth.</p>
-                </div>
-                <!-- Service 5 -->
-                <div class="bg-white rounded-xl shadow-sm p-8 border border-gray-100 hover:shadow-md transition">
-                    <div class="w-12 h-12 bg-sky-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-tooth text-sky-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Endodontics</h3>
-                    <p class="text-gray-600">Specialized root canal treatments aimed at saving infected teeth and relieving severe tooth pain.</p>
-                </div>
-                <!-- Service 6 -->
-                <div class="bg-white rounded-xl shadow-sm p-8 border border-gray-100 hover:shadow-md transition">
-                    <div class="w-12 h-12 bg-sky-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-user-md text-sky-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Geriatric Dentistry</h3>
-                    <p class="text-gray-600">Dedicated oral care designed specifically to meet the unique needs and comfort of elderly patients.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Doctors Section -->
-    <section id="team" class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">Meet Our Specialist Team</h2>
-                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">Decades of combined experience ensuring your smile is in the best hands.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div class="text-center">
-                    <div class="w-32 h-32 mx-auto bg-gray-200 rounded-full mb-4 flex items-center justify-center text-gray-400 text-4xl shadow-inner">
-                        <i class="fas fa-user-md"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900">Dr. Maria Estrella Romero</h3>
-                    <p class="text-sky-600 font-medium">Dental Specialist</p>
-                    <p class="mt-2 text-gray-500 text-sm">23+ Years of Experience</p>
-                </div>
-                <div class="text-center">
-                    <div class="w-32 h-32 mx-auto bg-gray-200 rounded-full mb-4 flex items-center justify-center text-gray-400 text-4xl shadow-inner">
-                        <i class="fas fa-user-md"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900">Dr. Jenny Climaco</h3>
-                    <p class="text-sky-600 font-medium">Dental Specialist</p>
-                    <p class="mt-2 text-gray-500 text-sm">21+ Years of Experience</p>
-                </div>
-                <div class="text-center">
-                    <div class="w-32 h-32 mx-auto bg-gray-200 rounded-full mb-4 flex items-center justify-center text-gray-400 text-4xl shadow-inner">
-                        <i class="fas fa-user-md"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900">Dr. Maria Elona Bulala</h3>
-                    <p class="text-sky-600 font-medium">Dental Specialist</p>
-                    <p class="mt-2 text-gray-500 text-sm">22+ Years of Experience</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Locations Section -->
-    <section id="locations" class="py-16 bg-gray-900 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl leading-8 font-extrabold tracking-tight sm:text-4xl">Our Clinic Locations</h2>
-                <p class="mt-4 text-xl text-gray-400">Find a Prestige Dental Clinic near you.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Makati Branch -->
-                <div class="bg-gray-800 p-8 rounded-xl border border-gray-700">
-                    <h3 class="text-2xl font-bold text-sky-400 mb-4">Makati City Branch</h3>
-                    <ul class="space-y-4 text-gray-300">
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-sky-500"></i>
-                            <span>Suite 611 A/B, The Manila Bank Building,<br>6772 Ayala Avenue, San Lorenzo,<br>Makati City, Metro Manila</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-clock mr-3 text-sky-500"></i>
-                            <span>Mon - Sat: 9:00 AM - 5:00 PM</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-phone mr-3 text-sky-500"></i>
-                            <span>(02) 813-2775 / +63 917-361-8396</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- Calamba Branch -->
-                <div class="bg-gray-800 p-8 rounded-xl border border-gray-700">
-                    <h3 class="text-2xl font-bold text-sky-400 mb-4">Calamba Branch</h3>
-                    <ul class="space-y-4 text-gray-300">
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-sky-500"></i>
-                            <span>2nd Floor Andenson Bldg, Manila S Rd,<br>Parian, Calamba, 4027 Laguna</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-clock mr-3 text-sky-500"></i>
-                            <span>Mon - Sat: 9:00 AM - 5:00 PM</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-phone mr-3 text-sky-500"></i>
-                            <span>+63 993-413-0312</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-black py-8 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm">
-            <p>&copy; 2026 Prestige Dental Clinic Philippines. All rights reserved. (Prototype)</p>
-            <div class="mt-4 md:mt-0 flex space-x-4">
-                <a href="#" class="hover:text-white transition"><i class="fab fa-facebook-f text-lg"></i></a>
-                <a href="#" class="hover:text-white transition"><i class="fab fa-instagram text-lg"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- LIVE SUPPORT FLOATING CHAT WIDGET -->
-    
-    <!-- Floating Button -->
-    <button class="chat-btn bg-sky-600 hover:bg-sky-700 text-white w-16 h-16 rounded-full flex items-center justify-center" onclick="toggleChat()">
-        <i class="fas fa-comment-dots text-3xl"></i>
-    </button>
-
-    <!-- Chat Interface -->
-    <div class="chat-window" id="chatWindow">
-        <!-- Header -->
-        <div class="chat-header">
-            <div class="flex items-center">
-                <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-sky-600 mr-2">
-                    <i class="fas fa-headset text-sm"></i>
-                </div>
-                <span>Live Support</span>
-            </div>
-            <button onclick="toggleChat()" class="text-white hover:text-gray-200 transition">
-                <i class="fas fa-times text-lg"></i>
-            </button>
-        </div>
-        
-        <!-- Messages Area -->
-        <div class="chat-messages" id="chatMessages">
-            <div class="msg-received shadow-sm">
-                Hello! Welcome to Prestige Dental Clinic. How can we help you smile brighter today? 🦷✨
-            </div>
-        </div>
-        
-        <!-- Input Area -->
-        <div class="chat-input-area">
-            <input type="text" id="chatInput" placeholder="Type your message..." onkeypress="handleEnter(event)">
-            <button onclick="sendMessage()" title="Send">
-                <i class="fas fa-paper-plane"></i>
-            </button>
-        </div>
+<body>
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span>Now welcoming new patients</span>
+      <a href="#contact">Book a consultation →</a>
     </div>
+  </div>
 
-    <!-- Chat Logic Script -->
-    <script>
-        function toggleChat() {
-            const chatWindow = document.getElementById('chatWindow');
-            chatWindow.classList.toggle('active');
-            if(chatWindow.classList.contains('active')) {
-                document.getElementById('chatInput').focus();
-            }
-        }
+  <header class="site-header" id="home">
+    <div class="container nav-wrap">
+      <a class="brand" href="#home" aria-label="Prestige Dental Clinic home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 6.5c-4.7-4.4-14.8-2.8-16.3 5.4-1.2 6.5 2.4 9.1 2.7 15.3.4 9.7 4 14.6 8 14.6 3.4 0 3.8-5.7 5.6-10.1 1.8 4.4 2.2 10.1 5.6 10.1 4 0 7.6-4.9 8-14.6.3-6.2 3.9-8.8 2.7-15.3C38.8 3.7 28.7 2.1 24 6.5Z" stroke="currentColor" stroke-width="2.2"/>
+            <path d="M17 19.5c2.3 1.8 4.6 2.7 7 2.7s4.7-.9 7-2.7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span>
+          <strong>PRESTIGE</strong>
+          <small>DENTAL CLINIC</small>
+        </span>
+      </a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle navigation">☰</button>
+      <nav id="main-nav" class="main-nav">
+        <a href="#services">Services</a>
+        <a href="#why">Why Prestige</a>
+        <a href="#locations">Locations</a>
+        <a href="#reviews">Patient Stories</a>
+        <a class="nav-cta" href="#contact">Book Appointment</a>
+      </nav>
+    </div>
+  </header>
 
-        function handleEnter(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        }
+  <main>
+    <section class="hero">
+      <div class="hero-glow hero-glow-1"></div>
+      <div class="hero-glow hero-glow-2"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Modern dentistry · compassionate care</div>
+          <h1>Confident smiles<br><span>start with care.</span></h1>
+          <p class="hero-lead">Professional, patient-focused dental care designed around your comfort, your goals, and your smile.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Schedule a visit</a>
+            <a class="btn btn-secondary" href="#services">Explore services</a>
+          </div>
+          <div class="hero-trust">
+            <span><b>★</b> Highly rated patient care</span>
+            <span><i></i> Multiple clinic locations</span>
+          </div>
+        </div>
 
-        function sendMessage() {
-            const inputField = document.getElementById('chatInput');
-            const message = inputField.value.trim();
-            const messagesContainer = document.getElementById('chatMessages');
+        <div class="hero-visual" aria-label="Dental care illustration">
+          <div class="orb orb-a"></div><div class="orb orb-b"></div>
+          <div class="smile-card">
+            <div class="smile-card-top"><span>YOUR SMILE</span><span class="pill">CARE FIRST</span></div>
+            <div class="tooth-art">
+              <svg viewBox="0 0 360 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="tooth" x1="60" y1="25" x2="290" y2="275" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#ffffff"/>
+                    <stop offset="0.65" stop-color="#F7FBFA"/>
+                    <stop offset="1" stop-color="#DDEAE7"/>
+                  </linearGradient>
+                </defs>
+                <path d="M178 35c-28-30-82-18-99 24-14 34 5 57 8 88 5 63 27 98 53 98 22 0 29-41 38-69 9 28 16 69 38 69 26 0 48-35 53-98 3-31 22-54 8-88-17-42-71-54-99-24Z" fill="url(#tooth)" stroke="#2a5756" stroke-width="4"/>
+                <path d="M137 110c13 8 26 12 41 12s28-4 41-12" stroke="#74A8A3" stroke-width="5" stroke-linecap="round"/>
+                <circle cx="179" cy="80" r="8" fill="#9CC8C3" opacity=".7"/>
+                <path d="M65 245c44 24 99 36 158 29 28-3 53-10 74-20" stroke="#A5CDC9" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+              </svg>
+            </div>
+            <div class="smile-card-bottom">
+              <div><strong>Because Every Tooth</strong><span>Deserves Care.</span></div>
+              <span class="mini-arrow">↗</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            if (message !== "") {
-                // Add user message to UI
-                const userMsgDiv = document.createElement('div');
-                userMsgDiv.className = 'msg-sent shadow-sm flex flex-col';
-                userMsgDiv.textContent = message;
-                messagesContainer.appendChild(userMsgDiv);
+    <section class="ticker" aria-label="Clinic highlights">
+      <div class="container ticker-grid">
+        <div><strong>11+</strong><span>core services</span></div>
+        <div><strong>3</strong><span>publicly listed locations</span></div>
+        <div><strong>10AM–6PM</strong><span>standard weekday hours</span></div>
+        <div><strong>Care</strong><span>before, during & after treatment</span></div>
+      </div>
+    </section>
 
-                // Clear input
-                inputField.value = "";
-                
-                // Scroll to bottom
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head split">
+          <div>
+            <div class="eyebrow">Comprehensive dental care</div>
+            <h2>Everything your smile needs,<br><em>under one roof.</em></h2>
+          </div>
+          <p>From routine preventive care to restorative, cosmetic, and orthodontic treatment, Prestige Dental Clinic offers a broad range of services for individuals and families.</p>
+        </div>
+        <div class="services-grid">
+          <article class="service-card featured">
+            <span class="service-number">01</span><div class="service-icon">✦</div>
+            <h3>Check-up & Consultation</h3><p>Start with a thorough conversation and examination so your treatment plan fits your needs and lifestyle.</p>
+            <a href="#contact">Ask about an appointment →</a>
+          </article>
+          <article class="service-card"><span class="service-number">02</span><div class="service-icon">＋</div><h3>Cleaning & Oral Prophylaxis</h3><p>Professional cleaning and preventive care to keep your mouth healthier and your smile fresh.</p></article>
+          <article class="service-card"><span class="service-number">03</span><div class="service-icon">◌</div><h3>Restorative Dentistry</h3><p>Fillings, crowns, bridges, root canal treatment, and dentures to restore function and confidence.</p></article>
+          <article class="service-card"><span class="service-number">04</span><div class="service-icon">⌁</div><h3>Cosmetic Dentistry</h3><p>Whitening and veneers for patients who want a more polished, confident smile.</p></article>
+          <article class="service-card"><span class="service-number">05</span><div class="service-icon">◒</div><h3>Orthodontic Braces</h3><p>Discuss alignment goals, available options, and an orthodontic plan tailored to you.</p></article>
+          <article class="service-card"><span class="service-number">06</span><div class="service-icon">♡</div><h3>Pediatric & Family Care</h3><p>Friendly care for younger patients and the whole family, with an emphasis on comfort and clarity.</p></article>
+          <article class="service-card"><span class="service-number">07</span><div class="service-icon">⚕</div><h3>Extractions</h3><p>Simple and surgical tooth extraction with clear after-care guidance.</p></article>
+          <article class="service-card"><span class="service-number">08</span><div class="service-icon">↗</div><h3>Emergency Dental Care</h3><p>When pain or a dental problem can’t wait, contact the clinic for guidance and next steps.</p></article>
+        </div>
+      </div>
+    </section>
 
-                // Simulate Agent Typing & Response
-                setTimeout(() => {
-                    const agentMsgDiv = document.createElement('div');
-                    agentMsgDiv.className = 'msg-received shadow-sm';
-                    agentMsgDiv.textContent = "Thank you for reaching out! One of our dental specialists will be with you shortly. For immediate booking in Makati or Calamba, you may also call our hotline.";
-                    messagesContainer.appendChild(agentMsgDiv);
-                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-                }, 1000);
-            }
-        }
-    </script>
+    <section class="section philosophy" id="why">
+      <div class="container philosophy-grid">
+        <div class="philosophy-panel">
+          <div class="eyebrow">The Prestige approach</div>
+          <h2>Where prestige meets your <em>perfect smile.</em></h2>
+          <p>Publicly available clinic information describes Prestige Dental Clinic as patient-focused, combining professional expertise, modern dentistry, and compassionate service. The experience should feel clear—not intimidating.</p>
+          <div class="check-list">
+            <div><span>✓</span> Personalized treatment guidance</div>
+            <div><span>✓</span> Comfortable, welcoming environment</div>
+            <div><span>✓</span> Clear explanations before procedures</div>
+            <div><span>✓</span> A wide range of dental services</div>
+          </div>
+        </div>
+        <div class="experience-stack">
+          <div class="experience-card large"><span class="quote-mark">“</span><p>We’re not just treating teeth—we’re building trust, confidence, and lifelong smiles.</p><small>— Prestige Dental Clinic positioning</small></div>
+          <div class="experience-row">
+            <div class="experience-card"><strong>01</strong><span>Consult</span><small>Understand your needs</small></div>
+            <div class="experience-card dark"><strong>02</strong><span>Plan</span><small>Choose the right care</small></div>
+            <div class="experience-card"><strong>03</strong><span>Smile</span><small>Care that continues</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section locations" id="locations">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Visit Prestige</div>
+          <h2>Clinic locations</h2>
+          <p>Public web listings currently surface multiple Prestige Dental Clinic locations. Details below are presented for prototype purposes and should be confirmed with the clinic before publishing.</p>
+        </div>
+        <div class="location-grid">
+          <article class="location-card main-location">
+            <div class="location-tag">Cebu · Consolacion</div>
+            <h3>Prestige Dental Clinic — Consolacion Branch</h3>
+            <p>Orosia Building 2, Cansaga, Consolacion, 6001 Cebu, Philippines</p>
+            <div class="location-meta"><span>☎ +63 994 136 3840</span><span>✉ prestigecebu@gmail.com</span></div>
+            <div class="hours"><strong>Hours</strong><span>Mon–Fri · 10:00 AM–6:00 PM</span><span>Sat–Sun · 8:00 AM–9:00 PM</span></div>
+            <a class="text-link" target="_blank" rel="noreferrer" href="https://www.google.com/maps/search/?api=1&query=Orosia+Building+2+Cansaga+Consolacion+Cebu">Open in Maps ↗</a>
+          </article>
+          <article class="location-card">
+            <div class="location-tag">Cebu · Lahug</div>
+            <h3>Prestige Dental Clinic — Lahug Branch</h3>
+            <p>Unit 5, SSY Business Center, Salinas Dr, Cebu City, 6000 Cebu, Philippines</p>
+            <div class="location-meta"><span>☎ +63 994 136 3840</span></div>
+            <div class="hours"><strong>Hours</strong><span>Daily · 10:00 AM–6:00 PM</span></div>
+            <a class="text-link" target="_blank" rel="noreferrer" href="https://www.google.com/maps/search/?api=1&query=SSY+Business+Center+Salinas+Dr+Cebu+City">Open in Maps ↗</a>
+          </article>
+          <article class="location-card">
+            <div class="location-tag">Laguna · Santa Rosa</div>
+            <h3>Prestige Dental Clinic — Balibago Branch</h3>
+            <p>L.A. Moto Store, Santa Rosa, Laguna, Philippines</p>
+            <div class="location-meta"><span>☎ 0993 413 0367</span></div>
+            <div class="hours"><strong>Hours</strong><span>Public listing did not provide hours</span><span>Confirm before visiting</span></div>
+            <a class="text-link" target="_blank" rel="noreferrer" href="https://www.google.com/maps/search/?api=1&query=L.A.+Moto+Store+Santa+Rosa+Laguna">Open in Maps ↗</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section testimonials" id="reviews">
+      <div class="container">
+        <div class="section-head split">
+          <div><div class="eyebrow">Patient stories</div><h2>Care people <em>remember.</em></h2></div>
+          <p>These prototype quotes are adapted from publicly posted review themes and are included to demonstrate how social proof could appear in a production site.</p>
+        </div>
+        <div class="quote-grid">
+          <article class="quote-card"><div class="stars">★★★★★</div><p>“The staff were friendly, accommodating, and very professional. They made sure I was comfortable and explained everything clearly.”</p><span>— Publicly posted patient review · Consolacion</span></article>
+          <article class="quote-card accent"><div class="stars">★★★★★</div><p>“The doctors are kind and gentle, and the team takes time to explain the process. Even as a new patient, you don’t feel like one.”</p><span>— Publicly posted patient review · Consolacion</span></article>
+          <article class="quote-card"><div class="stars">★★★★★</div><p>“The staff are friendly and helpful, and the dentist is patient in explaining each step. A reassuring orthodontic experience.”</p><span>— Publicly posted review theme · Cebu</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="container contact-grid">
+        <div>
+          <div class="eyebrow">Ready when you are</div>
+          <h2>Let’s plan your<br><em>next smile.</em></h2>
+          <p>Use this prototype form to capture appointment requests. Connect it to your preferred booking system, email workflow, or clinic CRM for production.</p>
+          <div class="contact-cards">
+            <a href="tel:+639941363840"><span>Call</span><strong>+63 994 136 3840</strong></a>
+            <a href="mailto:prestigecebu@gmail.com"><span>Email</span><strong>prestigecebu@gmail.com</strong></a>
+          </div>
+        </div>
+        <form class="appointment-form" id="appointment-form">
+          <div class="form-row"><label>Full name<input name="name" required placeholder="Juan Dela Cruz" /></label><label>Mobile number<input name="phone" required placeholder="09XX XXX XXXX" /></label></div>
+          <div class="form-row"><label>Email address<input type="email" name="email" placeholder="you@example.com" /></label><label>Preferred branch<select name="branch"><option>Consolacion, Cebu</option><option>Lahug, Cebu City</option><option>Balibago, Santa Rosa</option></select></label></div>
+          <label>What can we help you with?<select name="service"><option>General consultation</option><option>Teeth cleaning</option><option>Tooth filling</option><option>Braces / orthodontics</option><option>Whitening / cosmetic dentistry</option><option>Extraction</option><option>Other concern</option></select></label>
+          <label>Preferred date and time<input type="text" name="schedule" placeholder="e.g. September 18, afternoon" /></label>
+          <label>Message<textarea name="message" rows="4" placeholder="Tell us a little about your concern…"></textarea></label>
+          <button class="btn btn-primary" type="submit">Request appointment →</button>
+          <small class="form-note">Prototype only — no appointment is actually submitted.</small>
+          <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <div class="brand footer-brand"><span class="brand-mark"><span>✦</span></span><span><strong>PRESTIGE</strong><small>DENTAL CLINIC</small></span></div>
+      <div class="footer-links"><a href="#services">Services</a><a href="#locations">Locations</a><a href="#contact">Contact</a></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 Prestige Dental Clinic · Website prototype</span><span>Public information should be verified before launch.</span></div>
+  </footer>
+
+  <button class="chat-fab" id="chat-fab" aria-label="Open live support chat"><span class="chat-dot"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H8l-4 3v-5.2A7.4 7.4 0 0 1 4 12.5 7.5 7.5 0 1 1 20 11.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>Live support</span></button>
+
+  <aside class="chat-panel" id="chat-panel" aria-hidden="true" aria-label="Live support chat">
+    <div class="chat-header"><div><strong>Prestige Support</strong><span><i></i> Online · typically replies quickly</span></div><button id="chat-close" aria-label="Close chat">×</button></div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="chat-bubble agent">Hi! 👋 Welcome to Prestige Dental Clinic. How can we help today?</div>
+      <div class="quick-replies"><button>Book a visit</button><button>Ask about services</button><button>Where are you located?</button></div>
+    </div>
+    <form class="chat-input" id="chat-form"><input id="chat-text" autocomplete="off" placeholder="Type your message…" /><button type="submit" aria-label="Send">↗</button></form>
+  </aside>
+
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+const mainNav = document.querySelector('.main-nav');
+menuToggle?.addEventListener('click', () => {
+  const open = mainNav.classList.toggle('open');
+  menuToggle.setAttribute('aria-expanded', String(open));
+});
+
+document.querySelectorAll('.main-nav a').forEach(link => link.addEventListener('click', () => {
+  mainNav.classList.remove('open');
+  menuToggle?.setAttribute('aria-expanded', 'false');
+}));
+
+const form = document.getElementById('appointment-form');
+const formStatus = document.getElementById('form-status');
+form?.addEventListener('submit', e => {
+  e.preventDefault();
+  const name = new FormData(form).get('name') || 'there';
+  formStatus.textContent = `Thanks, ${name}. Your prototype request has been captured on this page only.`;
+  form.reset();
+});
+
+const chatFab = document.getElementById('chat-fab');
+const chatPanel = document.getElementById('chat-panel');
+const chatClose = document.getElementById('chat-close');
+const chatForm = document.getElementById('chat-form');
+const chatText = document.getElementById('chat-text');
+const chatMessages = document.getElementById('chat-messages');
+
+function setChat(open){
+  chatPanel.classList.toggle('open', open);
+  chatPanel.setAttribute('aria-hidden', String(!open));
+  if(open) setTimeout(() => chatText?.focus(), 120);
+}
+chatFab?.addEventListener('click', () => setChat(true));
+chatClose?.addEventListener('click', () => setChat(false));
+
+document.querySelectorAll('.quick-replies button').forEach(btn => {
+  btn.addEventListener('click', () => sendChat(btn.textContent));
+});
+
+function appendMessage(text, who='user'){
+  const div = document.createElement('div');
+  div.className = `chat-bubble ${who}`;
+  div.textContent = text;
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function sendChat(text){
+  const clean = (text || '').trim();
+  if(!clean) return;
+  appendMessage(clean, 'user');
+  setTimeout(() => {
+    const lower = clean.toLowerCase();
+    let reply = 'Thanks for reaching out. For a real deployment, this chat can be connected to Messenger, WhatsApp, or a clinic support inbox.';
+    if(lower.includes('book') || lower.includes('appointment')) reply = 'Absolutely. You can use the appointment form on this page, or call +63 994 136 3840 for the Cebu listings shown here.';
+    if(lower.includes('service')) reply = 'We can help with check-ups, cleaning, fillings, root canal treatment, crowns and bridges, dentures, whitening, veneers, braces, pediatric care, extractions, and emergency dental concerns.';
+    if(lower.includes('where') || lower.includes('location')) reply = 'The prototype includes public listings for Consolacion and Lahug in Cebu, plus Balibago in Santa Rosa, Laguna. Please confirm current branch details before visiting.';
+    appendMessage(reply, 'agent');
+  }, 550);
+}
+
+chatForm?.addEventListener('submit', e => {
+  e.preventDefault();
+  sendChat(chatText.value);
+  chatText.value = '';
+});
+  </script>
 </body>
 </html>
