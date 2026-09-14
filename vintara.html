@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vintara — Premium Beverage Distributor</title>
+<meta name="description" content="Premium wines, spirits, beers and curated beverage collections.">
+<style>
+:root{
+  --red:#b10101;
+  --red-dark:#8d0000;
+  --ink:#171717;
+  --muted:#6f6f6f;
+  --line:#e8e8e8;
+  --soft:#f7f7f7;
+  --cream:#faf8f4;
+  --green:#49624b;
+  --shadow:0 14px 40px rgba(0,0,0,.08);
+  --radius:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--ink);background:#fff;line-height:1.45;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+.container{width:min(1240px,calc(100% - 40px));margin:auto}
+.header{
+  position:fixed;top:0;left:0;right:0;background:rgba(255,255,255,.96);
+  backdrop-filter:blur(12px);z-index:50;border-bottom:1px solid var(--line)
+}
+.topbar{height:76px;display:grid;grid-template-columns:220px 1fr 240px;gap:26px;align-items:center}
+.logo{font-family:Georgia,serif;font-weight:800;font-size:28px;letter-spacing:-.7px}
+.logo span{color:var(--red)}
+.search-wrap{position:relative}
+.search-wrap input{
+  width:100%;height:46px;border:1px solid #ddd;border-radius:12px;padding:0 45px 0 16px;
+  outline:none;background:#fff
+}
+.search-wrap input:focus{border-color:#bdbdbd;box-shadow:0 0 0 4px rgba(177,1,1,.06)}
+.search-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#777}
+.actions{display:flex;justify-content:flex-end;gap:10px}
+.icon-btn{
+  border:1px solid var(--line);background:#fff;height:42px;min-width:42px;border-radius:12px;
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:0 12px
+}
+.icon-btn:hover{border-color:#bbb}
+.cart-pill{position:relative}
+.cart-count{
+  position:absolute;top:-6px;right:-6px;background:var(--red);color:#fff;border-radius:999px;
+  min-width:18px;height:18px;font-size:11px;display:flex;align-items:center;justify-content:center
+}
+.navbar{border-top:1px solid #f2f2f2;height:52px}
+.nav{height:100%;display:flex;align-items:center;gap:28px;overflow:visible}
+.nav-item{position:relative;height:100%;display:flex;align-items:center}
+.nav-link{font-size:13px;font-weight:700;color:#3d3d3d;white-space:nowrap}
+.nav-link:hover{color:var(--red)}
+.dropdown{
+  position:absolute;left:0;top:48px;background:#fff;border:1px solid var(--line);
+  box-shadow:var(--shadow);border-radius:14px;padding:10px;min-width:210px;display:none
+}
+.nav-item:hover .dropdown{display:block}
+.dropdown a{display:block;padding:9px 11px;border-radius:8px;font-size:13px}
+.dropdown a:hover{background:#f6f6f6;color:var(--red)}
+
+.mobile-only{display:none}
+main{padding-top:128px}
+.hero{
+  padding:38px 0 32px;
+}
+.hero-card{
+  min-height:430px;border-radius:28px;overflow:hidden;position:relative;
+  background:
+    linear-gradient(90deg,rgba(20,13,12,.88) 0%,rgba(20,13,12,.64) 45%,rgba(20,13,12,.12) 80%),
+    url("https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1800&q=85") center/cover;
+  display:flex;align-items:center;
+}
+.hero-content{color:#fff;padding:52px;max-width:650px}
+.eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:800;opacity:.82}
+.hero h1{font-family:Georgia,serif;font-size:clamp(44px,5vw,70px);line-height:1.02;margin:14px 0 18px;letter-spacing:-2px}
+.hero p{font-size:16px;max-width:560px;color:#f0f0f0}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.btn{
+  border:0;border-radius:12px;padding:13px 19px;font-weight:800;font-size:13px;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px
+}
+.btn-primary{background:var(--red);color:#fff}
+.btn-primary:hover{background:var(--red-dark)}
+.btn-light{background:#fff;color:#181818}
+.btn-light:hover{background:#f3f3f3}
+
+.section{padding:28px 0 18px}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:16px}
+.section h2{font-family:Georgia,serif;font-size:29px;margin:0;letter-spacing:-.7px}
+.section-sub{font-size:13px;color:var(--muted);margin-top:4px}
+.view-all{font-size:12px;font-weight:800;color:var(--red);white-space:nowrap}
+.category-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.category-card{
+  min-height:145px;border-radius:17px;overflow:hidden;position:relative;padding:20px;
+  display:flex;align-items:flex-end;color:#fff;isolation:isolate
+}
+.category-card:before{
+  content:"";position:absolute;inset:0;z-index:-2;background-size:cover;background-position:center;
+}
+.category-card:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(0,0,0,.68),rgba(0,0,0,.02))}
+.category-card:nth-child(1):before{background-image:url("https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?auto=format&fit=crop&w=900&q=80")}
+.category-card:nth-child(2):before{background-image:url("https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&fit=crop&w=900&q=80")}
+.category-card:nth-child(3):before{background-image:url("https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=900&q=80")}
+.category-card:nth-child(4):before{background-image:url("https://images.unsplash.com/photo-1547595628-c61a29f496f0?auto=format&fit=crop&w=900&q=80")}
+.category-card:nth-child(5):before{background-image:url("https://images.unsplash.com/photo-1608889175117-56d3dce3b0f5?auto=format&fit=crop&w=900&q=80")}
+.category-card:nth-child(6):before{background-image:url("https://images.unsplash.com/photo-1602752250015-52934a5f7f7c?auto=format&fit=crop&w=900&q=80")}
+.category-card:nth-child(7):before{background-image:url("https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=80")}
+.category-card:nth-child(8):before{background-image:url("https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=900&q=80")}
+.category-card b{font-family:Georgia,serif;font-size:22px}
+.category-card small{display:block;opacity:.82;font-size:11px;margin-top:3px}
+
+.rail-wrap{position:relative}
+.product-rail{
+  display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 56px)/5);
+  gap:14px;overflow-x:auto;scroll-snap-type:x proximity;padding:2px 4px 12px;
+  scrollbar-width:none
+}
+.product-rail::-webkit-scrollbar{display:none}
+.product-card{
+  scroll-snap-align:start;border:1px solid var(--line);border-radius:16px;background:#fff;
+  overflow:hidden;min-width:0;position:relative;transition:.22s ease
+}
+.product-card:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(0,0,0,.06)}
+.product-img{height:220px;background:#f4f1ee;display:flex;align-items:center;justify-content:center;position:relative;padding:18px}
+.product-img img{width:100%;height:100%;object-fit:contain}
+.add-btn{
+  position:absolute;right:11px;bottom:11px;width:38px;height:38px;border-radius:50%;border:0;
+  background:var(--red);color:#fff;font-size:24px;line-height:1;box-shadow:0 6px 15px rgba(177,1,1,.24)
+}
+.add-btn:hover{background:var(--red-dark);transform:scale(1.04)}
+.product-body{padding:14px}
+.product-name{font-size:14px;font-weight:800;line-height:1.25;min-height:36px}
+.unit{font-size:11px;color:var(--muted);margin-top:4px}
+.price{font-size:17px;font-weight:900;margin-top:8px}
+.rail-arrow{
+  position:absolute;top:42%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;
+  background:#fff;border:1px solid #ddd;box-shadow:0 8px 20px rgba(0,0,0,.10);z-index:2
+}
+.rail-arrow.left{left:-20px}.rail-arrow.right{right:-20px}
+.rail-arrow:hover{border-color:#aaa}
+.banner-strip{margin:30px 0}
+.banner-inner{
+  border-radius:22px;background:var(--cream);padding:32px 36px;display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:center
+}
+.banner-inner h3{font-family:Georgia,serif;font-size:32px;margin:0 0 8px}
+.banner-inner p{color:var(--muted);margin:0 0 16px}
+footer{margin-top:55px;background:#161616;color:#fff}
+.footer-top{padding:46px 0;display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:35px}
+.footer-brand{font-family:Georgia,serif;font-size:27px}
+.footer-brand span{color:#efb0b0}
+.footer-copy{color:#aaa;font-size:13px;margin-top:9px;max-width:340px}
+.footer-col h4{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;margin:0 0 12px;color:#ddd}
+.footer-col a{display:block;color:#aaa;font-size:13px;padding:4px 0}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding:18px 0;color:#8f8f8f;font-size:11px;display:flex;justify-content:space-between;gap:15px}
+.chat-btn{
+  position:fixed;right:20px;bottom:20px;z-index:60;background:var(--red);color:#fff;border:0;
+  border-radius:999px;padding:12px 16px;font-weight:800;box-shadow:0 12px 30px rgba(177,1,1,.25);display:flex;align-items:center;gap:8px
+}
+.chat-panel{
+  position:fixed;right:20px;bottom:76px;width:340px;background:#fff;border:1px solid var(--line);
+  border-radius:18px;box-shadow:0 25px 60px rgba(0,0,0,.18);z-index:61;display:none;overflow:hidden
+}
+.chat-panel.open{display:block}
+.chat-head{padding:14px 16px;background:#1b1b1b;color:#fff;display:flex;align-items:center;justify-content:space-between}
+.chat-head strong{font-size:13px}.chat-head button{background:transparent;border:0;color:#fff;font-size:18px}
+.chat-body{padding:15px}
+.chat-msg{background:#f4f4f4;border-radius:13px;padding:10px;font-size:12px;max-width:85%}
+.chat-input{margin-top:14px;display:flex;gap:7px}.chat-input input{flex:1;border:1px solid #ddd;border-radius:10px;padding:9px 10px}
+.chat-input button{border:0;background:var(--red);color:#fff;border-radius:10px;width:42px}
+
+.toast{
+  position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;
+  background:#1b1b1b;color:#fff;padding:11px 16px;border-radius:999px;font-size:12px;z-index:100;transition:.25s
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.overlay{display:none}
+
+@media(max-width:980px){
+  .topbar{grid-template-columns:180px 1fr 200px;gap:14px}
+  .nav{gap:20px}
+  .category-grid{grid-template-columns:repeat(2,1fr)}
+  .product-rail{grid-auto-columns:calc((100% - 42px)/4)}
+}
+@media(max-width:720px){
+  .container{width:min(100% - 24px,1240px)}
+  .desktop-only{display:none!important}.mobile-only{display:inline-flex}
+  .header{background:#fff}
+  .topbar{height:64px;grid-template-columns:44px 1fr 92px;gap:8px}
+  .menu-btn{border:0;background:transparent;width:42px;height:42px}
+  .logo{font-size:24px;text-align:center}
+  .actions{gap:5px}
+  .icon-btn{border:0;padding:0;min-width:40px}
+  .mobile-search{padding:8px 0 10px;border-top:1px solid #f0f0f0}
+  .mobile-search input{height:42px}
+  main{padding-top:125px}
+  .hero{padding-top:16px}.hero-card{min-height:480px;border-radius:20px}
+  .hero-content{padding:28px}.hero h1{font-size:43px}
+  .section{padding-top:24px}
+  .category-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .category-card{min-height:125px;padding:15px}.category-card b{font-size:18px}
+  .product-rail{grid-auto-columns:calc((100% - 10px)/2);gap:10px}
+  .product-img{height:185px}
+  .rail-arrow{display:none}
+  .banner-inner{grid-template-columns:1fr;padding:24px}
+  .banner-inner h3{font-size:27px}
+  .footer-top{grid-template-columns:1fr 1fr;gap:25px}
+  .footer-brand{grid-column:1/-1}
+  .footer-bottom{flex-direction:column}
+  .chat-btn{right:14px;bottom:14px;padding:12px 14px}
+  .chat-panel{right:12px;left:12px;width:auto;bottom:68px}
+  .mobile-menu{
+    position:absolute;left:12px;right:12px;top:64px;background:#fff;border:1px solid var(--line);
+    border-radius:0 0 16px 16px;box-shadow:0 18px 35px rgba(0,0,0,.11);padding:10px;display:none
+  }
+  .mobile-menu.open{display:block}
+  .mobile-menu a,.mobile-menu button{width:100%;padding:12px;border:0;background:#fff;text-align:left;border-radius:9px;font-weight:700}
+  .mobile-menu a:hover,.mobile-menu button:hover{background:#f7f7f7}
+  .submenu{display:none;padding-left:10px}.submenu.open{display:block}
+  .mobile-menu .has-sub::after{content:"⌄";float:right}
+}
+
+@media(max-width:430px){
+  .hero h1{font-size:38px}
+  .category-card{min-height:110px}
+  .product-img{height:165px}
+  .footer-top{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container topbar">
+    <button class="menu-btn mobile-only" aria-label="Open menu" onclick="toggleMobileMenu()">☰</button>
+    <a class="logo" href="#top">Vintara<span>.</span></a>
+
+    <div class="search-wrap desktop-only">
+      <input id="searchInput" type="search" placeholder="Search wines, spirits, beers..." aria-label="Search products">
+      <span class="search-icon">⌕</span>
+    </div>
+
+    <div class="actions">
+      <button class="icon-btn" title="Account"><span>◯</span><span class="desktop-only">Account</span></button>
+      <button class="icon-btn cart-pill" title="Cart" onclick="openCart()"><span>🛒</span><span class="desktop-only">Cart</span><span id="cartCount" class="cart-count">0</span></button>
+    </div>
+  </div>
+
+  <div class="mobile-search mobile-only">
+    <div class="container search-wrap">
+      <input id="mobileSearch" type="search" placeholder="Search wines, spirits, beers..." aria-label="Search products">
+      <span class="search-icon">⌕</span>
+    </div>
+  </div>
+
+  <div class="navbar desktop-only">
+    <nav class="container nav">
+      <div class="nav-item"><a class="nav-link" href="#categories">Categories</a></div>
+      <div class="nav-item"><a class="nav-link" href="#beer">Beer ▾</a><div class="dropdown"><a href="#beer">Lager</a><a href="#beer">Pale Ale</a><a href="#beer">Craft Beer</a><a href="#beer">Imported Beer</a></div></div>
+      <div class="nav-item"><a class="nav-link" href="#wine">Wine ▾</a><div class="dropdown"><a href="#wine">Red Wine</a><a href="#wine">White Wine</a><a href="#wine">Rosé</a><a href="#wine">Sparkling</a></div></div>
+      <div class="nav-item"><a class="nav-link" href="#spirits">Spirits ▾</a><div class="dropdown"><a href="#spirits">Vodka</a><a href="#spirits">Whisky</a><a href="#spirits">Gin</a><a href="#spirits">Rum</a><a href="#spirits">Tequila</a></div></div>
+      <div class="nav-item"><a class="nav-link" href="#extras">Extras</a></div>
+      <div class="nav-item"><a class="nav-link" href="#collections">Collections</a></div>
+      <div class="nav-item"><a class="nav-link" href="#stores">Stores</a></div>
+      <div class="nav-item"><a class="nav-link" href="#promotions">Promotions</a></div>
+    </nav>
+  </div>
+
+  <div id="mobileMenu" class="mobile-menu mobile-only">
+    <a href="#categories" onclick="closeMobileMenu()">Categories</a>
+    <button class="has-sub" onclick="toggleSub(this)">Beer</button>
+    <div class="submenu"><a href="#beer" onclick="closeMobileMenu()">Lager</a><a href="#beer" onclick="closeMobileMenu()">Craft Beer</a></div>
+    <button class="has-sub" onclick="toggleSub(this)">Wine</button>
+    <div class="submenu"><a href="#wine" onclick="closeMobileMenu()">Red Wine</a><a href="#wine" onclick="closeMobileMenu()">White Wine</a></div>
+    <button class="has-sub" onclick="toggleSub(this)">Spirits</button>
+    <div class="submenu"><a href="#spirits" onclick="closeMobileMenu()">Vodka</a><a href="#spirits" onclick="closeMobileMenu()">Whisky</a></div>
+    <a href="#collections" onclick="closeMobileMenu()">Collections</a>
+    <a href="#stores" onclick="closeMobileMenu()">Stores</a>
+    <a href="#promotions" onclick="closeMobileMenu()">Promotions</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="container">
+      <div class="hero-card">
+        <div class="hero-content">
+          <div class="eyebrow">Curated. Reliable. Premium.</div>
+          <h1>Great bottles.<br>Better business.</h1>
+          <p>Your trusted source for premium wines, spirits and beers—carefully selected for restaurants, retailers, hotels, and discerning customers.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#bestsellers">Shop bestsellers</a>
+            <a class="btn btn-light" href="#collections">Explore collections</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="categories" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div><h2>Top categories</h2><div class="section-sub">Shop by what you love</div></div>
+        <a class="view-all" href="#categories">View all →</a>
+      </div>
+      <div class="category-grid">
+        <a href="#beer" class="category-card"><div><b>Beer</b><small>Classic to craft</small></div></a>
+        <a href="#wine" class="category-card"><div><b>Wine</b><small>From everyday to cellar-worthy</small></div></a>
+        <a href="#spirits" class="category-card"><div><b>Spirits</b><small>Vodka, whisky, gin & more</small></div></a>
+        <a href="#extras" class="category-card"><div><b>Mixers & Extras</b><small>Complete the experience</small></div></a>
+        <a href="#collections" class="category-card"><div><b>Premium Picks</b><small>Curated favorites</small></div></a>
+        <a href="#collections" class="category-card"><div><b>Gift Sets</b><small>Made to impress</small></div></a>
+        <a href="#stores" class="category-card"><div><b>For Business</b><small>Wholesale-ready selection</small></div></a>
+        <a href="#promotions" class="category-card"><div><b>Promotions</b><small>Limited-time offers</small></div></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="bestsellers" class="section">
+    <div class="container">
+      <div class="section-head"><div><h2>Bestsellers</h2><div class="section-sub">What customers are reaching for right now</div></div><a class="view-all" href="#bestsellers">View all →</a></div>
+      <div class="rail-wrap">
+        <button class="rail-arrow left" onclick="scrollRail('bestRail',-1)">‹</button>
+        <div class="product-rail" id="bestRail"></div>
+        <button class="rail-arrow right" onclick="scrollRail('bestRail',1)">›</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="trending" class="section">
+    <div class="container">
+      <div class="section-head"><div><h2>New & trending</h2><div class="section-sub">Fresh arrivals and rising favorites</div></div><a class="view-all" href="#trending">View all →</a></div>
+      <div class="rail-wrap">
+        <button class="rail-arrow left" onclick="scrollRail('trendRail',-1)">‹</button>
+        <div class="product-rail" id="trendRail"></div>
+        <button class="rail-arrow right" onclick="scrollRail('trendRail',1)">›</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="spirits" class="section">
+    <div class="container">
+      <div class="section-head"><div><h2>Popular spirits</h2><div class="section-sub">The bottle bar cart starts here</div></div><a class="view-all" href="#spirits">View all →</a></div>
+      <div class="rail-wrap">
+        <button class="rail-arrow left" onclick="scrollRail('spiritsRail',-1)">‹</button>
+        <div class="product-rail" id="spiritsRail"></div>
+        <button class="rail-arrow right" onclick="scrollRail('spiritsRail',1)">›</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="wine" class="section">
+    <div class="container">
+      <div class="section-head"><div><h2>Popular wines</h2><div class="section-sub">Easy favorites for every table</div></div><a class="view-all" href="#wine">View all →</a></div>
+      <div class="rail-wrap">
+        <button class="rail-arrow left" onclick="scrollRail('wineRail',-1)">‹</button>
+        <div class="product-rail" id="wineRail"></div>
+        <button class="rail-arrow right" onclick="scrollRail('wineRail',1)">›</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="beer" class="section">
+    <div class="container">
+      <div class="section-head"><div><h2>Popular beers</h2><div class="section-sub">Reliable classics and easy-drinking picks</div></div><a class="view-all" href="#beer">View all →</a></div>
+      <div class="rail-wrap">
+        <button class="rail-arrow left" onclick="scrollRail('beerRail',-1)">‹</button>
+        <div class="product-rail" id="beerRail"></div>
+        <button class="rail-arrow right" onclick="scrollRail('beerRail',1)">›</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="promotions" class="banner-strip">
+    <div class="container">
+      <div class="banner-inner">
+        <div><div class="eyebrow">For restaurants • hotels • retailers</div><h3>Built for beverage businesses.</h3><p>Talk to our team about trade pricing, recurring orders and dependable delivery support.</p><a href="#stores" class="btn btn-primary">Partner with Vintara</a></div>
+        <div style="height:220px;border-radius:18px;background:url('https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=1100&q=80') center/cover"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-top">
+    <div>
+      <div class="footer-brand">Vintara<span>.</span></div>
+      <div class="footer-copy">Premium beverage distribution with a sharper point of view—from everyday favorites to special-occasion bottles.</div>
+    </div>
+    <div class="footer-col"><h4>Shop</h4><a href="#beer">Beer</a><a href="#wine">Wine</a><a href="#spirits">Spirits</a><a href="#extras">Extras</a><a href="#promotions">Promotions</a></div>
+    <div class="footer-col"><h4>Company</h4><a href="#stores">Our Stores</a><a href="#collections">Collections</a><a href="#stores">For Business</a><a href="#stores">Delivery</a><a href="#stores">Contact</a></div>
+    <div class="footer-col"><h4>Help</h4><a href="#top">FAQ</a><a href="#top">Shipping & Delivery</a><a href="#top">Returns</a><a href="#top">Privacy</a><a href="#top">Terms</a></div>
+  </div>
+  <div class="container footer-bottom"><span>© 2026 Vintara Distribution. Prototype website.</span><span>Crafted for a premium retail experience.</span></div>
+</footer>
+
+<button class="chat-btn" onclick="toggleChat()">💬 Live support</button>
+<div id="chatPanel" class="chat-panel">
+  <div class="chat-head"><strong>Vintara Support</strong><button onclick="toggleChat()">×</button></div>
+  <div class="chat-body"><div class="chat-msg">Hello! How can we help with your order or product selection today?</div><div class="chat-input"><input placeholder="Type your message..."><button onclick="sendChat()">➤</button></div></div>
+</div>
+<div id="toast" class="toast">Added to cart</div>
+
+<script>
+const products = [
+  {id:1,name:"Aurelia Cabernet Reserve",unit:"750 ml · Red Wine",price:1295,img:"https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=700&q=80",type:"wine"},
+  {id:2,name:"North Coast Sauvignon Blanc",unit:"750 ml · White Wine",price:995,img:"https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&fit=crop&w=700&q=80",type:"wine"},
+  {id:3,name:"Oakline Small Batch Gin",unit:"700 ml · Gin",price:1495,img:"https://images.unsplash.com/photo-1551538827-9c037cb4f32a?auto=format&fit=crop&w=700&q=80",type:"spirits"},
+  {id:4,name:"Black Harbor Vodka",unit:"700 ml · Vodka",price:1095,img:"https://images.unsplash.com/photo-1527281400683-1aae777175f8?auto=format&fit=crop&w=700&q=80",type:"spirits"},
+  {id:5,name:"Redwood Bourbon No. 4",unit:"750 ml · Bourbon",price:1895,img:"https://images.unsplash.com/photo-1527281400683-1aae777175f8?auto=format&fit=crop&w=700&q=80",type:"spirits"},
+  {id:6,name:"Crown Valley Lager",unit:"330 ml · Bottle",price:85,img:"https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=700&q=80",type:"beer"},
+  {id:7,name:"Harbor Haze IPA",unit:"330 ml · Craft Beer",price:135,img:"https://images.unsplash.com/photo-1567696911980-2eed69a89644?auto=format&fit=crop&w=700&q=80",type:"beer"},
+  {id:8,name:"Solstice Sparkling Brut",unit:"750 ml · Sparkling",price:1595,img:"https://images.unsplash.com/photo-1563822249548-9a72b6353cd1?auto=format&fit=crop&w=700&q=80",type:"wine"},
+  {id:9,name:"Casa Verde Rosé",unit:"750 ml · Rosé",price:895,img:"https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=700&q=80",type:"wine"},
+  {id:10,name:"Ridge & Pine Rum",unit:"700 ml · Rum",price:1195,img:"https://images.unsplash.com/photo-1572569918794-504d2d0b0dcf?auto=format&fit=crop&w=700&q=80",type:"spirits"},
+  {id:11,name:"Verde Citrus Aperitif",unit:"700 ml · Aperitif",price:1395,img:"https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=700&q=80",type:"spirits"},
+  {id:12,name:"Golden Mile Pilsner",unit:"330 ml · Bottle",price:78,img:"https://images.unsplash.com/photo-1566633806327-68e152a6f2fa?auto=format&fit=crop&w=700&q=80",type:"beer"},
+  {id:13,name:"Black Label Reserve",unit:"750 ml · Whisky",price:2195,img:"https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?auto=format&fit=crop&w=700&q=80",type:"spirits"},
+  {id:14,name:"Maison Clair Chardonnay",unit:"750 ml · White Wine",price:1195,img:"https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=700&q=80",type:"wine"},
+  {id:15,name:"Stonebridge Pale Ale",unit:"330 ml · Craft Beer",price:145,img:"https://images.unsplash.com/photo-1497534446932-c925b458314e?auto=format&fit=crop&w=700&q=80",type:"beer"}
+];
+
+let cart=0;
+
+function productCard(p){
+  return `<article class="product-card" data-name="${p.name.toLowerCase()}">
+    <div class="product-img"><img src="${p.img}" alt="${p.name}" loading="lazy"><button class="add-btn" aria-label="Add ${p.name}" onclick="addToCart('${p.name.replace(/'/g,"\\'")}')">+</button></div>
+    <div class="product-body"><div class="product-name">${p.name}</div><div class="unit">${p.unit}</div><div class="price">₱${p.price.toLocaleString()}</div></div>
+  </article>`;
+}
+
+function fill(id, list){document.getElementById(id).innerHTML=list.map(productCard).join("");}
+fill("bestRail", products.slice(0,5));
+fill("trendRail", products.slice(5,10));
+fill("spiritsRail", products.filter(p=>p.type==="spirits").slice(0,5));
+fill("wineRail", products.filter(p=>p.type==="wine").slice(0,5));
+fill("beerRail", products.filter(p=>p.type==="beer").slice(0,5));
+
+function scrollRail(id,dir){
+  const el=document.getElementById(id);
+  el.scrollBy({left:dir*el.clientWidth*.82,behavior:"smooth"});
+}
+function addToCart(name){
+  cart++;
+  document.getElementById("cartCount").textContent=cart;
+  showToast(name+" added to cart");
+}
+function showToast(msg){
+  const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");
+  clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove("show"),1800)
+}
+function openCart(){showToast(cart?`Cart has ${cart} item${cart>1?"s":""}`:"Your cart is empty")}
+function toggleChat(){document.getElementById("chatPanel").classList.toggle("open")}
+function sendChat(){showToast("Message sent to support");document.querySelector(".chat-input input").value=""}
+function toggleMobileMenu(){document.getElementById("mobileMenu").classList.toggle("open")}
+function closeMobileMenu(){document.getElementById("mobileMenu").classList.remove("open")}
+function toggleSub(btn){btn.nextElementSibling.classList.toggle("open")}
+
+function setupSearch(inputId){
+  const input=document.getElementById(inputId); if(!input) return;
+  input.addEventListener("input",()=>{
+    const q=input.value.trim().toLowerCase();
+    document.querySelectorAll(".product-card").forEach(card=>{
+      card.style.display=(!q || card.dataset.name.includes(q))?"":"none";
+    });
+  });
+}
+setupSearch("searchInput"); setupSearch("mobileSearch");
+</script>
+</body>
+</html>
