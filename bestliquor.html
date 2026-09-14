@@ -203,8 +203,16 @@ main{
 .unit{font-size:11px;color:var(--muted);margin-top:4px}
 .price{font-size:17px;font-weight:900;margin-top:8px}
 .rail-arrow{
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position:absolute;top:42%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;
   background:#fff;border:1px solid #ddd;box-shadow:0 8px 20px rgba(0,0,0,.10);z-index:2
+}
+.rail-arrow svg {
+  width: 20px;
+  height: 20px;
+  color: var(--muted);
 }
 .rail-arrow.left{left:-20px}.rail-arrow.right{right:-20px}
 .rail-arrow:hover{border-color:#aaa}
@@ -434,10 +442,18 @@ footer{margin-top:55px;background:#161616;color:#fff}
         <a class="view-all" href="#bestsellers">View all →</a>
       </div>
       <div class="rail-wrap">
-        <button class="rail-arrow left" onclick="scrollRail('bestRail',-1)">‹</button>
-        <div class="product-rail" id="bestRail"></div>
-        <button class="rail-arrow right" onclick="scrollRail('bestRail',1)">›</button>
-      </div>
+      <button class="rail-arrow left" onclick="scrollRail('bestRail',-1)" aria-label="Scroll left">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <div class="product-rail" id="bestRail"></div>
+      <button class="rail-arrow right" onclick="scrollRail('bestRail',1)" aria-label="Scroll right">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
     </div>
   </section>
 
@@ -445,9 +461,17 @@ footer{margin-top:55px;background:#161616;color:#fff}
     <div class="container">
       <div class="section-head"><div><h2>New & trending</h2></div><a class="view-all" href="#trending">View all →</a></div>
       <div class="rail-wrap">
-        <button class="rail-arrow left" onclick="scrollRail('trendRail',-1)">‹</button>
+        <button class="rail-arrow left" onclick="scrollRail('trendRail',-1)" aria-label="Scroll left">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
         <div class="product-rail" id="trendRail"></div>
-        <button class="rail-arrow right" onclick="scrollRail('trendRail',1)">›</button>
+        <button class="rail-arrow right" onclick="scrollRail('trendRail',1)" aria-label="Scroll right">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
       </div>
     </div>
   </section>
@@ -456,9 +480,17 @@ footer{margin-top:55px;background:#161616;color:#fff}
     <div class="container">
       <div class="section-head"><div><h2>Popular spirits</h2></div><a class="view-all" href="#spirits">View all →</a></div>
       <div class="rail-wrap">
-        <button class="rail-arrow left" onclick="scrollRail('spiritsRail',-1)">‹</button>
+        <button class="rail-arrow left" onclick="scrollRail('spiritsRail',-1)" aria-label="Scroll left">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
         <div class="product-rail" id="spiritsRail"></div>
-        <button class="rail-arrow right" onclick="scrollRail('spiritsRail',1)">›</button>
+        <button class="rail-arrow right" onclick="scrollRail('spiritsRail',1)" aria-label="Scroll right">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
       </div>
     </div>
   </section>
@@ -467,9 +499,17 @@ footer{margin-top:55px;background:#161616;color:#fff}
     <div class="container">
       <div class="section-head"><div><h2>Popular wines</h2></div><a class="view-all" href="#wine">View all →</a></div>
       <div class="rail-wrap">
-        <button class="rail-arrow left" onclick="scrollRail('wineRail',-1)">‹</button>
+        <button class="rail-arrow left" onclick="scrollRail('wineRail',-1)" aria-label="Scroll left">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
         <div class="product-rail" id="wineRail"></div>
-        <button class="rail-arrow right" onclick="scrollRail('wineRail',1)">›</button>
+        <button class="rail-arrow right" onclick="scrollRail('wineRail',1)" aria-label="Scroll right">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
       </div>
     </div>
   </section>
@@ -478,9 +518,17 @@ footer{margin-top:55px;background:#161616;color:#fff}
     <div class="container">
       <div class="section-head"><div><h2>Popular beers</h2></div><a class="view-all" href="#beer">View all →</a></div>
       <div class="rail-wrap">
-        <button class="rail-arrow left" onclick="scrollRail('beerRail',-1)">‹</button>
+        <button class="rail-arrow left" onclick="scrollRail('beerRail',-1)" aria-label="Scroll left">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
         <div class="product-rail" id="beerRail"></div>
-        <button class="rail-arrow right" onclick="scrollRail('beerRail',1)">›</button>
+        <button class="rail-arrow right" onclick="scrollRail('beerRail',1)" aria-label="Scroll right">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
       </div>
     </div>
   </section>
