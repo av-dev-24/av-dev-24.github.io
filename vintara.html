@@ -280,20 +280,26 @@ footer{margin-top:55px;background:#161616;color:#fff}
   .product-rail {
     display: grid;
     grid-auto-flow: column;
-
-    /* About 46% of screen per card */
-    grid-auto-columns: 46%;
-
-    gap: 10px;
+    grid-auto-columns: 46%; /* Tama itong 46% para sumilip ang next card */
+    gap: 12px; /* Ginawa kong 12px para pantay sa padding mo */
 
     overflow-x: auto;
-    padding: 2px 12px 12px;
+    
+    /* Dinagdagan ko ang top/bottom padding (16px) para hindi ma-cut ang box-shadow ng cards kung meron man. Left/Right ay 12px. */
+    padding: 16px 12px; 
+    
+    /* ITO ANG SUSI: Para kapag nag-snap ang card, babalik siya sa 12px gap at hindi didikit sa screen */
+    scroll-padding-inline: 12px; 
 
-    scroll-snap-type: x proximity;
+    /* Mas maganda ang 'mandatory' kaysa 'proximity' para sa smooth carousels */
+    scroll-snap-type: x mandatory; 
     scrollbar-width: none;
   }
   .product-rail::-webkit-scrollbar {
     display: none;
+  }
+  .product-card {
+    scroll-snap-align: start;
   }
   .product-img{height:185px}
   .rail-arrow{display:none}
@@ -315,6 +321,7 @@ footer{margin-top:55px;background:#161616;color:#fff}
   .mobile-menu .has-sub::after{content:"⌄";float:right}
   .hero,
   .section-head,
+  .category-grid,
   .banner-strip,
   footer {
     padding-left: 12px;
