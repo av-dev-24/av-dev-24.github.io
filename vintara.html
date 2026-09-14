@@ -7,9 +7,12 @@
 <meta name="description" content="Premium wines, spirits, beers and curated beverage collections.">
 <style>
 :root{
+  --surface: #ffffff;
   --red:#b10101;
   --red-dark:#8d0000;
   --ink:#171717;
+    --ink-dim: #4b5563;
+    --ink-muted: #8b96a0;
   --muted:#6f6f6f;
   --line:#e8e8e8;
   --soft:#f7f7f7;
@@ -33,16 +36,55 @@ img{display:block;max-width:100%}
   position:fixed;top:0;left:0;right:0;background:rgba(255,255,255,.96);
   backdrop-filter:blur(12px);z-index:50;border-bottom:1px solid var(--line)
 }
-.topbar{height:76px;display:grid;grid-template-columns:220px 1fr 240px;gap:26px;align-items:center}
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 20px;
+}
 .logo{font-family:Georgia,serif;font-weight:800;font-size:28px;letter-spacing:-.7px}
 .logo span{color:var(--red)}
-.search-wrap{position:relative}
-.search-wrap input{
-  width:100%;height:46px;border:1px solid #ddd;border-radius:12px;padding:0 45px 0 16px;
-  outline:none;background:#fff
+
+
+.search-wrap {
+  flex: 1; 
+  min-width: 160px; 
+  max-width: 600px; 
+  position: relative;
 }
-.search-wrap input:focus{border-color:#bdbdbd;box-shadow:0 0 0 4px rgba(177,1,1,.06)}
-.search-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#777}
+
+.search-wrap svg {
+  position: absolute; 
+  left: 22px;
+  top: 50%; 
+  transform: translateY(-50%);
+  width: 24px; /* Pinaliit nang konti mula 24px */
+  height: 24px; 
+  color: #777;
+}
+
+.search-wrap input {
+  width: 100%; 
+  background: var(--surface); 
+  border: 1px solid var(--line); 
+  border-radius: 999px; 
+  padding:14px 22px 14px 54px; 
+  font-size: 15px; 
+  color: var(--ink);
+  outline: none; 
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-wrap input::placeholder { 
+  color: var(--ink-muted); 
+}
+
+.search-wrap input:focus-visible { 
+  border-color: var(--ink-muted); 
+}
+
+
 .actions{display:flex;justify-content:flex-end;gap:10px}
 .icon-btn{
   border:1px solid var(--line);background:#fff;height:42px;min-width:42px;border-radius:12px;
@@ -54,7 +96,7 @@ img{display:block;max-width:100%}
   position:absolute;top:-6px;right:-6px;background:var(--red);color:#fff;border-radius:999px;
   min-width:18px;height:18px;font-size:11px;display:flex;align-items:center;justify-content:center
 }
-.navbar{border-top:1px solid #f2f2f2;height:52px}
+.navbar{border-top:1px solid #f2f2f2;height:52px;padding: 10px 24px;}
 .nav{height:100%;display:flex;align-items:center;gap:28px;overflow:visible}
 .nav-item{position:relative;height:100%;display:flex;align-items:center}
 .nav-link{font-size:13px;font-weight:700;color:#3d3d3d;white-space:nowrap}
@@ -68,7 +110,11 @@ img{display:block;max-width:100%}
 .dropdown a:hover{background:#f6f6f6;color:var(--red)}
 
 .mobile-only{display:none}
-main{padding-top:128px}
+main{
+  padding-top:128px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
 .hero{
   padding:38px 0 32px;
 }
@@ -94,7 +140,7 @@ main{padding-top:128px}
 .btn-light:hover{background:#f3f3f3}
 
 .section{padding:28px 0 18px}
-.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:16px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
 .section h2{font-family:Georgia,serif;font-size:29px;margin:0;letter-spacing:-.7px}
 .section-sub{font-size:13px;color:var(--muted);margin-top:4px}
 .view-all{font-size:12px;font-weight:800;color:var(--red);white-space:nowrap}
@@ -132,9 +178,24 @@ main{padding-top:128px}
 .product-card:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(0,0,0,.06)}
 .product-img{height:220px;background:#f4f1ee;display:flex;align-items:center;justify-content:center;position:relative;padding:18px}
 .product-img img{width:100%;height:100%;object-fit:contain}
-.add-btn{
-  position:absolute;right:11px;bottom:11px;width:38px;height:38px;border-radius:50%;border:0;
-  background:var(--red);color:#fff;font-size:24px;line-height:1;box-shadow:0 6px 15px rgba(177,1,1,.24)
+.add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  
+  position: absolute;
+  right: 11px;
+  bottom: 11px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--red);
+  color: #fff;
+  font-size: 24px;
+  line-height: 1;
+  box-shadow: 0 6px 15px rgba(177,1,1,.24);
 }
 .add-btn:hover{background:var(--red-dark);transform:scale(1.04)}
 .product-body{padding:14px}
@@ -196,14 +257,19 @@ footer{margin-top:55px;background:#161616;color:#fff}
   .container{width:min(100% - 24px,1240px)}
   .desktop-only{display:none!important}.mobile-only{display:inline-flex}
   .header{background:#fff}
-  .topbar{height:64px;grid-template-columns:44px 1fr 92px;gap:8px}
+  .topbar{height:64px;grid-template-columns:44px 1fr 92px;gap:8px;padding: 10px 5px;}
   .menu-btn{border:0;background:transparent;width:42px;height:42px}
   .logo{font-size:24px;text-align:center}
   .actions{gap:5px}
   .icon-btn{border:0;padding:0;min-width:40px}
-  .mobile-search{padding:8px 0 10px;border-top:1px solid #f0f0f0}
+  .mobile-search{width: 100%;padding:8px 12px 10px;border-top:1px solid #f0f0f0}
   .mobile-search input{height:42px}
-  main{padding-top:125px}
+  .mobile-search svg {width: 20px;}
+  main{
+    padding-top:125px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
   .hero{padding-top:16px}.hero-card{min-height:480px;border-radius:20px}
   .hero-content{padding:28px}.hero h1{font-size:43px}
   .section{padding-top:24px}
@@ -242,24 +308,32 @@ footer{margin-top:55px;background:#161616;color:#fff}
 
 <header class="header">
   <div class="container topbar">
-    <button class="menu-btn mobile-only" aria-label="Open menu" onclick="toggleMobileMenu()">☰</button>
-    <a class="logo" href="#top">Vintara<span>.</span></a>
+    <button class="menu-btn mobile-only" aria-label="Open menu" onclick="toggleMobileMenu()">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#171717"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
+    </button>
+    <a class="logo" href="#top">
+      <img src="logo_best.png" width="90">
+    </a>
 
-    <div class="search-wrap desktop-only">
-      <input id="searchInput" type="search" placeholder="Search wines, spirits, beers..." aria-label="Search products">
-      <span class="search-icon">⌕</span>
-    </div>
+        <div class="search-wrap desktop-only">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" id="searchInput" placeholder="Search wines, spirits, beers..." aria-label="Search bottles or brands" />
+        </div>
 
     <div class="actions">
-      <button class="icon-btn" title="Account"><span>◯</span><span class="desktop-only">Account</span></button>
-      <button class="icon-btn cart-pill" title="Cart" onclick="openCart()"><span>🛒</span><span class="desktop-only">Cart</span><span id="cartCount" class="cart-count">0</span></button>
+      <button class="icon-btn" title="Account">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#6f6f6f"><path d="M367-527q-47-47-47-113t47-113q47-47 113-47t113 47q47 47 47 113t-47 113q-47 47-113 47t-113-47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm296.5-343.5Q560-607 560-640t-23.5-56.5Q513-720 480-720t-56.5 23.5Q400-673 400-640t23.5 56.5Q447-560 480-560t56.5-23.5ZM480-640Zm0 400Z"/></svg>
+        <span class="desktop-only">Account</span></button>
+      <button class="icon-btn cart-pill" title="Cart" onclick="openCart()">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#6f6f6f"><path d="M223.5-103.5Q200-127 200-160t23.5-56.5Q247-240 280-240t56.5 23.5Q360-193 360-160t-23.5 56.5Q313-80 280-80t-56.5-23.5Zm400 0Q600-127 600-160t23.5-56.5Q647-240 680-240t56.5 23.5Q760-193 760-160t-23.5 56.5Q713-80 680-80t-56.5-23.5ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg>
+        <span class="desktop-only">Cart</span><span id="cartCount" class="cart-count">0</span></button>
     </div>
   </div>
 
   <div class="mobile-search mobile-only">
     <div class="container search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
       <input id="mobileSearch" type="search" placeholder="Search wines, spirits, beers..." aria-label="Search products">
-      <span class="search-icon">⌕</span>
     </div>
   </div>
 
@@ -310,7 +384,7 @@ footer{margin-top:55px;background:#161616;color:#fff}
   <section id="categories" class="section">
     <div class="container">
       <div class="section-head">
-        <div><h2>Top categories</h2><div class="section-sub">Shop by what you love</div></div>
+        <div><h2>Top categories</h2></div>
         <a class="view-all" href="#categories">View all →</a>
       </div>
       <div class="category-grid">
@@ -328,7 +402,7 @@ footer{margin-top:55px;background:#161616;color:#fff}
 
   <section id="bestsellers" class="section">
     <div class="container">
-      <div class="section-head"><div><h2>Bestsellers</h2><div class="section-sub">What customers are reaching for right now</div></div><a class="view-all" href="#bestsellers">View all →</a></div>
+      <div class="section-head"><div><h2>Bestsellers</h2></div><a class="view-all" href="#bestsellers">View all →</a></div>
       <div class="rail-wrap">
         <button class="rail-arrow left" onclick="scrollRail('bestRail',-1)">‹</button>
         <div class="product-rail" id="bestRail"></div>
@@ -339,7 +413,7 @@ footer{margin-top:55px;background:#161616;color:#fff}
 
   <section id="trending" class="section">
     <div class="container">
-      <div class="section-head"><div><h2>New & trending</h2><div class="section-sub">Fresh arrivals and rising favorites</div></div><a class="view-all" href="#trending">View all →</a></div>
+      <div class="section-head"><div><h2>New & trending</h2></div><a class="view-all" href="#trending">View all →</a></div>
       <div class="rail-wrap">
         <button class="rail-arrow left" onclick="scrollRail('trendRail',-1)">‹</button>
         <div class="product-rail" id="trendRail"></div>
@@ -350,7 +424,7 @@ footer{margin-top:55px;background:#161616;color:#fff}
 
   <section id="spirits" class="section">
     <div class="container">
-      <div class="section-head"><div><h2>Popular spirits</h2><div class="section-sub">The bottle bar cart starts here</div></div><a class="view-all" href="#spirits">View all →</a></div>
+      <div class="section-head"><div><h2>Popular spirits</h2></div><a class="view-all" href="#spirits">View all →</a></div>
       <div class="rail-wrap">
         <button class="rail-arrow left" onclick="scrollRail('spiritsRail',-1)">‹</button>
         <div class="product-rail" id="spiritsRail"></div>
@@ -361,7 +435,7 @@ footer{margin-top:55px;background:#161616;color:#fff}
 
   <section id="wine" class="section">
     <div class="container">
-      <div class="section-head"><div><h2>Popular wines</h2><div class="section-sub">Easy favorites for every table</div></div><a class="view-all" href="#wine">View all →</a></div>
+      <div class="section-head"><div><h2>Popular wines</h2></div><a class="view-all" href="#wine">View all →</a></div>
       <div class="rail-wrap">
         <button class="rail-arrow left" onclick="scrollRail('wineRail',-1)">‹</button>
         <div class="product-rail" id="wineRail"></div>
@@ -372,7 +446,7 @@ footer{margin-top:55px;background:#161616;color:#fff}
 
   <section id="beer" class="section">
     <div class="container">
-      <div class="section-head"><div><h2>Popular beers</h2><div class="section-sub">Reliable classics and easy-drinking picks</div></div><a class="view-all" href="#beer">View all →</a></div>
+      <div class="section-head"><div><h2>Popular beers</h2></div><a class="view-all" href="#beer">View all →</a></div>
       <div class="rail-wrap">
         <button class="rail-arrow left" onclick="scrollRail('beerRail',-1)">‹</button>
         <div class="product-rail" id="beerRail"></div>
@@ -434,7 +508,16 @@ let cart=0;
 
 function productCard(p){
   return `<article class="product-card" data-name="${p.name.toLowerCase()}">
-    <div class="product-img"><img src="${p.img}" alt="${p.name}" loading="lazy"><button class="add-btn" aria-label="Add ${p.name}" onclick="addToCart('${p.name.replace(/'/g,"\\'")}')">+</button></div>
+    <div class="product-img">
+      <img src="${p.img}" alt="${p.name}" loading="lazy">
+      <button class="add-btn" aria-label="Add ${p.name}" onclick="addToCart('${p.name.replace(/'/g,"\\'")}')">
+        <!-- Pinalitan ang "+" ng SVG icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      </button>
+    </div>
     <div class="product-body"><div class="product-name">${p.name}</div><div class="unit">${p.unit}</div><div class="price">₱${p.price.toLocaleString()}</div></div>
   </article>`;
 }
