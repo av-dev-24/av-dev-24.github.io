@@ -148,8 +148,8 @@ main { padding-top: 128px; padding-left: 24px; padding-right: 24px; }
 }
 .add-btn:hover { background: var(--red-dark); transform: scale(1.04); }
 .product-body { padding: 14px; }
-.product-name { font-size: 14px; font-weight: 800; line-height: 1.25; min-height: 36px; }
-.unit { font-size: 11px; color: var(--muted); margin-top: 4px; }
+.product-name { font-size: inherit; font-weight: 600; line-height: 1.25; min-height: 36px; font-family: inherit; letter-spacing: normal;}
+.unit { font-size: 12px; color: var(--muted); margin-top: 4px; }
 .price { font-size: 17px; font-weight: 900; margin-top: 8px; }
 .rail-arrow {
   display: flex; align-items: center; justify-content: center;
