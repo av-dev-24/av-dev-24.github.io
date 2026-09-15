@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beer Collection — Vintara</title>
+  <meta name="description" content="Browse Vintara's beer collection.">
+  <!-- Naka-link na ang external CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="container topbar">
+    <button class="menu-btn mobile-only" aria-label="Open menu" onclick="toggleMobileMenu()">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#171717"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
+    </button>
+    <a class="logo" href="#top">
+      <!-- Inayos: Nilagyan ng alt tag -->
+      <img src="ic_best_wp5.webp" alt="Vintara Logo">
+    </a>
+
+    <div class="search-wrap desktop-only">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" id="searchInput" placeholder="Search wines, spirits, beers..." aria-label="Search bottles or brands" />
+    </div>
+
+    <div class="actions">
+      <button class="icon-btn" title="Account">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#6f6f6f"><path d="M367-527q-47-47-47-113t47-113q47-47 113-47t113 47q47 47 47 113t-47 113q-47 47-113 47t-113-47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm296.5-343.5Q560-607 560-640t-23.5-56.5Q513-720 480-720t-56.5 23.5Q400-673 400-640t23.5 56.5Q447-560 480-560t56.5-23.5ZM480-640Zm0 400Z"/></svg>
+        <span class="desktop-only">Account</span></button>
+      <button class="icon-btn cart-pill" title="Cart" onclick="openCart()">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#6f6f6f"><path d="M223.5-103.5Q200-127 200-160t23.5-56.5Q247-240 280-240t56.5 23.5Q360-193 360-160t-23.5 56.5Q313-80 280-80t-56.5-23.5Zm400 0Q600-127 600-160t23.5-56.5Q647-240 680-240t56.5 23.5Q760-193 760-160t-23.5 56.5Q713-80 680-80t-56.5-23.5ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg>
+        <span class="desktop-only">Cart</span><span id="cartCount" class="cart-count">0</span></button>
+    </div>
+  </div>
+
+  <div class="mobile-search mobile-only">
+    <div class="container search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="mobileSearch" type="search" placeholder="Search wines, spirits, beers..." aria-label="Search products">
+    </div>
+  </div>
+
+  <div class="navbar desktop-only">
+    <nav class="container nav">
+      <div class="nav-item"><a class="nav-link" href="#categories">Categories</a></div>
+      <div class="nav-item"><a class="nav-link" href="beer-products.html" style="color:var(--red)">Beer ▾</a><div class="dropdown"><a href="#beer">Lager</a><a href="#beer">Pale Ale</a><a href="#beer">Craft Beer</a><a href="#beer">Imported Beer</a></div></div>
+      <div class="nav-item"><a class="nav-link" href="wine-products.html">Wine ▾</a><div class="dropdown"><a href="#wine">Red Wine</a><a href="#wine">White Wine</a><a href="#wine">Rosé</a><a href="#wine">Sparkling</a></div></div>
+      <div class="nav-item"><a class="nav-link" href="#spirits">Spirits ▾</a><div class="dropdown"><a href="#spirits">Vodka</a><a href="#spirits">Whisky</a><a href="#spirits">Gin</a><a href="#spirits">Rum</a><a href="#spirits">Tequila</a></div></div>
+      <div class="nav-item"><a class="nav-link" href="#extras">Extras</a></div>
+      <div class="nav-item"><a class="nav-link" href="#collections">Collections</a></div>
+      <div class="nav-item"><a class="nav-link" href="#stores">Stores</a></div>
+      <div class="nav-item"><a class="nav-link" href="#promotions">Promotions</a></div>
+    </nav>
+  </div>
+
+  <div id="mobileMenu" class="mobile-menu mobile-only">
+    <a href="#categories" onclick="closeMobileMenu()">Categories</a>
+    <button class="has-sub" onclick="toggleSub(this)">Beer</button>
+    <div class="submenu"><a href="#beer" onclick="closeMobileMenu()">Lager</a><a href="#beer" onclick="closeMobileMenu()">Craft Beer</a></div>
+    <button class="has-sub" onclick="toggleSub(this)">Wine</button>
+    <div class="submenu"><a href="#wine" onclick="closeMobileMenu()">Red Wine</a><a href="#wine" onclick="closeMobileMenu()">White Wine</a></div>
+    <button class="has-sub" onclick="toggleSub(this)">Spirits</button>
+    <div class="submenu"><a href="#spirits" onclick="closeMobileMenu()">Vodka</a><a href="#spirits" onclick="closeMobileMenu()">Whisky</a></div>
+    <a href="#collections" onclick="closeMobileMenu()">Collections</a>
+    <a href="#stores" onclick="closeMobileMenu()">Stores</a>
+    <a href="#promotions" onclick="closeMobileMenu()">Promotions</a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- Breadcrumb -->
+  <div class="container breadcrumb">
+    <a href="index.html">Home</a> 
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg> 
+    <span>Beer</span>
+  </div>
+
+  <!-- Page Header -->
+  <div class="container page-title-row">
+    <div>
+      <div class="page-kicker">Collection</div>
+      <h1 class="page-title">Beer</h1>
+      <p class="page-intro">Explore our selection of lagers, pilsners, ales and craft beers—from easy-drinking classics to distinctive small-batch favorites.</p>
+    </div>
+  </div>
+
+  <!-- Catalog Layout -->
+  <div class="container catalog-layout">
+    
+    <!-- Sidebar Filters -->
+    <!-- Background Overlay para sa mobile filter -->
+<div class="filter-overlay" id="filterOverlay" onclick="closeFilters()"></div>
+
+<aside class="filter-panel" id="filters">
+  <!-- Inayos na header: May close button para sa mobile -->
+  <div class="filter-head">
+    <strong>Filter products</strong>
+    <div class="filter-head-actions">
+      <button class="clear-btn" onclick="clearFilters(event)">Clear all</button>
+      <button class="filter-close mobile-only" onclick="closeFilters()" aria-label="Close filters">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+  </div>
+  
+  <div class="filter-body">
+        <!-- Filter Group: Stock -->
+        <div class="filter-group open">
+          <button class="filter-toggle" onclick="toggleFilterGroup(this)">
+            Stock status 
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="filter-options">
+            <label class="check"><span class="check-left"><input data-filter="stock" value="In stock" type="checkbox">In stock</span><span class="count">94</span></label>
+            <label class="check"><span class="check-left"><input data-filter="stock" value="Low stock" type="checkbox">Low stock</span><span class="count">6</span></label>
+          </div>
+        </div>
+
+        <!-- Filter Group: Brand -->
+        <div class="filter-group open">
+          <button class="filter-toggle" onclick="toggleFilterGroup(this)">
+            Brand 
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="filter-options">
+            <label class="check">
+  <span class="check-left">
+    <input type="checkbox" data-filter="brand" value="Crown Valley"> Crown Valley
+  </span>
+  <span class="count">18</span>
+</label>
+
+<label class="check">
+  <span class="check-left">
+    <input type="checkbox" data-filter="brand" value="Harbor Haze"> Harbor Haze
+  </span>
+  <span class="count">14</span>
+</label>
+
+<label class="check">
+  <span class="check-left">
+    <input type="checkbox" data-filter="brand" value="Golden Mile"> Golden Mile
+  </span>
+  <span class="count">12</span>
+</label>
+
+<label class="check">
+  <span class="check-left">
+    <input type="checkbox" data-filter="brand" value="Stonebridge"> Stonebridge
+  </span>
+  <span class="count">10</span>
+</label>
+          </div>
+        </div>
+
+        <!-- Filter Group: Origin -->
+        <div class="filter-group">
+          <button class="filter-toggle" onclick="toggleFilterGroup(this)">
+            Origin 
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="filter-options">
+            <label class="check">
+  <span class="check-left">
+    <input type="checkbox" data-filter="origin" value="Philippines"> Philippines
+  </span>
+  <span class="count">28</span>
+</label>
+
+<label class="check">
+  <span class="check-left">
+    <input type="checkbox" data-filter="origin" value="Australia"> Australia
+  </span>
+  <span class="count">18</span>
+</label>
+
+<label class="check">
+  <span class="check-left">
+    <input type="checkbox" data-filter="origin" value="Belgium"> Belgium
+  </span>
+  <span class="count">14</span>
+</label>
+
+<label class="check">
+  <span class="check-left">
+    <input type="checkbox" data-filter="origin" value="USA"> USA
+  </span>
+  <span class="count">12</span>
+</label>
+          </div>
+        </div>
+
+        <!-- Filter Group: Category -->
+        <div class="filter-group">
+          <button class="filter-toggle" onclick="toggleFilterGroup(this)">
+            Category 
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="filter-options">
+            <label class="check">
+  <span class="check-left">
+    <input type="checkbox" data-filter="category" value="Lager"> Lager
+  </span>
+  <span class="count">35</span>
+</label>
+
+<label class="check">
+  <span class="check-left">
+    <input type="checkbox" data-filter="category" value="Pilsner"> Pilsner
+  </span>
+  <span class="count">20</span>
+</label>
+
+<label class="check">
+  <span class="check-left">
+    <input type="checkbox" data-filter="category" value="IPA"> IPA
+  </span>
+  <span class="count">16</span>
+</label>
+
+<label class="check">
+  <span class="check-left">
+    <input type="checkbox" data-filter="category" value="Pale Ale"> Pale Ale
+  </span>
+  <span class="count">11</span>
+</label>
+
+<label class="check">
+  <span class="check-left">
+    <input type="checkbox" data-filter="category" value="Stout"> Stout
+  </span>
+  <span class="count">8</span>
+</label>
+          </div>
+        </div>
+
+        <!-- Filter Group: Bottle size -->
+        <div class="filter-group">
+            <button class="filter-toggle" onclick="toggleFilterGroup(this)">
+                Bottle size
+                <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="filter-options">
+                <label class="check">
+  <span class="check-left">
+    <input type="checkbox" data-filter="size" value="330 ml"> 330 ml
+  </span>
+  <span class="count">48</span>
+</label>
+
+<label class="check">
+  <span class="check-left">
+    <input type="checkbox" data-filter="size" value="355 ml"> 355 ml
+  </span>
+  <span class="count">17</span>
+</label>
+
+<label class="check">
+  <span class="check-left">
+    <input type="checkbox" data-filter="size" value="500 ml"> 500 ml
+  </span>
+  <span class="count">18</span>
+</label>
+
+<label class="check">
+  <span class="check-left">
+    <input type="checkbox" data-filter="size" value="640 ml"> 640 ml
+  </span>
+  <span class="count">9</span>
+</label>
+            </div>
+        </div>
+
+        <!-- Filter Group: Price Range -->
+        <div class="filter-group open">
+          <button class="filter-toggle" onclick="toggleFilterGroup(this)">
+            Price range 
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="filter-options">
+            <div class="price-labels">
+              <span>₱100</span><span id="maxLabel">₱3,500</span>
+            </div>
+            <input id="priceRange" type="range" min="100" max="3500" value="3500" class="range-slider">
+            <div class="price-fields">
+              <input id="minPrice" type="number" value="100" aria-label="Minimum price">
+              <input id="maxPrice" type="number" value="3500" aria-label="Maximum price">
+            </div>
+            <button class="apply-price" onclick="renderCatalog()">Apply price</button>
+          </div>
+        </div>
+      </div>
+</aside>
+
+<section class="catalog-content">
+  <div class="toolbar">
+    <div class="view-switch">
+      <span>View as</span>
+      <button id="gridBtn" class="view-btn active" onclick="setCatalogView('grid')" aria-label="Grid view">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+      </button>
+      <button id="listBtn" class="view-btn" onclick="setCatalogView('list')" aria-label="List view">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+      </button>
+    </div>
+    
+    <!-- Pinagsama natin ang Sort at bagong Filter button -->
+    <div class="toolbar-right">
+      <div class="sort-wrap">
+        <span class="sort-label">Sort by</span>
+        <select id="sortSelect" class="sort-select" onchange="renderCatalog()">
+          <option value="relevant">Most relevant</option>
+          <option value="best">Best selling</option>
+          <option value="pl">Price (low-high)</option>
+          <option value="ph">Price (high-low)</option>
+          <option value="az">Title (A-Z)</option>
+          <option value="za">Title (Z-A)</option>
+          <option value="new">Created (new-old)</option>
+          <option value="old">Created (old-new)</option>
+        </select>
+      </div>
+      
+      <!-- Bagong Filter Button para sa Mobile -->
+      <button class="mobile-filter-btn mobile-only" onclick="openFilters()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+        Filter
+      </button>
+    </div>
+  </div>
+  
+  <!-- Results and Grid -->
+
+      <div id="resultsCount" class="results-line"></div>
+      
+      <!-- Papalitan ng JS gamit yung landing page product card -->
+      <div id="catalogGrid" class="product-grid"></div>
+      
+      <div id="paginationWrap" class="pagination"></div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container footer-top">
+    <div>
+      <div class="footer-brand">Vintara<span>.</span></div>
+      <div class="footer-copy">Premium beverage distribution with a sharper point of view—from everyday favorites to special-occasion bottles.</div>
+    </div>
+    <div class="footer-col"><h4>Shop</h4><a href="#beer">Beer</a><a href="#wine">Wine</a><a href="#spirits">Spirits</a><a href="#extras">Extras</a><a href="#promotions">Promotions</a></div>
+    <div class="footer-col"><h4>Company</h4><a href="#stores">Our Stores</a><a href="#collections">Collections</a><a href="#stores">For Business</a><a href="#stores">Delivery</a><a href="#stores">Contact</a></div>
+    <div class="footer-col"><h4>Help</h4><a href="#top">FAQ</a><a href="#top">Shipping & Delivery</a><a href="#top">Returns</a><a href="#top">Privacy</a><a href="#top">Terms</a></div>
+  </div>
+  <div class="container footer-bottom"><span>© 2026 Vintara Distribution. Prototype website.</span><span>Crafted for a premium retail experience.</span></div>
+</footer>
+
+<button class="chat-btn" onclick="toggleChat()">💬 Live support</button>
+<div id="chatPanel" class="chat-panel">
+  <div class="chat-head"><strong>Vintara Support</strong><button onclick="toggleChat()">×</button></div>
+  <div class="chat-body">
+    <div class="chat-msg">Hello! How can we help with your order or product selection today?</div>
+    <div class="chat-input"><input placeholder="Type your message..."><button onclick="sendChat()">➤</button></div>
+  </div>
+</div>
+<div id="toast" class="toast">Added to cart</div>
+
+<!-- PRODUCT DETAIL MODAL -->
+<div id="productModal" class="modal-overlay">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h2 class="modal-title">Product Detail</h2>
+      <button class="modal-close" onclick="closeProductModal()" aria-label="Close modal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <!-- Main Product Card Area -->
+      <div class="modal-card">
+        <div class="modal-card-header">
+          <div>
+            <h3 class="modal-product-name" id="modalProductName">Product Name</h3>
+            <div class="modal-product-meta" id="modalProductMeta">Brand · Size</div>
+          </div>
+          <span class="modal-stock-badge" id="modalProductStock">Stock Status</span>
+        </div>
+        
+        <div class="modal-image-wrap">
+          <img id="modalProductImg" src="" alt="Product Image">
+        </div>
+
+        <div class="modal-price" id="modalProductPrice">₱0</div>
+
+        <div class="modal-stats">
+          <div class="stat-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <strong>4.8</strong>
+            <span>Rating</span>
+          </div>
+          <div class="stat-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            <strong>2.4K</strong>
+            <span>Views</span>
+          </div>
+          <div class="stat-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31"></path><path d="M14 9.3V1.99"></path><path d="M8.5 2h7"></path><path d="M14 9.3a4.7 4.7 0 0 1 1.7 3.65v7.55c0 1.93-1.57 3.5-3.5 3.5h-4c-1.93 0-3.5-1.57-3.5-3.5v-7.55A4.7 4.7 0 0 1 10 9.3"></path></svg>
+            <strong>120</strong>
+            <span>Sold</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Expandable Details Section -->
+      <div class="modal-accordion">
+        <div class="accordion-item">
+          <button class="accordion-header" onclick="toggleAccordion(this)">
+            <div class="accordion-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            </div>
+            <div class="accordion-title-wrap">
+              <strong>Description</strong>
+              <span>Flavor profile overview</span>
+            </div>
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="accordion-content">
+            <p>A beautiful expression of its terroir, offering crisp acidity and vibrant fruit notes. Perfect for any occasion.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header" onclick="toggleAccordion(this)">
+            <div class="accordion-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31"></path><path d="M14 9.3V1.99"></path><path d="M8.5 2h7"></path><path d="M14 9.3a4.7 4.7 0 0 1 1.7 3.65v7.55c0 1.93-1.57 3.5-3.5 3.5h-4c-1.93 0-3.5-1.57-3.5-3.5v-7.55A4.7 4.7 0 0 1 10 9.3"></path></svg>
+            </div>
+            <div class="accordion-title-wrap">
+              <strong>Type & Category</strong>
+              <span id="modalTypeInfo">Category, ABV and volume</span>
+            </div>
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="accordion-content">
+             <ul style="margin:0; padding-left: 20px; font-size: 13px; color: #555;">
+                <li><strong>Category:</strong> <span id="modalCatDetail">Wine</span></li>
+                <li><strong>Volume:</strong> <span id="modalSizeDetail">750ml</span></li>
+             </ul>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header" onclick="toggleAccordion(this)">
+            <div class="accordion-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            </div>
+            <div class="accordion-title-wrap">
+              <strong>Origin & Producer</strong>
+              <span id="modalOriginInfo">Where it is made</span>
+            </div>
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="accordion-content">
+            <p id="modalOriginDetail">Sourced from select vineyards.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticky Footer (Add to Cart Action) -->
+    <div class="modal-footer">
+      <div class="quantity-control">
+        <button onclick="updateModalQuantity(-1)" aria-label="Decrease quantity">−</button>
+        <input type="number" id="modalQty" value="1" min="1" readonly>
+        <button onclick="updateModalQuantity(1)" aria-label="Increase quantity">+</button>
+      </div>
+      <button class="add-to-cart-btn" onclick="addFromModal()">
+        Add to Cart <span id="modalBtnPrice">₱0</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+// Beer dummy data
+<script>
+  window.PAGE_CATALOG_DATA = [
+  { id: 1, name: 'Crown Valley Lager', price: 285, stock: 'In stock', brand: 'Crown Valley', origin: 'Philippines', category: 'Lager', size: '330 ml', best: 98, created: 20260812, img: 'https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=700&q=80', badge: 'Bestseller' },
+  { id: 2, name: 'Harbor Haze IPA', price: 135, stock: 'In stock', brand: 'Harbor Haze', origin: 'USA', category: 'IPA', size: '330 ml', best: 94, created: 20260719, img: 'https://images.unsplash.com/photo-1567696911980-2eed69a89644?auto=format&fit=crop&w=700&q=80', badge: 'Popular' },
+  { id: 3, name: 'Golden Mile Pilsner', price: 478, stock: 'In stock', brand: 'Golden Mile', origin: 'Philippines', category: 'Pilsner', size: '330 ml', best: 91, created: 20260821, img: 'https://images.unsplash.com/photo-1566633806327-68e152a6f2fa?auto=format&fit=crop&w=700&q=80', badge: 'Trending' },
+  { id: 4, name: 'Stonebridge Pale Ale', price: 145, stock: 'Low stock', brand: 'Stonebridge', origin: 'Australia', category: 'Pale Ale', size: '330 ml', best: 88, created: 20260904, img: 'https://images.unsplash.com/photo-1497534446932-c925b458314e?auto=format&fit=crop&w=700&q=80', badge: 'New' },
+  { id: 5, name: 'North Harbor Premium Lager', price: 110, stock: 'In stock', brand: 'Crown Valley', origin: 'Philippines', category: 'Lager', size: '500 ml', best: 85, created: 20260518, img: 'https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=700&q=80', badge: '' },
+  { id: 6, name: 'Black Dock Stout', price: 155, stock: 'In stock', brand: 'Harbor Haze', origin: 'USA', category: 'Stout', size: '330 ml', best: 82, created: 20260611, img: 'https://images.unsplash.com/photo-1528605105345-5344ea20e269?auto=format&fit=crop&w=700&q=80', badge: '' },
+  { id: 7, name: 'Summit Gold Lager', price: 165, stock: 'In stock', brand: 'Golden Mile', origin: 'Philippines', category: 'Lager', size: '640 ml', best: 80, created: 20260827, img: 'https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?auto=format&fit=crop&w=700&q=80', badge: 'New' },
+  { id: 8, name: 'Riverstone IPA', price: 175, stock: 'In stock', brand: 'Stonebridge', origin: 'Australia', category: 'IPA', size: '500 ml', best: 77, created: 20260425, img: 'https://images.unsplash.com/photo-1535958636474-b021ee887b13?auto=format&fit=crop&w=700&q=80', badge: '' },
+  { id: 9, name: 'Red Lantern Amber Ale', price: 125, stock: 'Low stock', brand: 'Harbor Haze', origin: 'USA', category: 'Pale Ale', size: '330 ml', best: 74, created: 20260909, img: 'https://images.unsplash.com/photo-1575367439058-6096bb9cf5e8?auto=format&fit=crop&w=700&q=80', badge: 'New' },
+  { id: 10, name: 'Island Gold Pilsner', price: 682, stock: 'In stock', brand: 'Golden Mile', origin: 'Philippines', category: 'Pilsner', size: '330 ml', best: 72, created: 20260322, img: 'https://images.unsplash.com/photo-1559526642-c3f001ea68ee?auto=format&fit=crop&w=700&q=80', badge: '' },
+  { id: 11, name: 'Old Mill Dark Lager', price: 135, stock: 'In stock', brand: 'Crown Valley', origin: 'Philippines', category: 'Lager', size: '500 ml', best: 70, created: 20260211, img: 'https://images.unsplash.com/photo-1518099074172-2e47ee6cfdc8?auto=format&fit=crop&w=700&q=80', badge: '' },
+  { id: 12, name: 'Coastal Wheat Beer', price: 150, stock: 'In stock', brand: 'Stonebridge', origin: 'Australia', category: 'Pale Ale', size: '500 ml', best: 67, created: 20260117, img: 'https://images.unsplash.com/photo-1535958636474-b021ee887b13?auto=format&fit=crop&w=700&q=80', badge: '' },
+  { id: 13, name: 'Belgian Abbey Blonde', price: 195, stock: 'In stock', brand: 'Harbor Haze', origin: 'Belgium', category: 'Lager', size: '330 ml', best: 65, created: 20260404, img: 'https://images.unsplash.com/photo-1608270586620-248524c67de9?auto=format&fit=crop&w=700&q=80', badge: 'Premium' },
+  { id: 14, name: 'Midnight Forge Stout', price: 210, stock: 'In stock', brand: 'Harbor Haze', origin: 'Belgium', category: 'Stout', size: '330 ml', best: 62, created: 20260910, img: 'https://images.unsplash.com/photo-1528605105345-5344ea20e269?auto=format&fit=crop&w=700&q=80', badge: 'Premium' },
+  { id: 15, name: 'Pacific Coast IPA', price: 165, stock: 'In stock', brand: 'Stonebridge', origin: 'USA', category: 'IPA', size: '355 ml', best: 59, created: 20260529, img: 'https://images.unsplash.com/photo-1586993451224-6d6ad32e35c9?auto=format&fit=crop&w=700&q=80', badge: '' },
+  { id: 16, name: 'Velvet Hammer Craft Ale', price: 185, stock: 'Low stock', brand: 'Stonebridge', origin: 'Australia', category: 'Pale Ale', size: '500 ml', best: 56, created: 20260831, img: 'https://images.unsplash.com/photo-1535958636474-b021ee887b13?auto=format&fit=crop&w=700&q=80', badge: 'Craft' },
+  { id: 17, name: 'Heritage Reserve Lager', price: 175, stock: 'In stock', brand: 'Crown Valley', origin: 'Philippines', category: 'Lager', size: '640 ml', best: 53, created: 20260208, img: 'https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=700&q=80', badge: '' },
+  { id: 18, name: 'Citrus Bloom IPA', price: 155, stock: 'In stock', brand: 'Harbor Haze', origin: 'USA', category: 'IPA', size: '355 ml', best: 50, created: 20260703, img: 'https://images.unsplash.com/photo-1567696911980-2eed69a89644?auto=format&fit=crop&w=700&q=80', badge: '' },
+  { id: 19, name: 'Sunset Wheat Ale', price: 140, stock: 'In stock', brand: 'Golden Mile', origin: 'Philippines', category: 'Pale Ale', size: '375 ml', best: 47, created: 20260623, img: 'https://images.unsplash.com/photo-1497534446932-c925b458314e?auto=format&fit=crop&w=700&q=80', badge: '' },
+  { id: 20, name: 'Imperial Black Stout', price: 225, stock: 'In stock', brand: 'Harbor Haze', origin: 'Belgium', category: 'Stout', size: '500 ml', best: 44, created: 20260312, img: 'https://images.unsplash.com/photo-1608270586620-248524c67de9?auto=format&fit=crop&w=700&q=80', badge: 'Premium' }
+  ];
+</script>
+
+<!-- Naka-link na ang external JS (defer attribute para mag-load after mag-render ang HTML) -->
+<script src="script.js" defer></script>
+</body>
+</html>
