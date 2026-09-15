@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vintara — Premium Beverage Distributor</title>
-  <meta name="description" content="Premium wines, spirits, beers and curated beverage collections.">
+  <title>Wine Collection — Vintara</title>
+  <meta name="description" content="Browse Vintara's wine collection.">
   <!-- Naka-link na ang external CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
@@ -45,8 +45,8 @@
   <div class="navbar desktop-only">
     <nav class="container nav">
       <div class="nav-item"><a class="nav-link" href="#categories">Categories</a></div>
-      <div class="nav-item"><a class="nav-link" href="#beer">Beer ▾</a><div class="dropdown"><a href="#beer">Lager</a><a href="#beer">Pale Ale</a><a href="#beer">Craft Beer</a><a href="#beer">Imported Beer</a></div></div>
-      <div class="nav-item"><a class="nav-link" href="#wine">Wine ▾</a><div class="dropdown"><a href="#wine">Red Wine</a><a href="#wine">White Wine</a><a href="#wine">Rosé</a><a href="#wine">Sparkling</a></div></div>
+      <div class="nav-item"><a class="nav-link" href="beer-products.html">Beer ▾</a><div class="dropdown"><a href="#beer">Lager</a><a href="#beer">Pale Ale</a><a href="#beer">Craft Beer</a><a href="#beer">Imported Beer</a></div></div>
+      <div class="nav-item"><a class="nav-link" href="wine-products.html" style="color:var(--red)">Wine ▾</a><div class="dropdown"><a href="#wine">Red Wine</a><a href="#wine">White Wine</a><a href="#wine">Rosé</a><a href="#wine">Sparkling</a></div></div>
       <div class="nav-item"><a class="nav-link" href="#spirits">Spirits ▾</a><div class="dropdown"><a href="#spirits">Vodka</a><a href="#spirits">Whisky</a><a href="#spirits">Gin</a><a href="#spirits">Rum</a><a href="#spirits">Tequila</a></div></div>
       <div class="nav-item"><a class="nav-link" href="#extras">Extras</a></div>
       <div class="nav-item"><a class="nav-link" href="#collections">Collections</a></div>
@@ -90,13 +90,22 @@
   <div class="container catalog-layout">
     
     <!-- Sidebar Filters -->
-    <aside class="filter-panel" id="filters">
-      <div class="filter-head" onclick="toggleMobileFilters()">
-        <strong>Filter products</strong>
-        <button class="clear-btn" onclick="clearFilters(event)">Clear all</button>
-      </div>
-      
-      <div class="filter-body">
+    <!-- Background Overlay para sa mobile filter -->
+<div class="filter-overlay" id="filterOverlay" onclick="closeFilters()"></div>
+
+<aside class="filter-panel" id="filters">
+  <!-- Inayos na header: May close button para sa mobile -->
+  <div class="filter-head">
+    <strong>Filter products</strong>
+    <div class="filter-head-actions">
+      <button class="clear-btn" onclick="clearFilters(event)">Clear all</button>
+      <button class="filter-close mobile-only" onclick="closeFilters()" aria-label="Close filters">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+  </div>
+  
+  <div class="filter-body">
         <!-- Filter Group: Stock -->
         <div class="filter-group open">
           <button class="filter-toggle" onclick="toggleFilterGroup(this)">
@@ -151,6 +160,17 @@
           </div>
         </div>
 
+        <!-- Filter Group: Bottle size -->
+        <div class="filter-group">
+            <button class="filter-toggle" onclick="toggleFilterGroup(this)">
+                Bottle size
+                <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="filter-options">
+                <label class="check"><span class="check-left"><input data-f="size" value="750 ml" type="checkbox">750 ml</span><span class="count">76</span></label><label class="check"><span class="check-left"><input data-f="size" value="500 ml" type="checkbox">500 ml</span><span class="count">8</span></label><label class="check"><span class="check-left"><input data-f="size" value="375 ml" type="checkbox">375 ml</span><span class="count">6</span></label><label class="check"><span class="check-left"><input data-f="size" value="1.5 L" type="checkbox">1.5 L</span><span class="count">4</span></label>
+            </div>
+        </div>
+
         <!-- Filter Group: Price Range -->
         <div class="filter-group open">
           <button class="filter-toggle" onclick="toggleFilterGroup(this)">
@@ -170,35 +190,45 @@
           </div>
         </div>
       </div>
-    </aside>
+</aside>
 
-    <!-- Catalog Content -->
-    <section class="catalog-content">
-      <div class="toolbar">
-        <div class="view-switch">
-          <span>View as</span>
-          <button id="gridBtn" class="view-btn active" onclick="setCatalogView('grid')" aria-label="Grid view">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
-          </button>
-          <button id="listBtn" class="view-btn" onclick="setCatalogView('list')" aria-label="List view">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
-          </button>
-        </div>
-        
-        <div class="sort-wrap">
-          <span class="sort-label">Sort by</span>
-          <select id="sortSelect" class="sort-select" onchange="renderCatalog()">
-            <option value="relevant">Most relevant</option>
-            <option value="best">Best selling</option>
-            <option value="pl">Price (low-high)</option>
-            <option value="ph">Price (high-low)</option>
-            <option value="az">Title (A-Z)</option>
-            <option value="za">Title (Z-A)</option>
-            <option value="new">Created (new-old)</option>
-            <option value="old">Created (old-new)</option>
-          </select>
-        </div>
+<section class="catalog-content">
+  <div class="toolbar">
+    <div class="view-switch">
+      <span>View as</span>
+      <button id="gridBtn" class="view-btn active" onclick="setCatalogView('grid')" aria-label="Grid view">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+      </button>
+      <button id="listBtn" class="view-btn" onclick="setCatalogView('list')" aria-label="List view">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+      </button>
+    </div>
+    
+    <!-- Pinagsama natin ang Sort at bagong Filter button -->
+    <div class="toolbar-right">
+      <div class="sort-wrap">
+        <span class="sort-label">Sort by</span>
+        <select id="sortSelect" class="sort-select" onchange="renderCatalog()">
+          <option value="relevant">Most relevant</option>
+          <option value="best">Best selling</option>
+          <option value="pl">Price (low-high)</option>
+          <option value="ph">Price (high-low)</option>
+          <option value="az">Title (A-Z)</option>
+          <option value="za">Title (Z-A)</option>
+          <option value="new">Created (new-old)</option>
+          <option value="old">Created (old-new)</option>
+        </select>
       </div>
+      
+      <!-- Bagong Filter Button para sa Mobile -->
+      <button class="mobile-filter-btn mobile-only" onclick="openFilters()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+        Filter
+      </button>
+    </div>
+  </div>
+  
+  <!-- Results and Grid -->
 
       <div id="resultsCount" class="results-line"></div>
       
@@ -349,7 +379,34 @@
   </div>
 </div>
 
+
+<script>
+  window.PAGE_CATALOG_DATA = [
+  { id: 1, name: 'Aurelia Cabernet Reserve', price: 1295, stock: 'In stock', brand: 'Aurelia', origin: 'France', category: 'Red Wine', size: '750 ml', best: 98, created: 20260812, img: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=700&q=80', badge: 'Bestseller' },
+  { id: 2, name: 'North Coast Sauvignon Blanc', price: 995, stock: 'In stock', brand: 'North Coast', origin: 'Australia', category: 'White Wine', size: '750 ml', best: 91, created: 20260719, img: 'https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&fit=crop&w=700&q=80', badge: 'Popular' },
+  { id: 3, name: 'Casa Verde Rosé', price: 895, stock: 'In stock', brand: 'Casa Verde', origin: 'Italy', category: 'Rosé', size: '750 ml', best: 89, created: 20260821, img: 'https://images.unsplash.com/photo-1563822249548-9a72b6353cd1?auto=format&fit=crop&w=700&q=80', badge: 'Trending' },
+  { id: 4, name: 'Solstice Sparkling Brut', price: 1595, stock: 'Low stock', brand: 'Aurelia', origin: 'France', category: 'Sparkling', size: '750 ml', best: 86, created: 20260904, img: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=700&q=80', badge: 'New' },
+  { id: 5, name: 'Maison Clair Chardonnay', price: 1195, stock: 'In stock', brand: 'Maison Clair', origin: 'France', category: 'White Wine', size: '750 ml', best: 84, created: 20260518, img: 'https://images.unsplash.com/photo-1535869462434-f92cc30bf40c?auto=format&fit=crop&w=700&q=80', badge: '' },
+  { id: 6, name: 'Ridge Valley Pinot Noir', price: 1395, stock: 'In stock', brand: 'Aurelia', origin: 'USA', category: 'Red Wine', size: '750 ml', best: 82, created: 20260611, img: 'https://images.unsplash.com/photo-1473973266408-ed4e27abdd47?auto=format&fit=crop&w=700&q=80', badge: '' },
+  { id: 7, name: 'Luna di Vino Prosecco', price: 1295, stock: 'In stock', brand: 'Casa Verde', origin: 'Italy', category: 'Sparkling', size: '750 ml', best: 78, created: 20260827, img: 'https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?auto=format&fit=crop&w=700&q=80', badge: 'New' },
+  { id: 8, name: 'Redmont Shiraz', price: 1095, stock: 'In stock', brand: 'North Coast', origin: 'Australia', category: 'Red Wine', size: '750 ml', best: 77, created: 20260425, img: 'https://images.unsplash.com/photo-1496379038199-9d4e84a84b4f?auto=format&fit=crop&w=700&q=80', badge: '' },
+  { id: 9, name: 'Château Belle Rose', price: 1795, stock: 'Low stock', brand: 'Maison Clair', origin: 'France', category: 'Rosé', size: '750 ml', best: 75, created: 20260909, img: 'https://images.unsplash.com/photo-1558008258-3256797b43f3?auto=format&fit=crop&w=700&q=80', badge: 'New' },
+  { id: 10, name: 'Golden Field Merlot', price: 925, stock: 'In stock', brand: 'Aurelia', origin: 'USA', category: 'Red Wine', size: '750 ml', best: 72, created: 20260322, img: 'https://images.unsplash.com/photo-1455885666463-cc6f964f1d4d?auto=format&fit=crop&w=700&q=80', badge: '' },
+  { id: 11, name: 'Velvet Oak Malbec', price: 1495, stock: 'In stock', brand: 'Maison Clair', origin: 'France', category: 'Red Wine', size: '750 ml', best: 71, created: 20260211, img: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?auto=format&fit=crop&w=700&q=80', badge: '' },
+  { id: 12, name: 'Cedar Hill Chardonnay', price: 875, stock: 'In stock', brand: 'North Coast', origin: 'Australia', category: 'White Wine', size: '750 ml', best: 69, created: 20260117, img: 'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?auto=format&fit=crop&w=700&q=80', badge: '' },
+  { id: 13, name: 'Alba Fresca Pinot Grigio', price: 1050, stock: 'In stock', brand: 'Casa Verde', origin: 'Italy', category: 'White Wine', size: '750 ml', best: 67, created: 20260404, img: 'https://images.unsplash.com/photo-1568625365131-079e30a1869b?auto=format&fit=crop&w=700&q=80', badge: '' },
+  { id: 14, name: 'Noir & Gold Reserve', price: 2495, stock: 'In stock', brand: 'Aurelia', origin: 'France', category: 'Red Wine', size: '750 ml', best: 64, created: 20260910, img: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=700&q=80', badge: 'Premium' },
+  { id: 15, name: 'Élan Rosé Signature', price: 1295, stock: 'In stock', brand: 'Maison Clair', origin: 'France', category: 'Rosé', size: '750 ml', best: 62, created: 20260529, img: 'https://images.unsplash.com/photo-1470468969717-61d5d54fd036?auto=format&fit=crop&w=700&q=80', badge: '' },
+  { id: 16, name: 'Fleur de Nuit Brut', price: 2195, stock: 'Low stock', brand: 'Maison Clair', origin: 'France', category: 'Sparkling', size: '750 ml', best: 60, created: 20260831, img: 'https://images.unsplash.com/photo-1594372365400-3c6d98b02fe7?auto=format&fit=crop&w=700&q=80', badge: 'Premium' },
+  { id: 17, name: 'South Ridge Cabernet', price: 2295, stock: 'In stock', brand: 'North Coast', origin: 'Australia', category: 'Red Wine', size: '1.5 L', best: 58, created: 20260208, img: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=700&q=80', badge: '' },
+  { id: 18, name: 'Casa Verde Bianco', price: 745, stock: 'In stock', brand: 'Casa Verde', origin: 'Italy', category: 'White Wine', size: '500 ml', best: 54, created: 20260703, img: 'https://images.unsplash.com/photo-1535869462434-f92cc30bf40c?auto=format&fit=crop&w=700&q=80', badge: '' },
+  { id: 19, name: 'Petit Soleil Rosé', price: 650, stock: 'In stock', brand: 'Aurelia', origin: 'France', category: 'Rosé', size: '375 ml', best: 51, created: 20260623, img: 'https://images.unsplash.com/photo-1563822249548-9a72b6353cd1?auto=format&fit=crop&w=700&q=80', badge: '' },
+  { id: 20, name: 'Vero Sparkling Rosé', price: 1695, stock: 'In stock', brand: 'Casa Verde', origin: 'Italy', category: 'Sparkling', size: '750 ml', best: 48, created: 20260312, img: 'https://images.unsplash.com/photo-1558008258-3256797b43f3?auto=format&fit=crop&w=700&q=80', badge: '' }
+  ];
+</script>
+
 <!-- Naka-link na ang external JS (defer attribute para mag-load after mag-render ang HTML) -->
 <script src="script.js" defer></script>
 </body>
 </html>
+
