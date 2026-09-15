@@ -284,15 +284,15 @@ footer { margin-top: 55px; background: #161616; color: #fff; }
 
 /* --- CATALOG LAYOUT & FILTERS --- */
 .catalog-layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 30px; padding-bottom: 55px; }
-.filter-panel { position: sticky; top: 150px; border: 1px solid var(--line); border-radius: 16px; background: #fff; overflow: hidden; align-self: start; }
+.filter-panel { border: 1px solid var(--line); border-radius: 16px; background: #fff; overflow: hidden; align-self: start; }
 .filter-head { padding: 16px 17px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
 .filter-head strong { font-size: 14px; }
 .clear-btn { border: 0; background: none; color: var(--red); font-size: 11px; font-weight: 800; }
 .filter-group { border-bottom: 1px solid var(--line); }
 .filter-group:last-child { border-bottom: none; }
 .filter-toggle { width: 100%; display: flex; justify-content: space-between; align-items: center; border: 0; background: #fff; padding: 15px 17px; font-weight: 800; font-size: 13px; }
-.filter-toggle .chevron { transition: transform 0.2s; transform: rotate(90deg); color: #888; }
-.filter-group.open .filter-toggle .chevron { transform: rotate(-90deg); }
+.filter-toggle .chevron { transition: transform 0.2s; transform: rotate(-90deg); color: #888; }
+.filter-group.open .filter-toggle .chevron { transform: rotate(-0deg); }
 .filter-options { display: none; padding: 0 17px 16px; }
 .filter-group.open .filter-options { display: block; }
 .check { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; font-size: 13px; color: #474747; cursor: pointer; }
@@ -868,5 +868,102 @@ footer { margin-top: 55px; background: #161616; color: #fff; }
 @media(max-width: 480px) {
   .product-grid.list .product-card {
     grid-template-columns: 120px 1fr;
+  }
+}
+
+/* ==============================================================
+   FILTER PANEL - OFF CANVAS MENU (MOBILE)
+   ============================================================== */
+.filter-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.filter-close {
+  background: transparent;
+  border: none;
+  color: var(--ink);
+  padding: 0;
+  display: none;
+}
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mobile-filter-btn {
+  display: none;
+}
+.filter-overlay {
+  display: none;
+}
+
+/* OVERRIDES PARA SA MOBILE VIEW */
+@media(max-width: 720px) {
+  /* I-ayos ang Sort at Filter Buttons */
+  .toolbar-right {
+    margin-left: auto;
+  }
+  .mobile-filter-btn {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    height: 38px;
+    padding: 0 14px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .filter-close {
+    display: flex !important;
+  }
+  
+  /* Filter Overlay Background */
+  .filter-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .filter-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Slide-in Modal Style para sa Filter Panel */
+  .filter-panel {
+    position: fixed !important;
+    top: 0;
+    left: -100%; /* Itago sa kaliwa */
+    bottom: 0;
+    width: 290px; /* Lapad ng filter menu */
+    height: 100vh;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: #fff;
+    z-index: 1001;
+    overflow-y: auto;
+    transition: left 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  /* Active state (kapag mag slide-in) */
+  .filter-panel.mobile-open {
+    left: 0; 
+  }
+  
+  /* Siguraduhing laging kita ang filter body sa loob ng modal */
+  .filter-panel .filter-body {
+    display: block !important; 
+    border-top: none !important;
   }
 }
