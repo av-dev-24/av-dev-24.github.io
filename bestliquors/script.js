@@ -1,19 +1,20 @@
 const landingProducts = [
-  {id:1, name:"Aurelia Cabernet Reserve", unit:"750 ml · Red Wine", price:1295, img:"https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=700&q=80", type:"wine"},
-  {id:2, name:"North Coast Sauvignon Blanc", unit:"750 ml · White Wine", price:995, img:"https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&fit=crop&w=700&q=80", type:"wine"},
-  {id:3, name:"Oakline Small Batch Gin", unit:"700 ml · Gin", price:1495, img:"https://images.unsplash.com/photo-1551538827-9c037cb4f32a?auto=format&fit=crop&w=700&q=80", type:"spirits"},
-  {id:4, name:"Black Harbor Vodka", unit:"700 ml · Vodka", price:1095, img:"https://images.unsplash.com/photo-1527281400683-1aae777175f8?auto=format&fit=crop&w=700&q=80", type:"spirits"},
-  {id:5, name:"Redwood Bourbon No. 4", unit:"750 ml · Bourbon", price:1895, img:"https://images.unsplash.com/photo-1527281400683-1aae777175f8?auto=format&fit=crop&w=700&q=80", type:"spirits"},
-  {id:6, name:"Crown Valley Lager", unit:"330 ml · Bottle", price:85, img:"https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=700&q=80", type:"beer"},
-  {id:7, name:"Harbor Haze IPA", unit:"330 ml · Craft Beer", price:135, img:"https://images.unsplash.com/photo-1567696911980-2eed69a89644?auto=format&fit=crop&w=700&q=80", type:"beer"},
-  {id:8, name:"Solstice Sparkling Brut", unit:"750 ml · Sparkling", price:1595, img:"https://images.unsplash.com/photo-1563822249548-9a72b6353cd1?auto=format&fit=crop&w=700&q=80", type:"wine"},
-  {id:9, name:"Casa Verde Rosé", unit:"750 ml · Rosé", price:895, img:"https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=700&q=80", type:"wine"},
-  {id:10, name:"Ridge & Pine Rum", unit:"700 ml · Rum", price:1195, img:"https://images.unsplash.com/photo-1572569918794-504d2d0b0dcf?auto=format&fit=crop&w=700&q=80", type:"spirits"},
-  {id:11, name:"Verde Citrus Aperitif", unit:"700 ml · Aperitif", price:1395, img:"https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=700&q=80", type:"spirits"},
-  {id:12, name:"Golden Mile Pilsner", unit:"330 ml · Bottle", price:78, img:"https://images.unsplash.com/photo-1566633806327-68e152a6f2fa?auto=format&fit=crop&w=700&q=80", type:"beer"},
-  {id:13, name:"Black Label Reserve", unit:"750 ml · Whisky", price:2195, img:"https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?auto=format&fit=crop&w=700&q=80", type:"spirits"},
-  {id:14, name:"Maison Clair Chardonnay", unit:"750 ml · White Wine", price:1195, img:"https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=700&q=80", type:"wine"},
-  {id:15, name:"Stonebridge Pale Ale", unit:"330 ml · Craft Beer", price:145, img:"https://images.unsplash.com/photo-1497534446932-c925b458314e?auto=format&fit=crop&w=700&q=80", type:"beer"}
+  {id:1, name:"Montes Alpha Special Cuvée Cabernet Sauvignon 2022 750ml", unit:"750 ml · Red Wine", price:1295, img:"https://ralphs.com.ph/cdn/shop/files/Montes-Alpha-Special-Cuvee-Cabernet-Sauvignon-2018.png?crop=center&height=624&v=1718866844&width=480", type:"wine"},
+  {id:2, name:"Trapiche broquel malbec 2021 750ml", unit:"750 ml · White Wine", price:995, img:"https://cdn.shopify.com/s/files/1/2675/0728/products/8799629803550.png?v=1720505542&width=500", type:"wine"},
+  {id:3, name:"Glen moray single malt classic chardonnay finish 700ml", unit:"700 ml · Wine", price:1495, img:"https://cdn.shopify.com/s/files/1/2675/0728/products/9.png?v=1599097402&width=500", type:"spirits"},
+  {id:4, name:"Tequila corralejo reposado 750ml", unit:"750 ml · Vodka", price:1095, img:"https://cdn.shopify.com/s/files/1/2675/0728/products/corallejo_blue.png?v=1599097590&width=500", type:"spirits"},
+  {id:5, name:"KWV Cruxland Gin - Infused with Kalahari Truffles 750ml", unit:"750 ml · Gin", price:1895, img:"https://ralphs.com.ph/cdn/shop/products/cruxlandgin.png?crop=center&height=624&v=1602221473&width=480", type:"spirits"},
+  {id:6, name:"Choya umeshu classic 650ml", unit:"650 ml · Bottle", price:1585, img:"https://cdn.shopify.com/s/files/1/2675/0728/products/CHOYAUmeshuClassic650ml.png?v=1599097344&width=500", type:"beer"},
+  {id:7, name:"Sapporo premium black beer can 650ml", unit:"650 ml · Craft Beer", price:135, img:"https://cdn.shopify.com/s/files/1/2675/0728/products/SAPPORO-PREMIUM-BEER-BLACK.png?v=1640594172&width=500", type:"beer"},
+  {id:8, name:"Montes Alpha Special Cuvée Carmenère 2022 750ml", unit:"750 ml · Sparkling", price:1595, img:"https://ralphs.com.ph/cdn/shop/files/MontesAlphaSpecialCuveeCarmenere_1.png?v=1787726127&width=780", type:"wine"},
+  {id:9, name:"Chivite gran feudo viñas viejas reserva 2017 750ml", unit:"750 ml · Rosé", price:895, img:"https://cdn.shopify.com/s/files/1/2675/0728/files/ChiviteGranFeudoVinasViejasReserva_1.png?v=1787720925&width=500", type:"wine"},
+  {id:10, name:"Macallan 12yo triple cask matured 700ml", unit:"750 ml · Rum", price:1195, img:"https://cdn.shopify.com/s/files/1/2675/0728/products/MACALLAN-12YO-TRIPLE-CASK-MATURED-700ML.png?v=1613356755&width=500", type:"spirits"},
+  {id:11, name:"Jack daniels 1000ml", unit:"1000 ml · Aperitif", price:1395, img:"https://cdn.shopify.com/s/files/1/2675/0728/products/JACK_DANIELS_1000ml.png?v=1599097443&width=500", type:"spirits"},
+  {id:12, name:"Mahou ipa 330ml", unit:"750 ml · Bottle", price:78, img:"https://cdn.shopify.com/s/files/1/2675/0728/products/MAHOU-IPA-330ML.png?v=1611921102&width=500", type:"beer"},
+  {id:13, name:"Château roc de levraut bordeaux supérieur 2022 750ml", unit:"750 ml · Whisky", price:2195, img:"https://cdn.shopify.com/s/files/1/2675/0728/files/Ch.RocDeLevraut_22.png?v=1785229883&width=500", type:"spirits"},
+  {id:14, name:"Hakushika junmai daiginjo 720ml", unit:"720 ml · White Wine", price:1195, img:"https://cdn.shopify.com/s/files/1/2675/0728/files/HakushikaJunmaiDaiginjo720ml.png?v=1773301272&width=500", type:"wine"},
+  {id:15, name:"Coedo shikkoku black lager 333ml", unit:"720 ml · Craft Beer", price:145, img:"https://cdn.shopify.com/s/files/1/2675/0728/products/CoedoShikkokuEdit.png?v=1679659138&width=500", type:"beer"},
+  {id:16, name:"Sapporo premium beer 6 pack can 330ml", unit:"330 ml · Craft Beer", price:145, img:"https://cdn.shopify.com/s/files/1/2675/0728/products/SAPPORO-PREMIUM-BEER-CAN-330ML---6pack.png?v=1634429684&width=500", type:"beer"}
 ];
 
 let cart = 0;
