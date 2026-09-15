@@ -1,4 +1,4 @@
-const products = [
+const landingProducts = [
   {id:1, name:"Aurelia Cabernet Reserve", unit:"750 ml · Red Wine", price:1295, img:"https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=700&q=80", type:"wine"},
   {id:2, name:"North Coast Sauvignon Blanc", unit:"750 ml · White Wine", price:995, img:"https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&fit=crop&w=700&q=80", type:"wine"},
   {id:3, name:"Oakline Small Batch Gin", unit:"700 ml · Gin", price:1495, img:"https://images.unsplash.com/photo-1551538827-9c037cb4f32a?auto=format&fit=crop&w=700&q=80", type:"spirits"},
@@ -19,19 +19,63 @@ const products = [
 let cart = 0;
 // Inayos: Local variable imbes na sa window
 let globalToastTimer; 
+// Object para itago ang quantity ng bawat item (id -> quantity)
+const cartData = {}; 
+// Object para sa mga auto-collapse timers ng bawat card
+const pillTimers = {};
 
 function productCard(p) {
-  return `<article class="product-card" data-name="${p.name.toLowerCase()}">
+  // Dahil mas kaunti ang data ng landing page items kumpara sa catalog, 
+  // gagawa tayo ng formatting para pumasa nang maayos sa Modal natin.
+  const unitParts = p.unit.split(' · ');
+  const itemSize = unitParts[0] || '750 ml';
+  const itemCat = unitParts[1] || p.type;
+  
+  const modalData = {
+    id: p.id,
+    name: p.name,
+    price: p.price,
+    img: p.img,
+    size: itemSize,
+    category: itemCat,
+    brand: 'Vintara Collection', // Default fallback
+    stock: 'In stock',           // Default fallback
+    origin: 'Imported',          // Default fallback
+    badge: ''
+  };
+  
+  // I-encode para safe ipasa sa onclick
+  const productDataStr = encodeURIComponent(JSON.stringify(modalData));
+  
+  // Kunin ang current quantity mula sa ating cartData state
+  const currentQty = cartData[p.id] || 0;
+  const escapedName = p.name.replace(/'/g, "\\'"); 
+  
+  // Default icon kapag 0 ang qty, o kaya ay bilang kung > 0
+  const centerContent = currentQty > 0 ? currentQty : `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
+
+  // Binalot natin ang card ng onclick="openProductModal(...)"
+  return `
+  <article class="product-card" data-name="${p.name.toLowerCase()}" onclick="openProductModal('${productDataStr}')">
     <div class="product-img">
       <img src="${p.img}" alt="${p.name}" loading="lazy">
-      <button class="add-btn" aria-label="Add ${p.name}" onclick="addToCart('${p.name.replace(/'/g,"\\'")}')">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
-      </button>
+      
+      <!-- EXPANDABLE BUTTON NA PAREHAS SA CATALOG PAGE -->
+      <div class="qty-pill" id="pill-${p.id}" onclick="event.stopPropagation(); triggerAddOrExpand(${p.id}, '${escapedName}')">
+        <button class="qty-pill-minus" onclick="event.stopPropagation(); changeGridQty(${p.id}, -1, '${escapedName}')">−</button>
+        <div class="qty-pill-center" id="pill-lbl-${p.id}">
+          ${centerContent}
+        </div>
+        <button class="qty-pill-plus" onclick="event.stopPropagation(); changeGridQty(${p.id}, 1, '${escapedName}')">+</button>
+      </div>
+
     </div>
-    <div class="product-body"><div class="product-name">${p.name}</div><div class="unit">${p.unit}</div><div class="price">₱${p.price.toLocaleString()}</div></div>
+    
+    <div class="product-body">
+      <div class="product-name">${p.name}</div>
+      <div class="unit">${p.unit}</div>
+      <div class="price">₱${p.price.toLocaleString()}</div>
+    </div>
   </article>`;
 }
 
@@ -42,11 +86,11 @@ function fill(id, list) {
   }
 }
 
-fill("bestRail", products.slice(0,5));
-fill("trendRail", products.slice(5,10));
-fill("spiritsRail", products.filter(p=>p.type==="spirits").slice(0,5));
-fill("wineRail", products.filter(p=>p.type==="wine").slice(0,5));
-fill("beerRail", products.filter(p=>p.type==="beer").slice(0,5));
+fill("bestRail", landingProducts.slice(0,5));
+fill("trendRail", landingProducts.slice(5,10));
+fill("spiritsRail", landingProducts.filter(p=>p.type==="spirits").slice(0,5));
+fill("wineRail", landingProducts.filter(p=>p.type==="wine").slice(0,5));
+fill("beerRail", landingProducts.filter(p=>p.type==="beer").slice(0,5));
 
 function scrollRail(id, dir) {
   const el = document.getElementById(id);
@@ -96,28 +140,7 @@ setupSearch("mobileSearch");
    ============================================================== */
 
 // Dummy data na na-generate ni AI (formatted na)
-const catalogProducts = [
-  { id: 1, name: 'Aurelia Cabernet Reserve', price: 1295, stock: 'In stock', brand: 'Aurelia', origin: 'France', category: 'Red Wine', size: '750 ml', best: 98, created: 20260812, img: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=700&q=80', badge: 'Bestseller' },
-  { id: 2, name: 'North Coast Sauvignon Blanc', price: 995, stock: 'In stock', brand: 'North Coast', origin: 'Australia', category: 'White Wine', size: '750 ml', best: 91, created: 20260719, img: 'https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&fit=crop&w=700&q=80', badge: 'Popular' },
-  { id: 3, name: 'Casa Verde Rosé', price: 895, stock: 'In stock', brand: 'Casa Verde', origin: 'Italy', category: 'Rosé', size: '750 ml', best: 89, created: 20260821, img: 'https://images.unsplash.com/photo-1563822249548-9a72b6353cd1?auto=format&fit=crop&w=700&q=80', badge: 'Trending' },
-  { id: 4, name: 'Solstice Sparkling Brut', price: 1595, stock: 'Low stock', brand: 'Aurelia', origin: 'France', category: 'Sparkling', size: '750 ml', best: 86, created: 20260904, img: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=700&q=80', badge: 'New' },
-  { id: 5, name: 'Maison Clair Chardonnay', price: 1195, stock: 'In stock', brand: 'Maison Clair', origin: 'France', category: 'White Wine', size: '750 ml', best: 84, created: 20260518, img: 'https://images.unsplash.com/photo-1535869462434-f92cc30bf40c?auto=format&fit=crop&w=700&q=80', badge: '' },
-  { id: 6, name: 'Ridge Valley Pinot Noir', price: 1395, stock: 'In stock', brand: 'Aurelia', origin: 'USA', category: 'Red Wine', size: '750 ml', best: 82, created: 20260611, img: 'https://images.unsplash.com/photo-1473973266408-ed4e27abdd47?auto=format&fit=crop&w=700&q=80', badge: '' },
-  { id: 7, name: 'Luna di Vino Prosecco', price: 1295, stock: 'In stock', brand: 'Casa Verde', origin: 'Italy', category: 'Sparkling', size: '750 ml', best: 78, created: 20260827, img: 'https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?auto=format&fit=crop&w=700&q=80', badge: 'New' },
-  { id: 8, name: 'Redmont Shiraz', price: 1095, stock: 'In stock', brand: 'North Coast', origin: 'Australia', category: 'Red Wine', size: '750 ml', best: 77, created: 20260425, img: 'https://images.unsplash.com/photo-1496379038199-9d4e84a84b4f?auto=format&fit=crop&w=700&q=80', badge: '' },
-  { id: 9, name: 'Château Belle Rose', price: 1795, stock: 'Low stock', brand: 'Maison Clair', origin: 'France', category: 'Rosé', size: '750 ml', best: 75, created: 20260909, img: 'https://images.unsplash.com/photo-1558008258-3256797b43f3?auto=format&fit=crop&w=700&q=80', badge: 'New' },
-  { id: 10, name: 'Golden Field Merlot', price: 925, stock: 'In stock', brand: 'Aurelia', origin: 'USA', category: 'Red Wine', size: '750 ml', best: 72, created: 20260322, img: 'https://images.unsplash.com/photo-1455885666463-cc6f964f1d4d?auto=format&fit=crop&w=700&q=80', badge: '' },
-  { id: 11, name: 'Velvet Oak Malbec', price: 1495, stock: 'In stock', brand: 'Maison Clair', origin: 'France', category: 'Red Wine', size: '750 ml', best: 71, created: 20260211, img: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?auto=format&fit=crop&w=700&q=80', badge: '' },
-  { id: 12, name: 'Cedar Hill Chardonnay', price: 875, stock: 'In stock', brand: 'North Coast', origin: 'Australia', category: 'White Wine', size: '750 ml', best: 69, created: 20260117, img: 'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?auto=format&fit=crop&w=700&q=80', badge: '' },
-  { id: 13, name: 'Alba Fresca Pinot Grigio', price: 1050, stock: 'In stock', brand: 'Casa Verde', origin: 'Italy', category: 'White Wine', size: '750 ml', best: 67, created: 20260404, img: 'https://images.unsplash.com/photo-1568625365131-079e30a1869b?auto=format&fit=crop&w=700&q=80', badge: '' },
-  { id: 14, name: 'Noir & Gold Reserve', price: 2495, stock: 'In stock', brand: 'Aurelia', origin: 'France', category: 'Red Wine', size: '750 ml', best: 64, created: 20260910, img: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=700&q=80', badge: 'Premium' },
-  { id: 15, name: 'Élan Rosé Signature', price: 1295, stock: 'In stock', brand: 'Maison Clair', origin: 'France', category: 'Rosé', size: '750 ml', best: 62, created: 20260529, img: 'https://images.unsplash.com/photo-1470468969717-61d5d54fd036?auto=format&fit=crop&w=700&q=80', badge: '' },
-  { id: 16, name: 'Fleur de Nuit Brut', price: 2195, stock: 'Low stock', brand: 'Maison Clair', origin: 'France', category: 'Sparkling', size: '750 ml', best: 60, created: 20260831, img: 'https://images.unsplash.com/photo-1594372365400-3c6d98b02fe7?auto=format&fit=crop&w=700&q=80', badge: 'Premium' },
-  { id: 17, name: 'South Ridge Cabernet', price: 2295, stock: 'In stock', brand: 'North Coast', origin: 'Australia', category: 'Red Wine', size: '1.5 L', best: 58, created: 20260208, img: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=700&q=80', badge: '' },
-  { id: 18, name: 'Casa Verde Bianco', price: 745, stock: 'In stock', brand: 'Casa Verde', origin: 'Italy', category: 'White Wine', size: '500 ml', best: 54, created: 20260703, img: 'https://images.unsplash.com/photo-1535869462434-f92cc30bf40c?auto=format&fit=crop&w=700&q=80', badge: '' },
-  { id: 19, name: 'Petit Soleil Rosé', price: 650, stock: 'In stock', brand: 'Aurelia', origin: 'France', category: 'Rosé', size: '375 ml', best: 51, created: 20260623, img: 'https://images.unsplash.com/photo-1563822249548-9a72b6353cd1?auto=format&fit=crop&w=700&q=80', badge: '' },
-  { id: 20, name: 'Vero Sparkling Rosé', price: 1695, stock: 'In stock', brand: 'Casa Verde', origin: 'Italy', category: 'Sparkling', size: '750 ml', best: 48, created: 20260312, img: 'https://images.unsplash.com/photo-1558008258-3256797b43f3?auto=format&fit=crop&w=700&q=80', badge: '' }
-];
+const catalogProducts = window.PAGE_CATALOG_DATA || [];
 
 let currentPage = 1;
 const itemsPerPage = 10;
@@ -180,11 +203,6 @@ function sortProducts(array) {
 /* ==============================================================
    CART & EXPANDABLE BUTTON LOGIC
    ============================================================== */
-
-// Object para itago ang quantity ng bawat item (id -> quantity)
-const cartData = {}; 
-// Object para sa mga auto-collapse timers ng bawat card
-const pillTimers = {};
 
 function generateCatalogCard(p) {
   const productData = encodeURIComponent(JSON.stringify(p));
@@ -387,12 +405,25 @@ function toggleFilterGroup(button) {
   button.parentElement.classList.toggle('open');
 }
 
-function toggleMobileFilters() {
+function openFilters() {
   if (window.innerWidth <= 720) {
-    document.getElementById('filters').classList.toggle('mobile-open');
+    document.getElementById('filters').classList.add('mobile-open');
+    document.getElementById('filterOverlay').classList.add('show');
+    // Prevent scrolling on background
+    document.body.style.overflow = 'hidden'; 
   }
 }
 
+function closeFilters() {
+  if (window.innerWidth <= 720) {
+    document.getElementById('filters').classList.remove('mobile-open');
+    document.getElementById('filterOverlay').classList.remove('show');
+    // Restore scrolling
+    document.body.style.overflow = ''; 
+  }
+}
+
+// In-update na clearFilters para i-close din ang drawer pagka-clear
 function clearFilters(e) {
   e.stopPropagation();
   document.querySelectorAll('input[data-filter]').forEach(el => el.checked = false);
@@ -402,13 +433,16 @@ function clearFilters(e) {
   const rangeInput = document.getElementById('priceRange');
   const maxLabel = document.getElementById('maxLabel');
   
-  if(minInput) minInput.value = 500;
+  if(minInput) minInput.value = 100;
   if(maxInput) maxInput.value = 3500;
   if(rangeInput) rangeInput.value = 3500;
   if(maxLabel) maxLabel.textContent = '₱3,500';
   
   currentPage = 1;
   renderCatalog();
+
+  // (Optional) Isara din ang menu pagkatapos mag-clear sa mobile
+  closeFilters(); 
 }
 
 // Event Listeners for Filters
