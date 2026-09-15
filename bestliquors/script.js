@@ -143,7 +143,7 @@ setupSearch("mobileSearch");
 const catalogProducts = window.PAGE_CATALOG_DATA || [];
 
 let currentPage = 1;
-const itemsPerPage = 10;
+const itemsPerPage = 12;
 
 // Filter at Sort Functions
 function getCheckedFilters(key) {
