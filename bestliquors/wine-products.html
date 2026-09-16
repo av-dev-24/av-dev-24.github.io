@@ -54,19 +54,6 @@
       <div class="nav-item"><a class="nav-link" href="#promotions">Promotions</a></div>
     </nav>
   </div>
-
-  <div id="mobileMenu" class="mobile-menu mobile-only">
-    <a href="#categories" onclick="closeMobileMenu()">Categories</a>
-    <button class="has-sub" onclick="toggleSub(this)">Beer</button>
-    <div class="submenu"><a href="#beer" onclick="closeMobileMenu()">Lager</a><a href="#beer" onclick="closeMobileMenu()">Craft Beer</a></div>
-    <button class="has-sub" onclick="toggleSub(this)">Wine</button>
-    <div class="submenu"><a href="#wine" onclick="closeMobileMenu()">Red Wine</a><a href="#wine" onclick="closeMobileMenu()">White Wine</a></div>
-    <button class="has-sub" onclick="toggleSub(this)">Spirits</button>
-    <div class="submenu"><a href="#spirits" onclick="closeMobileMenu()">Vodka</a><a href="#spirits" onclick="closeMobileMenu()">Whisky</a></div>
-    <a href="#collections" onclick="closeMobileMenu()">Collections</a>
-    <a href="#stores" onclick="closeMobileMenu()">Stores</a>
-    <a href="#promotions" onclick="closeMobileMenu()">Promotions</a>
-  </div>
 </header>
 
 <main id="top">
@@ -222,7 +209,7 @@
       
       <!-- Bagong Filter Button para sa Mobile -->
       <button class="mobile-filter-btn mobile-only" onclick="openFilters()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
         Filter
       </button>
     </div>
@@ -379,6 +366,75 @@
   </div>
 </div>
 
+<!-- Mobile Menu Overlay -->
+  <div id="menuOverlay" class="menu-overlay mobile-only" onclick="closeMobileMenu()"></div>
+
+  <!-- Sliding Mobile Menu -->
+  <div id="mobileMenu" class="mobile-side-menu mobile-only">
+    <!-- Fixed Header -->
+    <div class="mobile-menu-header">
+      <strong class="mobile-menu-title">Menu</strong>
+      <button class="close-menu-btn" onclick="closeMobileMenu()" aria-label="Close menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    
+    <!-- Scrollable Menu Body -->
+    <div class="mobile-menu-body">
+      <a href="index.html" class="mobile-nav-link" onclick="closeMobileMenu()">Home</a>
+      <a href="index.html#categories" class="mobile-nav-link" onclick="closeMobileMenu()">Categories</a>
+      
+      <!-- Accordion: Beer -->
+      <div class="mobile-nav-group">
+        <button class="mobile-nav-toggle" onclick="toggleNavSub(this)">
+          Beer 
+          <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="mobile-nav-submenu">
+          <a href="beer-products.html">View All</a>
+          <a href="beer-products.html">Lager</a>
+          <a href="beer-products.html">Pale Ale</a>
+          <a href="beer-products.html">Craft Beer</a>
+          <a href="beer-products.html">Imported Beer</a>
+        </div>
+      </div>
+
+      <!-- Accordion: Wine -->
+      <div class="mobile-nav-group">
+        <button class="mobile-nav-toggle" onclick="toggleNavSub(this)">
+          Wine 
+          <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="mobile-nav-submenu">
+          <a href="wine-products.html">View All</a>
+          <a href="wine-products.html" onclick="closeMobileMenu()">Red Wine</a>
+          <a href="wine-products.html" onclick="closeMobileMenu()">White Wine</a>
+          <a href="wine-products.html" onclick="closeMobileMenu()">Rosé</a>
+          <a href="wine-products.html" onclick="closeMobileMenu()">Sparkling</a>
+        </div>
+      </div>
+
+      <!-- Accordion: Spirits -->
+      <div class="mobile-nav-group">
+        <button class="mobile-nav-toggle" onclick="toggleNavSub(this)">
+          Spirits 
+          <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="mobile-nav-submenu">
+          <a href="#">Vodka</a>
+          <a href="#">Whisky</a>
+          <a href="#">Gin</a>
+          <a href="#">Rum</a>
+          <a href="#">Tequila</a>
+        </div>
+      </div>
+
+      <a href="#" class="mobile-nav-link" onclick="closeMobileMenu()">Extras</a>
+      <a href="#" class="mobile-nav-link" onclick="closeMobileMenu()">Collections</a>
+      <a href="#" class="mobile-nav-link" onclick="closeMobileMenu()">Stores</a>
+      <a href="#" class="mobile-nav-link" onclick="closeMobileMenu()">Promotions</a>
+    </div>
+  </div>
 
 <script>
   window.PAGE_CATALOG_DATA = [
