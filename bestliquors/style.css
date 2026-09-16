@@ -241,7 +241,8 @@ footer { margin-top: 55px; background: #161616; color: #fff; }
   .mobile-search { width: 100%; padding: 8px 12px 10px; }
   .mobile-search input { height: 42px; }
   .mobile-search svg { width: 20px; }
-  main { padding-top: 125px; padding-left: 0px; padding-right: 0px; }
+  .view-switch span {display: none;}
+   main { padding-top: 125px; padding-left: 0px; padding-right: 0px; }
   .hero { padding-top: 16px; } 
   .hero-card { min-height: 480px; border-radius: 20px; }
   .hero-content { padding: 28px; }
@@ -466,7 +467,7 @@ footer { margin-top: 55px; background: #161616; color: #fff; }
   .filter-panel { position: relative; top: auto; margin-bottom: 15px; }
   .filter-body { display: none; }
   .filter-panel.mobile-open .filter-body { display: block; border-top: 1px solid var(--line); }
-  .toolbar { align-items: flex-start; }
+  .toolbar { align-items: flex-start;}
   .sort-label { display: none; }
   .sort-select { max-width: 155px; }
   .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
