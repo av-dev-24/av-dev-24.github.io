@@ -222,7 +222,7 @@ footer { margin-top: 55px; background: #161616; color: #fff; }
   .desktop-only { display: none !important; }
   .mobile-only { display: inline-flex; }
   .header { background: #fff; }
-  .topbar { display: grid; align-items: center; height: 64px; grid-template-columns: 92px 1fr 92px; gap: 8px; padding: 10px 5px; }
+  .topbar { display: grid; align-items: center; height: 64px; grid-template-columns: 82px 1fr 92px; gap: 8px; padding: 10px 5px; }
   .menu-btn { border: 0; background: transparent; width: 42px; height: 42px; padding-left: 12px; }
   .logo { 
     display: flex; 
