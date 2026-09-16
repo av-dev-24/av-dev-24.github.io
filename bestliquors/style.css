@@ -70,13 +70,59 @@ img { display: block; max-width: 100%; }
 .nav-link { font-size: 13px; font-weight: 700; color: #3d3d3d; white-space: nowrap; }
 .nav-link:hover { color: var(--red); }
 .dropdown {
-  position: absolute; left: 0; top: 48px; background: #fff; border: 1px solid var(--line);
-  box-shadow: var(--shadow); border-radius: 14px; padding: 10px; min-width: 210px; display: none;
+  position: absolute;
+  left: -12px; /* Ina-adjust nang kaunti pa-kaliwa para pumantay ang text sa header link */
+  top: calc(100% + 11px); /* 10px padding ng navbar + 1px border ng header para SAKTONG dikit */
+  background: #fff;
+  border: 1px solid var(--line);
+  border-top: none; /* Tinanggal ang top border para seamless na nakakabit sa header */
+  border-radius: 0 0 16px 16px; /* Flat ang taas (dikit sa header), bilog ang ilalim */
+  box-shadow: 0 15px 40px rgba(0,0,0,.08);
+  min-width: 210px;
+  padding: 10px;
+  
+  /* ANIMATION: Clip-path para mag-expand mula taas pababa (sliding blind effect) */
+  opacity: 0;
+  visibility: hidden;
+  clip-path: inset(0 0 100% 0); /* Nakatago ang 100% ng ilalim paitaas */
+  transition: clip-path 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              opacity 0.3s ease, 
+              visibility 0.35s;
 }
-.nav-item:hover .dropdown { display: block; }
-.dropdown a { display: block; padding: 9px 11px; border-radius: 8px; font-size: 13px; }
-.dropdown a:hover { background: #f6f6f6; color: var(--red); }
 
+/* Invisible bridge: Para hindi sumara agad ang menu kapag dumaan ang mouse sa maliit na gap */
+.dropdown::before {
+  content: "";
+  position: absolute;
+  top: -15px; 
+  left: 0;
+  right: 0;
+  height: 15px;
+  background: transparent;
+}
+
+/* Trigger animation kapag tinapatan ng mouse */
+.nav-item:hover .dropdown {
+  opacity: 1;
+  visibility: visible;
+  clip-path: inset(0 0 0 0); /* Ipapalabas lahat pababa */
+}
+
+/* Styling sa links sa loob ng dropdown */
+.dropdown a { 
+  display: block; 
+  padding: 10px 14px; 
+  border-radius: 8px; 
+  font-size: 13px; 
+  color: var(--ink-dim);
+  font-weight: 500;
+  transition: background 0.15s, color 0.15s;
+}
+
+.dropdown a:hover { 
+  background: #f7f7f7; 
+  color: var(--red); 
+}
 .mobile-only { display: none; }
 main { padding-top: 128px; padding-left: 24px; padding-right: 24px; }
 
