@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spirits Collection — Best Liquors of Lakewood</title>
+  <meta name="description" content="Browse Best Liquors' spirits collection.">
+  <!-- Naka-link na ang external CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="container topbar">
+    <button class="menu-btn mobile-only" aria-label="Open menu" onclick="toggleMobileMenu()">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#171717"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
+    </button>
+    <a class="logo" href="#top">
+      <!-- Inayos: Nilagyan ng alt tag -->
+      <img src="ic_best_wp5.webp" alt="Best Liquors of Lakewood Logo">
+    </a>
+
+    <div class="search-wrap desktop-only">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" id="searchInput" placeholder="Search wines, spirits, beers..." aria-label="Search bottles or brands" />
+    </div>
+
+    <div class="actions">
+      <button class="icon-btn" title="Account">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#6f6f6f"><path d="M367-527q-47-47-47-113t47-113q47-47 113-47t113 47q47 47 47 113t-47 113q-47 47-113 47t-113-47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm296.5-343.5Q560-607 560-640t-23.5-56.5Q513-720 480-720t-56.5 23.5Q400-673 400-640t23.5 56.5Q447-560 480-560t56.5-23.5ZM480-640Zm0 400Z"/></svg>
+        <span class="desktop-only">Account</span></button>
+      <button class="icon-btn cart-pill" title="Cart" onclick="openCart()">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#6f6f6f"><path d="M223.5-103.5Q200-127 200-160t23.5-56.5Q247-240 280-240t56.5 23.5Q360-193 360-160t-23.5 56.5Q313-80 280-80t-56.5-23.5Zm400 0Q600-127 600-160t23.5-56.5Q647-240 680-240t56.5 23.5Q760-193 760-160t-23.5 56.5Q713-80 680-80t-56.5-23.5ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg>
+        <span class="desktop-only">Cart</span><span id="cartCount" class="cart-count">0</span></button>
+    </div>
+  </div>
+
+  <div class="mobile-search mobile-only">
+    <div class="container search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="mobileSearch" type="search" placeholder="Search wines, spirits, beers..." aria-label="Search products">
+    </div>
+  </div>
+
+  <div class="navbar desktop-only">
+    <nav class="container nav">
+      <div class="nav-item"><a class="nav-link" href="#categories">Categories</a></div>
+      <div class="nav-item"><a class="nav-link" href="beer-products.html">Beer ▾</a><div class="dropdown"><a href="#beer">Lager</a><a href="#beer">Pale Ale</a><a href="#beer">Craft Beer</a><a href="#beer">Imported Beer</a></div></div>
+      <div class="nav-item"><a class="nav-link" href="wine-products.html">Wine ▾</a><div class="dropdown"><a href="#wine">Red Wine</a><a href="#wine">White Wine</a><a href="#wine">Rosé</a><a href="#wine">Sparkling</a></div></div>
+      <div class="nav-item"><a class="nav-link" href="spirits-products.html" style="color:var(--red)">Spirits ▾</a><div class="dropdown"><a href="#spirits">Vodka</a><a href="#spirits">Whisky</a><a href="#spirits">Gin</a><a href="#spirits">Rum</a><a href="#spirits">Tequila</a></div></div>
+      <div class="nav-item"><a class="nav-link" href="#extras">Extras</a></div>
+      <div class="nav-item"><a class="nav-link" href="#collections">Collections</a></div>
+      <div class="nav-item"><a class="nav-link" href="#stores">Stores</a></div>
+      <div class="nav-item"><a class="nav-link" href="#promotions">Promotions</a></div>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- Breadcrumb -->
+  <div class="container breadcrumb">
+    <a href="index.html">Home</a> 
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg> 
+    <span>Spirits</span>
+  </div>
+
+  <!-- Page Header -->
+  <div class="container page-title-row">
+    <div>
+      <div class="page-kicker">Collection</div>
+      <h1 class="page-title">Spirits</h1>
+      <p class="page-intro">
+  Explore our curated selection of whisky, gin, vodka, rum, tequila,
+  cognac, liqueurs and other premium spirits for every occasion.
+</p>
+    </div>
+  </div>
+
+  <!-- Catalog Layout -->
+  <div class="container catalog-layout">
+    
+    <!-- Sidebar Filters -->
+    <!-- Background Overlay para sa mobile filter -->
+<div class="filter-overlay" id="filterOverlay" onclick="closeFilters()"></div>
+
+<aside class="filter-panel" id="filters">
+  <!-- Inayos na header: May close button para sa mobile -->
+  <div class="filter-head">
+    <strong>Filter products</strong>
+    <div class="filter-head-actions">
+      <button class="clear-btn" onclick="clearFilters(event)">Clear all</button>
+      <button class="filter-close mobile-only" onclick="closeFilters()" aria-label="Close filters">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+  </div>
+  
+  <div class="filter-body">
+        <!-- Filter Group: Stock -->
+        <div class="filter-group open">
+          <button class="filter-toggle" onclick="toggleFilterGroup(this)">
+            Stock status 
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="filter-options">
+            <label class="check"><span class="check-left"><input data-filter="stock" value="In stock" type="checkbox">In stock</span><span class="count">94</span></label>
+            <label class="check"><span class="check-left"><input data-filter="stock" value="Low stock" type="checkbox">Low stock</span><span class="count">6</span></label>
+          </div>
+        </div>
+
+        <!-- Filter Group: Brand -->
+        <div class="filter-group open">
+          <button class="filter-toggle" onclick="toggleFilterGroup(this)">
+            Brand 
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="filter-options">
+            <label class="check"><span class="check-left"><input data-filter="brand" value="The Macallan" type="checkbox">The Macallan</span><span class="count">18</span></label>
+            <label class="check"><span class="check-left"><input data-filter="brand" value="Johnnie Walker" type="checkbox">Johnnie Walker</span><span class="count">14</span></label>
+            <label class="check"><span class="check-left"><input data-filter="brand" value="Jack Daniel's" type="checkbox">Jack Daniel's</span><span class="count">12</span></label>
+            <label class="check"><span class="check-left"><input data-filter="brand" value="Masumi" type="checkbox">Masumi</span><span class="count">9</span></label>
+          </div>
+        </div>
+
+        <!-- Filter Group: Origin -->
+        <div class="filter-group">
+          <button class="filter-toggle" onclick="toggleFilterGroup(this)">
+            Origin 
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="filter-options">
+            <label class="check"><span class="check-left"><input data-filter="origin" value="Scotland" type="checkbox">Scotland</span><span class="count">22</span></label>
+            <label class="check"><span class="check-left"><input data-filter="origin" value="USA" type="checkbox">USA</span><span class="count">19</span></label>
+            <label class="check"><span class="check-left"><input data-filter="origin" value="India" type="checkbox">India</span><span class="count">13</span></label>
+            <label class="check"><span class="check-left"><input data-filter="origin" value="Japan" type="checkbox">Japan</span><span class="count">10</span></label>
+          </div>
+        </div>
+
+        <!-- Filter Group: Category -->
+        <div class="filter-group">
+          <button class="filter-toggle" onclick="toggleFilterGroup(this)">
+            Category 
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="filter-options">
+            <label class="check"><span class="check-left"><input data-filter="category" value="Whisky" type="checkbox">Whisky</span><span class="count">40</span></label>
+            <label class="check"><span class="check-left"><input data-filter="category" value="Gin" type="checkbox">Gin</span><span class="count">30</span></label>
+            <label class="check"><span class="check-left"><input data-filter="category" value="Vodka" type="checkbox">Vodka</span><span class="count">12</span></label>
+            <label class="check"><span class="check-left"><input data-filter="category" value="Rum" type="checkbox">Rum</span><span class="count">8</span></label>
+          </div>
+        </div>
+
+        <!-- Filter Group: Bottle size -->
+        <div class="filter-group">
+            <button class="filter-toggle" onclick="toggleFilterGroup(this)">
+                Bottle size
+                <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="filter-options">
+                <label class="check">
+                    <span class="check-left">
+                        <input data-filter="size" value="700 ml" type="checkbox"> 700 ml
+                    </span>
+                    <span class="count">76</span>
+                </label>
+                
+                <label class="check">
+                    <span class="check-left">
+                        <input data-filter="size" value="750 ml" type="checkbox"> 750 ml
+                    </span>
+                    <span class="count">8</span>
+                </label>
+                
+                <label class="check">
+                    <span class="check-left">
+                        <input data-filter="size" value="720 ml" type="checkbox"> 720 ml
+                    </span>
+                    <span class="count">6</span>
+                </label>
+                
+                <label class="check">
+                    <span class="check-left">
+                        <input data-filter="size" value="1 L" type="checkbox"> 1 L
+                    </span>
+                    <span class="count">4</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Filter Group: Price Range -->
+        <div class="filter-group open">
+          <button class="filter-toggle" onclick="toggleFilterGroup(this)">
+            Price range 
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="filter-options">
+            <div class="price-labels">
+              <span>₱500</span><span id="maxLabel">₱3,500</span>
+            </div>
+            <input id="priceRange" type="range" min="500" max="3500" value="3500" class="range-slider">
+            <div class="price-fields">
+              <input id="minPrice" type="number" value="500" aria-label="Minimum price">
+              <input id="maxPrice" type="number" value="3500" aria-label="Maximum price">
+            </div>
+            <button class="apply-price" onclick="renderCatalog()">Apply price</button>
+          </div>
+        </div>
+      </div>
+</aside>
+
+<section class="catalog-content">
+  <div class="toolbar">
+    <div class="view-switch">
+      <span>View as</span>
+      <button id="gridBtn" class="view-btn active" onclick="setCatalogView('grid')" aria-label="Grid view">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+      </button>
+      <button id="listBtn" class="view-btn" onclick="setCatalogView('list')" aria-label="List view">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+      </button>
+    </div>
+    
+    <!-- Pinagsama natin ang Sort at bagong Filter button -->
+    <div class="toolbar-right">
+      <div class="sort-wrap">
+        <span class="sort-label">Sort by</span>
+        <select id="sortSelect" class="sort-select" onchange="renderCatalog()">
+          <option value="relevant">Most relevant</option>
+          <option value="best">Best selling</option>
+          <option value="pl">Price (low-high)</option>
+          <option value="ph">Price (high-low)</option>
+          <option value="az">Title (A-Z)</option>
+          <option value="za">Title (Z-A)</option>
+          <option value="new">Created (new-old)</option>
+          <option value="old">Created (old-new)</option>
+        </select>
+      </div>
+      
+      <!-- Bagong Filter Button para sa Mobile -->
+      <button class="mobile-filter-btn mobile-only" onclick="openFilters()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+        Filter
+      </button>
+    </div>
+  </div>
+  
+  <!-- Results and Grid -->
+
+      <div id="resultsCount" class="results-line"></div>
+      
+      <!-- Papalitan ng JS gamit yung landing page product card -->
+      <div id="catalogGrid" class="product-grid"></div>
+      
+      <div id="paginationWrap" class="pagination"></div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container footer-top">
+    <div>
+      <div class="footer-brand">Best Liquors of Lakewood<span>.</span></div>
+      <div class="footer-copy">Premium beverage distribution with a sharper point of view—from everyday favorites to special-occasion bottles.</div>
+    </div>
+    <div class="footer-col"><h4>Shop</h4><a href="#beer">Beer</a><a href="#wine">Wine</a><a href="#spirits">Spirits</a><a href="#extras">Extras</a><a href="#promotions">Promotions</a></div>
+    <div class="footer-col"><h4>Company</h4><a href="#stores">Our Stores</a><a href="#collections">Collections</a><a href="#stores">For Business</a><a href="#stores">Delivery</a><a href="#stores">Contact</a></div>
+    <div class="footer-col"><h4>Help</h4><a href="#top">FAQ</a><a href="#top">Shipping & Delivery</a><a href="#top">Returns</a><a href="#top">Privacy</a><a href="#top">Terms</a></div>
+  </div>
+  <div class="container footer-bottom"><span>© 2026 Best Liquors of Lakewood Distribution. Prototype website.</span><span>Crafted for a premium retail experience.</span></div>
+</footer>
+
+<button class="chat-btn" onclick="toggleChat()">💬 Live support</button>
+<div id="chatPanel" class="chat-panel">
+  <div class="chat-head"><strong>Best Liquors of Lakewood Support</strong><button onclick="toggleChat()">×</button></div>
+  <div class="chat-body">
+    <div class="chat-msg">Hello! How can we help with your order or product selection today?</div>
+    <div class="chat-input"><input placeholder="Type your message..."><button onclick="sendChat()">➤</button></div>
+  </div>
+</div>
+<div id="toast" class="toast">Added to cart</div>
+
+<!-- PRODUCT DETAIL MODAL -->
+<div id="productModal" class="modal-overlay">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h2 class="modal-title">Product Detail</h2>
+      <button class="modal-close" onclick="closeProductModal()" aria-label="Close modal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <!-- Main Product Card Area -->
+      <div class="modal-card">
+        <div class="modal-card-header">
+          <div>
+            <h3 class="modal-product-name" id="modalProductName">Product Name</h3>
+            <div class="modal-product-meta" id="modalProductMeta">Brand · Size</div>
+          </div>
+          <span class="modal-stock-badge" id="modalProductStock">Stock Status</span>
+        </div>
+        
+        <div class="modal-image-wrap">
+          <img id="modalProductImg" src="" alt="Product Image">
+        </div>
+
+        <div class="modal-price" id="modalProductPrice">₱0</div>
+
+        <div class="modal-stats">
+          <div class="stat-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <strong>4.8</strong>
+            <span>Rating</span>
+          </div>
+          <div class="stat-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            <strong>2.4K</strong>
+            <span>Views</span>
+          </div>
+          <div class="stat-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31"></path><path d="M14 9.3V1.99"></path><path d="M8.5 2h7"></path><path d="M14 9.3a4.7 4.7 0 0 1 1.7 3.65v7.55c0 1.93-1.57 3.5-3.5 3.5h-4c-1.93 0-3.5-1.57-3.5-3.5v-7.55A4.7 4.7 0 0 1 10 9.3"></path></svg>
+            <strong>120</strong>
+            <span>Sold</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Expandable Details Section -->
+      <div class="modal-accordion">
+        <div class="accordion-item">
+          <button class="accordion-header" onclick="toggleAccordion(this)">
+            <div class="accordion-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            </div>
+            <div class="accordion-title-wrap">
+              <strong>Description</strong>
+              <span>Flavor profile overview</span>
+            </div>
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="accordion-content">
+            <p>A beautiful expression of its terroir, offering crisp acidity and vibrant fruit notes. Perfect for any occasion.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header" onclick="toggleAccordion(this)">
+            <div class="accordion-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31"></path><path d="M14 9.3V1.99"></path><path d="M8.5 2h7"></path><path d="M14 9.3a4.7 4.7 0 0 1 1.7 3.65v7.55c0 1.93-1.57 3.5-3.5 3.5h-4c-1.93 0-3.5-1.57-3.5-3.5v-7.55A4.7 4.7 0 0 1 10 9.3"></path></svg>
+            </div>
+            <div class="accordion-title-wrap">
+              <strong>Type & Category</strong>
+              <span id="modalTypeInfo">Category, ABV and volume</span>
+            </div>
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="accordion-content">
+             <ul style="margin:0; padding-left: 20px; font-size: 13px; color: #555;">
+                <li><strong>Category:</strong> <span id="modalCatDetail">Wine</span></li>
+                <li><strong>Volume:</strong> <span id="modalSizeDetail">750ml</span></li>
+             </ul>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header" onclick="toggleAccordion(this)">
+            <div class="accordion-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            </div>
+            <div class="accordion-title-wrap">
+              <strong>Origin & Producer</strong>
+              <span id="modalOriginInfo">Where it is made</span>
+            </div>
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="accordion-content">
+            <p id="modalOriginDetail">Sourced from select vineyards.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticky Footer (Add to Cart Action) -->
+    <div class="modal-footer">
+      <div class="quantity-control">
+        <button onclick="updateModalQuantity(-1)" aria-label="Decrease quantity">−</button>
+        <input type="number" id="modalQty" value="1" min="1" readonly>
+        <button onclick="updateModalQuantity(1)" aria-label="Increase quantity">+</button>
+      </div>
+      <button class="add-to-cart-btn" onclick="addFromModal()">
+        Add to Cart <span id="modalBtnPrice">₱0</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Menu Overlay -->
+  <div id="menuOverlay" class="menu-overlay mobile-only" onclick="closeMobileMenu()"></div>
+
+  <!-- Sliding Mobile Menu -->
+  <div id="mobileMenu" class="mobile-side-menu mobile-only">
+    <!-- Fixed Header -->
+    <div class="mobile-menu-header">
+      <strong class="mobile-menu-title">Menu</strong>
+      <button class="close-menu-btn" onclick="closeMobileMenu()" aria-label="Close menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    
+    <!-- Scrollable Menu Body -->
+    <div class="mobile-menu-body">
+      <a href="index.html" class="mobile-nav-link" onclick="closeMobileMenu()">Home</a>
+      <a href="index.html#categories" class="mobile-nav-link" onclick="closeMobileMenu()">Categories</a>
+      
+      <!-- Accordion: Beer -->
+      <div class="mobile-nav-group">
+        <button class="mobile-nav-toggle" onclick="toggleNavSub(this)">
+          Beer 
+          <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="mobile-nav-submenu">
+          <a href="beer-products.html">View All</a>
+          <a href="beer-products.html">Lager</a>
+          <a href="beer-products.html">Pale Ale</a>
+          <a href="beer-products.html">Craft Beer</a>
+          <a href="beer-products.html">Imported Beer</a>
+        </div>
+      </div>
+
+      <!-- Accordion: Wine -->
+      <div class="mobile-nav-group">
+        <button class="mobile-nav-toggle" onclick="toggleNavSub(this)">
+          Wine 
+          <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="mobile-nav-submenu">
+          <a href="wine-products.html">View All</a>
+          <a href="wine-products.html">Red Wine</a>
+          <a href="wine-products.html">White Wine</a>
+          <a href="wine-products.html">Rosé</a>
+          <a href="wine-products.html">Sparkling</a>
+        </div>
+      </div>
+
+      <!-- Accordion: Spirits -->
+      <div class="mobile-nav-group">
+        <button class="mobile-nav-toggle" onclick="toggleNavSub(this)">
+          Spirits 
+          <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="mobile-nav-submenu">
+          <a href="spirits-products.html">View All</a>
+          <a href="spirits-products.html">Vodka</a>
+          <a href="spirits-products.html">Whisky</a>
+          <a href="spirits-products.html">Gin</a>
+          <a href="spirits-products.html">Rum</a>
+          <a href="spirits-products.html">Tequila</a>
+        </div>
+      </div>
+
+      <a href="#" class="mobile-nav-link" onclick="closeMobileMenu()">Extras</a>
+      <a href="#" class="mobile-nav-link" onclick="closeMobileMenu()">Collections</a>
+      <a href="#" class="mobile-nav-link" onclick="closeMobileMenu()">Stores</a>
+      <a href="#" class="mobile-nav-link" onclick="closeMobileMenu()">Promotions</a>
+    </div>
+  </div>
+
+<script>
+  window.PAGE_CATALOG_DATA = [
+  { id: 1, name: "KWV Cruxland Gin - Infused with Kalahari Truffles", unit: "750 ml", price: 1800, stock: "In stock", brand: "KWV", origin: "South Africa", category: "Gin", size: "750 ml", best: 99, created: 20260812, img: "https://cdn.shopify.com/s/files/1/2675/0728/products/cruxlandgin.png?v=1602221473&width=500", badge: "Bestseller" },
+  { id: 2, name: "Glen Moray Single Malt Classic Chardonnay Finish", unit: "700 ml", price: 2250, stock: "In stock", brand: "Glen Moray", origin: "Scotland", category: "Whisky", size: "700 ml", best: 97, created: 20260719, img: "https://cdn.shopify.com/s/files/1/2675/0728/products/9.png?v=1599097402&width=500", badge: "Popular" },
+  { id: 3, name: "Tequila Corralejo Reposado", unit: "750 ml", price: 2700, stock: "In stock", brand: "Corralejo", origin: "Mexico", category: "Tequila", size: "750 ml", best: 94, created: 20260821, img: "https://cdn.shopify.com/s/files/1/2675/0728/products/corallejo_blue.png?v=1599097590&width=500", badge: "Trending" },
+  { id: 4, name: "Masumi Yuzu Shu Liqueur", unit: "720 ml", price: 1875, stock: "Low stock", brand: "Masumi", origin: "Japan", category: "Liqueur", size: "720 ml", best: 91, created: 20260904, img: "https://cdn.shopify.com/s/files/1/2675/0728/files/MASUMI-Yuzu-Shu-720ml.png?v=1685509925&width=500", badge: "New" },
+  { id: 5, name: "The Macallan 12yo Triple Cask Matured", unit: "700 ml", price: 6850, stock: "In stock", brand: "The Macallan", origin: "Scotland", category: "Whisky", size: "700 ml", best: 96, created: 20260518, img: "https://cdn.shopify.com/s/files/1/2675/0728/products/MACALLAN-12YO-TRIPLE-CASK-MATURED-700ML.png?v=1613356755&width=500", badge: "Premium" },
+  { id: 6, name: "Johnnie Walker Black Label", unit: "1 L", price: 1750, stock: "In stock", brand: "Johnnie Walker", origin: "Scotland", category: "Whisky", size: "1 L", best: 98, created: 20260611, img: "https://cdn.shopify.com/s/files/1/2675/0728/products/johnnie-walker-black-label-12-year-old-blended-scotch-whisky.png?v=1599097449&width=500", badge: "Bestseller" },
+  { id: 7, name: "Jack Daniel's Tennessee Whiskey", unit: "1 L", price: 2200, stock: "Low stock", brand: "Jack Daniel's", origin: "USA", category: "Whisky", size: "1 L", best: 93, created: 20260827, img: "https://cdn.shopify.com/s/files/1/2675/0728/products/JACK_DANIELS_1000ml.png?v=1599097443&width=500", badge: "Popular" },
+  { id: 8, name: "Old Monk Very Old Vatted Rum", unit: "700 ml", price: 650, stock: "In stock", brand: "Old Monk", origin: "India", category: "Rum", size: "700 ml", best: 90, created: 20260425, img: "https://cdn.shopify.com/s/files/1/2675/0728/files/OLDMONKVERYOLDVATTEDRUM.png?v=1686036814&width=500", badge: "Value Pick" },
+  { id: 9, name: "Bombay Sapphire London Dry Gin", unit: "750 ml", price: 1695, stock: "In stock", brand: "Bombay Sapphire", origin: "England", category: "Gin", size: "750 ml", best: 88, created: 20260609, img: "https://cdn.shopify.com/s/files/1/2675/0728/products/bombay_saphire.png?v=1599097318&width=500", badge: "" },
+  { id: 10, name: "Beefeater London Dry Gin", unit: "750 ml", price: 1495, stock: "In stock", brand: "Beefeater", origin: "England", category: "Gin", size: "750 ml", best: 85, created: 20260322, img: "https://cdn.shopify.com/s/files/1/2675/0728/files/BEEFEATERGIN700ML.png?v=1712125207&width=500", badge: "" },
+  { id: 11, name: "Belvedere Pure Vodka", unit: "700 ml", price: 2850, stock: "In stock", brand: "Belvedere", origin: "Poland", category: "Vodka", size: "700 ml", best: 84, created: 20260211, img: "https://ralphs.com.ph/cdn/shop/products/Belvedere_Vodka.png?v=1599097310&width=780", badge: "Premium" },
+  { id: 12, name: "Absolut Vodka", unit: "750 ml", price: 1050, stock: "In stock", brand: "Absolut", origin: "Sweden", category: "Vodka", size: "750 ml", best: 81, created: 20260117, img: "https://ralphs.com.ph/cdn/shop/products/Absolut-Blue-1000ml.png?v=1663145254&width=780", badge: "" },
+  { id: 13, name: "Bacardi Carta Negra", unit: "750 ml", price: 1250, stock: "In stock", brand: "Bacardi", origin: "Puerto Rico", category: "Rum", size: "750 ml", best: 79, created: 20260404, img: "https://ralphs.com.ph/cdn/shop/files/BacardiCartaBlanca.png?v=1686193062&width=780", badge: "" },
+  { id: 14, name: "Hennessy V.S.O.P", unit: "700 ml", price: 4850, stock: "In stock", brand: "Hennessy", origin: "France", category: "Cognac", size: "700 ml", best: 87, created: 20260910, img: "https://images.unsplash.com/photo-1594736797933-d0dce0c5d8bd?auto=format&fit=crop&w=700&q=80", badge: "Premium" },
+  { id: 15, name: "Rémy Martin V.S.O.P", unit: "700 ml", price: 4250, stock: "In stock", brand: "Rémy Martin", origin: "France", category: "Cognac", size: "700 ml", best: 83, created: 20260529, img: "https://images.unsplash.com/photo-1594736797933-d0dce0c5d8bd?auto=format&fit=crop&w=700&q=80", badge: "" },
+  { id: 16, name: "Patrón Reposado Tequila", unit: "750 ml", price: 4550, stock: "Low stock", brand: "Patrón", origin: "Mexico", category: "Tequila", size: "750 ml", best: 80, created: 20260831, img: "https://images.unsplash.com/photo-1516535797467-9f2f7f0f7e1b?auto=format&fit=crop&w=700&q=80", badge: "Premium" },
+  { id: 17, name: "Don Julio Blanco", unit: "750 ml", price: 3850, stock: "In stock", brand: "Don Julio", origin: "Mexico", category: "Tequila", size: "750 ml", best: 78, created: 20260208, img: "https://images.unsplash.com/photo-1516535797467-9f2f7f0f7e1b?auto=format&fit=crop&w=700&q=80", badge: "" },
+  { id: 18, name: "Baileys Original Irish Cream", unit: "700 ml", price: 1650, stock: "In stock", brand: "Baileys", origin: "Ireland", category: "Liqueur", size: "700 ml", best: 76, created: 20260703, img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=700&q=80", badge: "" },
+  { id: 19, name: "Campari", unit: "750 ml", price: 1450, stock: "In stock", brand: "Campari", origin: "Italy", category: "Aperitif", size: "750 ml", best: 73, created: 20260623, img: "https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=700&q=80", badge: "" },
+  { id: 20, name: "Aperol Aperitivo", unit: "750 ml", price: 1350, stock: "In stock", brand: "Aperol", origin: "Italy", category: "Aperitif", size: "750 ml", best: 71, created: 20260312, img: "https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=700&q=80", badge: "Popular" }
+  ];
+</script>
+
+<!-- Naka-link na ang external JS (defer attribute para mag-load after mag-render ang HTML) -->
+<script src="script.js" defer></script>
+</body>
+</html>
+
