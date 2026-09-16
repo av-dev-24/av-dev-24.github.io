@@ -26,11 +26,9 @@ const cartData = {};
 const pillTimers = {};
 
 function productCard(p) {
-  // Dahil mas kaunti ang data ng landing page items kumpara sa catalog, 
-  // gagawa tayo ng formatting para pumasa nang maayos sa Modal natin.
-  const unitParts = p.unit.split(' · ');
-  const itemSize = unitParts[0] || '750 ml';
-  const itemCat = unitParts[1] || p.type;
+  const unitParts = p.unit ? p.unit.split(' · ') : [];
+  const itemSize = unitParts[0] || p.size || '750 ml';
+  const itemCat = unitParts[1] || p.category || p.type;
   
   const modalData = {
     id: p.id,
@@ -39,45 +37,40 @@ function productCard(p) {
     img: p.img,
     size: itemSize,
     category: itemCat,
-    brand: 'Vintara Collection', // Default fallback
-    stock: 'In stock',           // Default fallback
-    origin: 'Imported',          // Default fallback
-    badge: ''
+    brand: p.brand || 'Vintara Collection', 
+    stock: p.stock || 'In stock',           
+    origin: p.origin || 'Imported',          
+    badge: p.badge || ''
   };
   
-  // I-encode para safe ipasa sa onclick
   const productDataStr = encodeURIComponent(JSON.stringify(modalData));
-  
-  // Kunin ang current quantity mula sa ating cartData state
   const currentQty = cartData[p.id] || 0;
   const escapedName = p.name.replace(/'/g, "\\'"); 
   
-  // Default icon kapag 0 ang qty, o kaya ay bilang kung > 0
   const centerContent = currentQty > 0 ? currentQty : `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
 
-  // Binalot natin ang card ng onclick="openProductModal(...)"
   return `
   <article class="product-card" data-name="${p.name.toLowerCase()}" onclick="openProductModal('${productDataStr}')">
     <div class="product-img">
+      ${modalData.badge ? `<span class="badge">${modalData.badge}</span>` : ''}
       <img src="${p.img}" alt="${p.name}" loading="lazy">
       
-      <!-- EXPANDABLE BUTTON NA PAREHAS SA CATALOG PAGE -->
-      <div class="qty-pill" id="pill-${p.id}" onclick="event.stopPropagation(); triggerAddOrExpand(${p.id}, '${escapedName}')">
+      <div class="qty-pill pill-item-${p.id}" onclick="event.stopPropagation(); triggerAddOrExpand(${p.id}, '${escapedName}')">
         <button class="qty-pill-minus" onclick="event.stopPropagation(); changeGridQty(${p.id}, -1, '${escapedName}')">−</button>
-        <div class="qty-pill-center" id="pill-lbl-${p.id}">
+        <div class="qty-pill-center pill-lbl-${p.id}">
           ${centerContent}
         </div>
         <button class="qty-pill-plus" onclick="event.stopPropagation(); changeGridQty(${p.id}, 1, '${escapedName}')">+</button>
       </div>
-
     </div>
     
     <div class="product-body">
       <div class="product-name">${p.name}</div>
-      <div class="unit">${p.unit}</div>
+      <div class="unit">${p.unit || (p.size + ' · ' + p.category)}</div>
       <div class="price">₱${p.price.toLocaleString()}</div>
     </div>
-  </article>`;
+  </article>`; 
+  // Tinanggal na natin yung <div class="list-action-area"> dito
 }
 
 function fill(id, list) {
@@ -118,9 +111,47 @@ function openCart() {
 
 function toggleChat() { document.getElementById("chatPanel").classList.toggle("open"); }
 function sendChat() { showToast("Message sent to support"); document.querySelector(".chat-input input").value = ""; }
-function toggleMobileMenu() { document.getElementById("mobileMenu").classList.toggle("open"); }
-function closeMobileMenu() { document.getElementById("mobileMenu").classList.remove("open"); }
-function toggleSub(btn) { btn.nextElementSibling.classList.toggle("open"); }
+
+/* ==============================================================
+   MOBILE NAVIGATION MENU (SLIDE-IN MODAL)
+   ============================================================== */
+
+function toggleMobileMenu() {
+  document.getElementById("mobileMenu").classList.add("open");
+  document.getElementById("menuOverlay").classList.add("show");
+  // Lock body scroll para hindi mag-scroll ang pahina sa likod
+  document.body.style.overflow = "hidden";
+}
+
+function closeMobileMenu() {
+  document.getElementById("mobileMenu").classList.remove("open");
+  document.getElementById("menuOverlay").classList.remove("show");
+  // Ibalik ang body scroll
+  document.body.style.overflow = "";
+}
+
+// Para sa Accordion (Expandable main categories)
+function toggleNavSub(btn) {
+  const group = btn.parentElement;
+  const submenu = btn.nextElementSibling;
+  const isOpening = !group.classList.contains("active");
+
+  // Opsiyonal: Kung gusto mong isara ang iba kapag nagbukas ng isa,
+  // tanggalin ang comment sa tatlong linya sa ibaba:
+  // document.querySelectorAll('.mobile-nav-group').forEach(g => {
+  //   g.classList.remove("active");
+  //   g.querySelector('.mobile-nav-submenu').style.maxHeight = null;
+  // });
+
+  if (isOpening) {
+    group.classList.add("active");
+    // Gamitin ang scrollHeight para makuha yung eksaktong height na kailangan
+    submenu.style.maxHeight = submenu.scrollHeight + "px";
+  } else {
+    group.classList.remove("active");
+    submenu.style.maxHeight = null;
+  }
+}
 
 function setupSearch(inputId) {
   const input = document.getElementById(inputId); 
@@ -208,8 +239,6 @@ function sortProducts(array) {
 function generateCatalogCard(p) {
   const productData = encodeURIComponent(JSON.stringify(p));
   const currentQty = cartData[p.id] || 0;
-  
-  // Escaped name para safe ipasa sa functions
   const escapedName = p.name.replace(/'/g, "\\'"); 
   
   const centerContent = currentQty > 0 ? currentQty : `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
@@ -221,10 +250,10 @@ function generateCatalogCard(p) {
       ${p.badge ? `<span class="badge">${p.badge}</span>` : ''}
       <img src="${p.img}" alt="${p.name}" loading="lazy">
       
-      <!-- GRID VIEW: EXPANDABLE BUTTON -->
-      <div class="qty-pill" id="pill-${p.id}" onclick="event.stopPropagation(); triggerAddOrExpand(${p.id}, '${escapedName}')">
+      <!-- Na-update: Gumagamit na ng CLASSES gaya ng sa home page -->
+      <div class="qty-pill pill-item-${p.id}" onclick="event.stopPropagation(); triggerAddOrExpand(${p.id}, '${escapedName}')">
         <button class="qty-pill-minus" onclick="event.stopPropagation(); changeGridQty(${p.id}, -1, '${escapedName}')">−</button>
-        <div class="qty-pill-center" id="pill-lbl-${p.id}">
+        <div class="qty-pill-center pill-lbl-${p.id}">
           ${centerContent}
         </div>
         <button class="qty-pill-plus" onclick="event.stopPropagation(); changeGridQty(${p.id}, 1, '${escapedName}')">+</button>
@@ -237,9 +266,9 @@ function generateCatalogCard(p) {
       <div class="price">₱${p.price.toLocaleString()}</div>
     </div>
 
-    <!-- LIST VIEW: ACTION AREA (Right Side) -->
+    <!-- LIST VIEW: ACTION AREA (Na-update din sa class) -->
     <div class="list-action-area" onclick="event.stopPropagation();">
-      <div id="list-ui-${p.id}" style="width: 100%; max-width: 160px;">
+      <div class="list-ui-${p.id}" style="width: 100%; max-width: 160px;">
         ${generateListActionUI(p.id, escapedName)}
       </div>
     </div>
@@ -285,7 +314,6 @@ function changeGridQty(id, change, name) {
   cartData[id] = qty;
   updateCartTotal();
   
-  // Update Grid Pill UI
   renderPillContent(id);
   if (qty > 0) {
     expandPill(id);
@@ -293,10 +321,12 @@ function changeGridQty(id, change, name) {
     collapsePill(id);
   }
 
-  // Update List View UI
-  const listUI = document.getElementById(`list-ui-${id}`);
-  if (listUI) {
-    listUI.innerHTML = generateListActionUI(id, name);
+  // Kung may list view UI man na multiple, i-update din silang lahat
+  if (typeof generateListActionUI === 'function') {
+    const listUIs = document.querySelectorAll(`.list-ui-${id}`);
+    listUIs.forEach(ui => {
+      ui.innerHTML = generateListActionUI(id, name);
+    });
   }
 
   if (change > 0) {
@@ -306,34 +336,37 @@ function changeGridQty(id, change, name) {
 
 // Update the icon or number sa center ng pill
 function renderPillContent(id) {
-  const lbl = document.getElementById(`pill-lbl-${id}`);
-  if (!lbl) return;
+  // Hanapin LAHAT ng labels na may class nito
+  const labels = document.querySelectorAll(`.pill-lbl-${id}`);
+  if (labels.length === 0) return;
 
   const qty = cartData[id] || 0;
-  if (qty === 0) {
-    lbl.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
-  } else {
-    lbl.textContent = qty;
-  }
+  const content = qty === 0 
+    ? `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>` 
+    : qty;
+
+  // I-update lahat ng nahanap
+  labels.forEach(lbl => {
+    lbl.innerHTML = content;
+  });
 }
 
-// Smooth Expand Animation & Auto Collapse Timer
 function expandPill(id) {
-  const pill = document.getElementById(`pill-${id}`);
-  if (pill) pill.classList.add('expanded');
+  // Hanapin LAHAT ng pills ng specific product na ito
+  const pills = document.querySelectorAll(`.pill-item-${id}`);
+  pills.forEach(pill => pill.classList.add('expanded'));
   
-  // I-reset ang countdown timer tuwing may interaction
   if (pillTimers[id]) clearTimeout(pillTimers[id]);
   
-  // Mag automatic collapse makalipas ang 2.5 segundo (kung walang pinipindot)
   pillTimers[id] = setTimeout(() => {
     collapsePill(id);
   }, 2500); 
 }
 
 function collapsePill(id) {
-  const pill = document.getElementById(`pill-${id}`);
-  if (pill) pill.classList.remove('expanded');
+  // I-collapse LAHAT ng pill buttons ng item na ito
+  const pills = document.querySelectorAll(`.pill-item-${id}`);
+  pills.forEach(pill => pill.classList.remove('expanded'));
 }
 
 // Total counter update para sa global navbar cart
@@ -572,10 +605,10 @@ function addFromModal() {
   updateCartTotal();
   renderPillContent(id); // Para mag-update agad ang nakasulat sa product card grid kung kita ito sa page
 
-  const listUI = document.getElementById(`list-ui-${id}`);
-  if (listUI) {
-    listUI.innerHTML = generateListActionUI(id, currentModalProduct.name.replace(/'/g, "\\'"));
-  }
+  const listUIs = document.querySelectorAll(`.list-ui-${id}`);
+  listUIs.forEach(ui => {
+    ui.innerHTML = generateListActionUI(id, currentModalProduct.name.replace(/'/g, "\\'"));
+  });
   
   showToast(`${addedQty}x ${currentModalProduct.name} added to cart`);
   closeProductModal();
