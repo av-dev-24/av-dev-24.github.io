@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0f2419" />
+  <title>WASTE NJ — Modern Waste Collection & Hauling</title>
+  <meta name="description" content="A modern New Jersey garbage collection and waste hauling website prototype inspired by the visual language of Waste PH." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#07110b;
+      --deep:#0b1b12;
+      --forest:#0f2a1a;
+      --green:#22c55e;
+      --lime:#7be17b;
+      --mist:#eef4ef;
+      --white:#f8faf8;
+      --muted:#aab8ae;
+      --line:rgba(255,255,255,.11);
+      --dark-line:rgba(7,17,11,.10);
+      --max:1280px;
+      --radius:24px;
+      --shadow:0 24px 70px rgba(0,0,0,.18);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--white);color:var(--ink);font-family:Manrope,system-ui,sans-serif;line-height:1.5;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    button,input,select{font:inherit}
+    .mono{font-family:'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase}
+
+    /* top announcement */
+    .topline{height:34px;background:#07150c;color:#d9e7dc;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:11px;position:relative;z-index:50}
+    .topline span{opacity:.85}.topline b{color:#72d979;font-weight:600;margin:0 7px}
+
+    .site-header{position:sticky;top:0;z-index:40;background:rgba(248,250,248,.88);backdrop-filter:blur(18px);border-bottom:1px solid var(--dark-line)}
+    .nav{max-width:var(--max);margin:auto;min-height:78px;padding:0 28px;display:flex;align-items:center;gap:24px}
+    .brand{display:flex;align-items:center;gap:12px;min-width:205px}
+    .brand-mark{width:39px;height:39px;border-radius:13px;background:#0c2416;color:#79dd81;display:grid;place-items:center;font-weight:800;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+    .brand-word{font-size:19px;font-weight:800;line-height:.88;letter-spacing:-.04em}
+    .brand-word small{display:block;font:500 8px 'DM Mono',monospace;letter-spacing:.14em;margin-top:5px;opacity:.6}
+
+    .desktop-menu{display:flex;align-items:center;justify-content:center;gap:6px;flex:1}
+    .nav-link{border:0;background:transparent;padding:11px 13px;border-radius:999px;font-size:12px;font-weight:700;color:#27342c;cursor:pointer}
+    .nav-link:hover,.nav-link.active{background:#e8f0e9}
+    .nav-dropdown{position:relative}
+    .dropdown{position:absolute;top:calc(100% + 10px);left:0;width:215px;background:white;border:1px solid var(--dark-line);border-radius:18px;padding:8px;box-shadow:0 24px 60px rgba(0,0,0,.12);opacity:0;transform:translateY(7px);pointer-events:none;transition:.2s ease}
+    .nav-dropdown:hover .dropdown,.nav-dropdown:focus-within .dropdown{opacity:1;transform:translateY(0);pointer-events:auto}
+    .dropdown a{display:block;padding:11px 12px;border-radius:12px;font-size:12px}.dropdown a:hover{background:#eef5ef}
+    .nav-actions{display:flex;align-items:center;gap:9px}
+    .ghost-btn,.solid-btn{border-radius:999px;padding:12px 17px;font-size:11px;font-weight:800;cursor:pointer;transition:.2s ease;border:1px solid var(--dark-line)}
+    .ghost-btn{background:transparent}.ghost-btn:hover{background:#e9efea;transform:translateY(-1px)}
+    .solid-btn{background:var(--ink);color:white;border-color:var(--ink);box-shadow:0 12px 26px rgba(7,17,11,.18)}
+    .solid-btn:hover{transform:translateY(-2px);background:#13291b}
+    .menu-btn{display:none;border:1px solid var(--dark-line);width:42px;height:42px;border-radius:12px;background:white;cursor:pointer}
+
+    /* mobile menu */
+    .mobile-panel{position:fixed;inset:112px 12px auto 12px;background:#0a1b10;color:white;border-radius:22px;padding:12px;border:1px solid rgba(255,255,255,.1);box-shadow:0 30px 90px rgba(0,0,0,.22);transform:translateY(-15px);opacity:0;pointer-events:none;transition:.22s ease;z-index:60}
+    .mobile-panel.open{transform:none;opacity:1;pointer-events:auto}
+    .mobile-panel a,.mobile-panel summary{display:block;padding:14px 12px;border-radius:14px;font-size:13px}
+    .mobile-panel a:hover{background:rgba(255,255,255,.06)}
+    .mobile-panel details{border-top:1px solid rgba(255,255,255,.08)}
+    .mobile-panel details:first-child{border-top:0}
+    .mobile-panel summary{cursor:pointer;list-style:none}
+    .mobile-panel summary::-webkit-details-marker{display:none}
+
+    /* hero */
+    .hero{position:relative;min-height:calc(100svh - 112px);background:
+      radial-gradient(circle at 84% 20%,rgba(77,170,91,.25),transparent 32%),
+      radial-gradient(circle at 38% 72%,rgba(32,82,50,.22),transparent 32%),
+      linear-gradient(115deg,#08120c 0%,#0b1c12 45%,#17281d 100%);color:white;overflow:hidden}
+    .hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(to bottom,black,transparent 85%);opacity:.45}
+    .hero::after{content:"";position:absolute;inset:auto -10% -35% -10%;height:60%;background:radial-gradient(ellipse at center,rgba(79,196,97,.12),transparent 60%);pointer-events:none}
+    .hero-inner{max-width:var(--max);margin:auto;padding:44px 28px 58px;min-height:calc(100svh - 112px);display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:center;position:relative;z-index:1}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.035);border-radius:999px;font-size:10px;color:#c9d6cd;backdrop-filter:blur(8px)}
+    .dot{width:7px;height:7px;border-radius:50%;background:#63d96e;box-shadow:0 0 0 6px rgba(99,217,110,.10)}
+    .hero h1{font-size:clamp(62px,10.2vw,150px);line-height:.77;letter-spacing:-.08em;margin:32px 0 16px;font-weight:800;max-width:850px}
+    .hero h1 span{color:#67d86e}
+    .hero-sub{font-size:clamp(20px,2.2vw,31px);letter-spacing:-.035em;font-weight:500;color:#d9e3db;margin:0 0 20px;max-width:700px}
+    .hero-copy{max-width:650px;color:#aebbb2;font-size:14px}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+    .btn-white,.btn-outline{border-radius:999px;padding:15px 20px;font-weight:800;font-size:11px;display:inline-flex;align-items:center;gap:12px}
+    .btn-white{background:white;color:#0a170e}.btn-outline{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.04);color:white}.btn-white:hover,.btn-outline:hover{transform:translateY(-2px)}
+    .hero-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:27px}
+    .tag{padding:8px 11px;border:1px solid rgba(255,255,255,.12);border-radius:999px;color:#b9c6bd;font:500 9px 'DM Mono',monospace;background:rgba(255,255,255,.03)}
+    .hero-visual{position:relative;min-height:500px;display:flex;align-items:center;justify-content:center}
+    .truck-frame{width:min(100%,560px);aspect-ratio:1/1;background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.12);border-radius:34px;box-shadow:var(--shadow);overflow:hidden;position:relative;transform:rotate(1.5deg)}
+    .truck-bg{position:absolute;inset:0;background-image:linear-gradient(135deg,rgba(7,18,11,.7),rgba(7,18,11,.18)),url('https://images.unsplash.com/photo-1604187351574-c75ca79f5807?auto=format&fit=crop&w=1100&q=82');background-size:cover;background-position:center}
+    .truck-frame::after{content:"";position:absolute;inset:auto 22px 22px;height:34%;background:linear-gradient(to top,rgba(5,14,9,.75),transparent);border-radius:22px}
+    .visual-stamp{position:absolute;left:28px;bottom:28px;z-index:2;padding:12px 15px;border-radius:17px;background:rgba(5,16,10,.6);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(15px)}
+    .visual-stamp strong{display:block;font-size:21px}.visual-stamp small{display:block;margin-top:2px;color:#a4b4aa;font:500 8px 'DM Mono',monospace;letter-spacing:.12em}
+    .floating-card{position:absolute;background:rgba(244,249,245,.94);color:#0d1a12;border:1px solid rgba(255,255,255,.65);border-radius:20px;padding:15px 16px;box-shadow:0 18px 50px rgba(0,0,0,.22);backdrop-filter:blur(12px);animation:float 5s ease-in-out infinite}
+    .floating-card.one{top:5%;right:0}.floating-card.two{bottom:6%;right:1%;animation-delay:-2.1s}.floating-card strong{font-size:17px;display:block;letter-spacing:-.04em}.floating-card small{color:#5d6c62;font:500 8px 'DM Mono',monospace;letter-spacing:.08em}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+    /* marquee */
+    .marquee{border-bottom:1px solid var(--dark-line);overflow:hidden;background:#dce8de}
+    .marquee-track{white-space:nowrap;display:flex;min-width:max-content;animation:marquee 24s linear infinite}
+    .marquee-item{padding:18px 0 18px 30px;font:500 11px 'DM Mono',monospace;letter-spacing:.14em;color:#294132}
+    .marquee-item b{color:#2c8f45;margin:0 30px}
+    @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+    .section{padding:100px 28px}.container{max-width:var(--max);margin:auto}
+    .section-grid{display:grid;grid-template-columns:.5fr 1.5fr;gap:55px}
+    .section-kicker{font:500 10px 'DM Mono',monospace;color:#64806b;letter-spacing:.12em;text-transform:uppercase}
+    .section-title{font-size:clamp(40px,5vw,74px);letter-spacing:-.065em;line-height:.92;margin:13px 0 0;max-width:760px}
+    .intro{font-size:18px;line-height:1.55;color:#536158;max-width:680px;margin:0 0 34px}
+
+    .services{background:#f0f5f0}
+    .service-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:52px}
+    .service{background:white;border:1px solid var(--dark-line);border-radius:22px;padding:22px;min-height:250px;transition:.24s ease;display:flex;flex-direction:column;justify-content:space-between}
+    .service:hover{transform:translateY(-7px);box-shadow:0 20px 50px rgba(19,42,25,.10)}
+    .icon{width:46px;height:46px;border-radius:15px;background:#eaf4ec;color:#1a8d3f;display:grid;place-items:center;font-weight:800;font-size:17px}
+    .service h3{font-size:19px;letter-spacing:-.04em;margin:28px 0 7px}.service p{font-size:12px;color:#657269;margin:0}.service a{margin-top:20px;font:600 9px 'DM Mono',monospace;letter-spacing:.09em;text-transform:uppercase;color:#1a8d3f}
+
+    .about-band{background:#0a1b10;color:white;position:relative;overflow:hidden}.about-band::before{content:"NJ";position:absolute;font-weight:800;font-size:38vw;line-height:.6;right:-5vw;top:4%;color:rgba(255,255,255,.025);pointer-events:none}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:end}.about-copy{position:relative;z-index:1}.about-copy .section-kicker{color:#7fd586}.about-copy .section-title{max-width:650px}.about-copy p{color:#9baaa0;max-width:610px;font-size:15px;margin-top:28px}
+    .metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;position:relative;z-index:1}.metric{border-top:1px solid rgba(255,255,255,.13);padding:18px 4px 6px}.metric strong{font-size:clamp(35px,4vw,58px);letter-spacing:-.06em;display:block}.metric span{font:500 9px 'DM Mono',monospace;letter-spacing:.1em;color:#91a197;text-transform:uppercase}
+
+    .process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:52px}.process{border:1px solid var(--dark-line);border-radius:24px;padding:25px;background:white;min-height:230px}.process-num{font:500 11px 'DM Mono',monospace;color:#7b8c80}.process h3{font-size:27px;letter-spacing:-.05em;margin:70px 0 9px}.process p{font-size:12px;color:#68756c;margin:0}
+
+    .coverage{background:#e8f0e9}.coverage-card{margin-top:48px;border-radius:28px;background:#13271a;color:white;overflow:hidden;display:grid;grid-template-columns:1fr .85fr}.coverage-copy{padding:40px}.coverage-copy h3{font-size:clamp(34px,4vw,60px);letter-spacing:-.07em;line-height:.9;margin:15px 0 22px}.coverage-copy p{color:#a9b9ae;max-width:550px}.areas{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}.area{font:500 9px 'DM Mono',monospace;border:1px solid rgba(255,255,255,.13);border-radius:999px;padding:9px 11px;color:#c9d4cc}.map-art{min-height:390px;position:relative;background:radial-gradient(circle at 50% 44%,rgba(89,209,102,.18),transparent 42%),linear-gradient(150deg,#10251a,#0a170f)}
+    .map-art::before{content:"";position:absolute;inset:25px;background-image:linear-gradient(32deg,transparent 47%,rgba(255,255,255,.1) 48%,transparent 49%),linear-gradient(104deg,transparent 49%,rgba(255,255,255,.08) 50%,transparent 51%),linear-gradient(160deg,transparent 47%,rgba(255,255,255,.07) 48%,transparent 49%);background-size:100% 90px,120px 100%,100% 110px;opacity:.7}
+    .pin{position:absolute;width:13px;height:13px;border-radius:50%;background:#6cdc76;box-shadow:0 0 0 8px rgba(108,220,118,.1),0 0 30px rgba(108,220,118,.35)}.pin span{position:absolute;left:18px;top:-4px;white-space:nowrap;font:500 8px 'DM Mono',monospace;color:#cdd8d0;text-transform:uppercase}.p1{left:31%;top:38%}.p2{left:54%;top:33%}.p3{left:70%;top:44%}.p4{left:43%;top:65%}
+
+    .cta{padding:90px 28px 110px}.cta-card{max-width:var(--max);margin:auto;background:#14301f;border-radius:30px;color:white;padding:58px;position:relative;overflow:hidden;box-shadow:var(--shadow)}.cta-card::after{content:"";position:absolute;width:300px;height:300px;border-radius:50%;right:-100px;top:-120px;background:rgba(101,215,110,.11)}.cta-card h2{font-size:clamp(44px,6vw,80px);line-height:.9;letter-spacing:-.07em;max-width:770px;margin:0}.cta-card p{color:#a9b8ae;max-width:590px;margin:22px 0 28px}
+
+    footer{background:#06110a;color:white;padding:45px 28px 28px}.footer-grid{max-width:var(--max);margin:auto;display:grid;grid-template-columns:1.2fr .7fr .7fr .9fr;gap:35px}.footer-brand .brand{min-width:0;color:white}.footer-note{max-width:380px;color:#829289;font-size:12px;margin-top:16px}.footer-title{font:500 9px 'DM Mono',monospace;letter-spacing:.14em;color:#738279;margin-bottom:12px}.footer a{display:block;color:#b7c3ba;font-size:12px;padding:5px 0}.footer a:hover{color:white}.copyright{max-width:var(--max);margin:35px auto 0;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);color:#617167;font:500 8px 'DM Mono',monospace;letter-spacing:.09em}
+
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .72s ease,transform .72s ease}.reveal.visible{opacity:1;transform:none}
+    .cursor-dot{position:fixed;width:8px;height:8px;border-radius:50%;background:#68d771;pointer-events:none;z-index:100;mix-blend-mode:difference;transform:translate(-50%,-50%);display:none}
+
+    @media(max-width:1050px){
+      .desktop-menu{display:none}.nav{justify-content:space-between}.menu-btn{display:block}.brand{min-width:0}.nav-actions .ghost-btn{display:none}
+      .hero-inner{grid-template-columns:1fr}.hero-visual{min-height:410px;max-width:720px}.truck-frame{margin:auto}.floating-card.one{right:4%}.floating-card.two{right:4%}
+      .section-grid{grid-template-columns:1fr;gap:22px}.service-grid{grid-template-columns:repeat(2,1fr)}.about-grid{grid-template-columns:1fr}.coverage-card{grid-template-columns:1fr}.map-art{min-height:330px}
+      .footer-grid{grid-template-columns:1.1fr .9fr .9fr;}.footer-grid .contact-col{grid-column:span 3}
+    }
+    @media(max-width:650px){
+      .topline{font-size:9px}.nav{min-height:70px;padding:0 16px}.brand-word{font-size:17px}.nav-actions{gap:6px}.solid-btn{padding:10px 13px;font-size:9px}
+      .mobile-panel{inset:104px 9px auto 9px}
+      .hero-inner{padding:35px 16px 45px}.hero h1{font-size:clamp(64px,23vw,115px);margin-top:25px}.hero-sub{font-size:22px}.hero-copy{font-size:12px}.hero-visual{min-height:360px;margin-top:10px}.truck-frame{border-radius:24px;width:95%}.floating-card{padding:12px 13px}.floating-card strong{font-size:14px}.floating-card small{font-size:7px}.floating-card.one{top:0;right:0}.floating-card.two{bottom:0;right:0}
+      .section{padding:75px 16px}.section-title{font-size:clamp(42px,14vw,65px)}.intro{font-size:15px}.service-grid,.process-grid{grid-template-columns:1fr;gap:10px}.service{min-height:210px}.process{min-height:200px}.process h3{margin-top:52px}
+      .about-band::before{font-size:70vw}.metrics{gap:10px}.metric strong{font-size:40px}.coverage-card{border-radius:22px}.coverage-copy{padding:28px}.coverage-copy h3{font-size:50px}.map-art{min-height:290px}
+      .cta{padding:55px 16px 75px}.cta-card{padding:35px 25px;border-radius:24px}.cta-card h2{font-size:clamp(45px,15vw,72px)}
+      footer{padding:38px 16px 24px}.footer-grid{grid-template-columns:1fr 1fr;gap:23px}.footer-grid .contact-col{grid-column:span 2}.copyright{margin-top:25px}
+    }
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+  <div class="topline"><span>NEW JERSEY • PRIVATE WASTE SERVICES</span><b>●</b><span>REQUEST A PICKUP QUOTE</span></div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="#top" aria-label="WASTE NJ home">
+        <div class="brand-mark">W</div>
+        <div class="brand-word">WASTE<span style="color:#1d9b47">.NJ</span><small>MODERN WASTE COLLECTION</small></div>
+      </a>
+
+      <div class="desktop-menu" aria-label="Main navigation">
+        <a class="nav-link active" href="#top">Home</a>
+        <a class="nav-link" href="#services">Services</a>
+        <div class="nav-dropdown">
+          <button class="nav-link">Solutions ▾</button>
+          <div class="dropdown">
+            <a href="#services">Residential Collection</a>
+            <a href="#services">Commercial Waste</a>
+            <a href="#services">Construction Hauling</a>
+            <a href="#services">Recycling Programs</a>
+          </div>
+        </div>
+        <a class="nav-link" href="#process">How It Works</a>
+        <a class="nav-link" href="#coverage">Service Area</a>
+        <a class="nav-link" href="#about">About</a>
+      </div>
+
+      <div class="nav-actions">
+        <a class="ghost-btn" href="#coverage">Service Area</a>
+        <a class="solid-btn" href="#quote">Get a Quote ↗</a>
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="mobile-panel" id="mobilePanel">
+    <a href="#top">Home</a>
+    <details><summary>Services +</summary><a href="#services">Residential Collection</a><a href="#services">Commercial Waste</a><a href="#services">Construction Hauling</a><a href="#services">Recycling Programs</a></details>
+    <a href="#process">How It Works</a>
+    <a href="#coverage">Service Area</a>
+    <a href="#about">About</a>
+    <a href="#quote">Get a Quote ↗</a>
+  </div>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="eyebrow"><span class="dot"></span> BUILT FOR NEW JERSEY</div>
+          <h1>WASTE<span>.NJ</span></h1>
+          <div class="hero-sub">Clean streets. Smarter hauling. Better waste service.</div>
+          <p class="hero-copy">A polished garbage collection and hauling service for homes, businesses, property managers, and project sites across New Jersey.</p>
+          <div class="hero-actions">
+            <a class="btn-white" href="#quote">WORK WITH US <span>→</span></a>
+            <a class="btn-outline" href="#services">EXPLORE SERVICES <span>↗</span></a>
+          </div>
+          <div class="hero-tags">
+            <span class="tag">RESIDENTIAL</span><span class="tag">COMMERCIAL</span><span class="tag">RECYCLING</span><span class="tag">HAULING</span><span class="tag">CONSTRUCTION</span>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="truck-frame" aria-label="Waste collection truck image placeholder"><div class="truck-bg"></div><div class="visual-stamp"><strong>MOVE WASTE RIGHT.</strong><small>NEW JERSEY • USA</small></div></div>
+          <div class="floating-card one"><strong>Flexible Pickup</strong><small>ROUTES BUILT AROUND YOUR NEEDS</small></div>
+          <div class="floating-card two"><strong>Local Service</strong><small>NJ COMMUNITIES • BUSINESS & HOME</small></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <div class="marquee-item">GARBAGE COLLECTION <b>✳</b></div><div class="marquee-item">WASTE HAULING <b>✳</b></div><div class="marquee-item">RECYCLING <b>✳</b></div><div class="marquee-item">CONSTRUCTION CLEANOUTS <b>✳</b></div><div class="marquee-item">COMMERCIAL SERVICE <b>✳</b></div><div class="marquee-item">GARBAGE COLLECTION <b>✳</b></div><div class="marquee-item">WASTE HAULING <b>✳</b></div><div class="marquee-item">RECYCLING <b>✳</b></div><div class="marquee-item">CONSTRUCTION CLEANOUTS <b>✳</b></div><div class="marquee-item">COMMERCIAL SERVICE <b>✳</b></div>
+      </div>
+    </div>
+
+    <section class="section reveal" id="services">
+      <div class="container section-grid">
+        <div><div class="section-kicker">01 / WHAT WE DO</div><h2 class="section-title">Waste service without the guesswork.</h2></div>
+        <div><p class="intro">From recurring collection to one-time cleanouts, WASTE.NJ is designed around one simple idea: make waste removal easy to understand, easy to schedule, and easy to trust.</p></div>
+      </div>
+      <div class="container service-grid">
+        <article class="service reveal"><div><div class="icon">01</div><h3>Residential</h3><p>Routine household garbage collection for neighborhoods, multifamily properties, and private residences.</p></div><a href="#quote">VIEW SERVICE ↗</a></article>
+        <article class="service reveal"><div><div class="icon">02</div><h3>Commercial</h3><p>Dependable waste programs for retail, offices, restaurants, warehouses, and property managers.</p></div><a href="#quote">VIEW SERVICE ↗</a></article>
+        <article class="service reveal"><div><div class="icon">03</div><h3>Recycling</h3><p>Collection programs that help separate recoverable materials and reduce unnecessary landfill waste.</p></div><a href="#quote">VIEW SERVICE ↗</a></article>
+        <article class="service reveal"><div><div class="icon">04</div><h3>Hauling</h3><p>Junk removal, construction debris, bulk material pickup, and scheduled site cleanouts.</p></div><a href="#quote">VIEW SERVICE ↗</a></article>
+      </div>
+    </section>
+
+    <section class="section about-band" id="about">
+      <div class="container about-grid reveal">
+        <div class="about-copy"><div class="section-kicker">02 / WHO WE ARE</div><h2 class="section-title">A cleaner system for a cleaner state.</h2><p>WASTE.NJ is a prototype brand for a modern local waste collection company serving New Jersey. The concept combines the bold, industrial visual language of Waste PH with a U.S.-focused customer experience, simple service discovery, and clear calls to action.</p><a class="btn-white" href="#quote" style="margin-top:10px">START A CONVERSATION ↗</a></div>
+        <div class="metrics">
+          <div class="metric"><strong data-count="4">0</strong><span>Core service lines</span></div>
+          <div class="metric"><strong data-count="21">0</strong><span>NJ service communities*</span></div>
+          <div class="metric"><strong data-count="365">0</strong><span>Days with online requests*</span></div>
+          <div class="metric"><strong data-count="100">0</strong><span>% quote-first experience</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="process">
+      <div class="container section-grid"><div><div class="section-kicker">03 / HOW IT WORKS</div><h2 class="section-title">Three moves. One less thing to worry about.</h2></div><div><p class="intro">The interaction is intentionally simple so customers can move from “I need this gone” to “It’s handled” without a complicated flow.</p></div></div>
+      <div class="container process-grid">
+        <article class="process reveal"><div class="process-num">01 / TELL US WHAT YOU NEED</div><h3>Request</h3><p>Choose your service, tell us the location, and describe the pickup or recurring schedule.</p></article>
+        <article class="process reveal"><div class="process-num">02 / WE BUILD THE ROUTE</div><h3>Schedule</h3><p>Our team confirms the scope and places the job into a practical pickup route.</p></article>
+        <article class="process reveal"><div class="process-num">03 / WE MOVE IT RIGHT</div><h3>Collect</h3><p>The crew arrives, collects the material, and routes it toward the appropriate handling destination.</p></article>
+      </div>
+    </section>
+
+    <section class="section coverage reveal" id="coverage">
+      <div class="container">
+        <div class="section-kicker">04 / SERVICE AREA</div>
+        <div class="coverage-card">
+          <div class="coverage-copy"><div class="mono" style="font-size:9px;color:#7fd586">NEW JERSEY / USA</div><h3>Closer to the communities we serve.</h3><p>Prototype service coverage is centered on major North and Central New Jersey communities, with room to expand based on route density and customer demand.</p><div class="areas"><span class="area">NEWARK</span><span class="area">JERSEY CITY</span><span class="area">ELIZABETH</span><span class="area">PATERSON</span><span class="area">Edison</span><span class="area">Woodbridge</span><span class="area">Union County</span><span class="area">Bergen County</span></div></div>
+          <div class="map-art"><div class="pin p1"><span>Newark</span></div><div class="pin p2"><span>Jersey City</span></div><div class="pin p3"><span>Paterson</span></div><div class="pin p4"><span>Elizabeth</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta reveal" id="quote">
+      <div class="cta-card"><div class="section-kicker" style="color:#7fd586">05 / LET'S TALK</div><h2>Ready to make waste disappear from your to-do list?</h2><p>Use this section as the primary lead-generation point for the final production website. Replace the prototype contact details with the actual company information when available.</p><a class="btn-white" href="mailto:hello@example.com">REQUEST A QUOTE ↗</a></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand"><a class="brand" href="#top"><div class="brand-mark">W</div><div class="brand-word">WASTE<span style="color:#6fda76">.NJ</span><small style="color:#8a998f">MODERN WASTE COLLECTION</small></div></a><p class="footer-note">A New Jersey garbage collection and hauling website prototype, intentionally built around the same bold, dark, rounded visual direction requested from Waste PH.</p></div>
+      <div><div class="footer-title">EXPLORE</div><a href="#services">Services</a><a href="#process">How It Works</a><a href="#coverage">Service Area</a><a href="#about">About</a></div>
+      <div><div class="footer-title">SERVICES</div><a href="#services">Residential</a><a href="#services">Commercial</a><a href="#services">Recycling</a><a href="#services">Hauling</a></div>
+      <div class="contact-col"><div class="footer-title">CONTACT</div><a href="tel:+12015550148">(201) 555-0148</a><a href="mailto:hello@example.com">hello@example.com</a><a href="#quote">Request a pickup quote ↗</a></div>
+    </div>
+    <div class="copyright">© <span id="year"></span> WASTE.NJ — PROTOTYPE / CONTENT IS FOR DEMONSTRATION ONLY</div>
+  </footer>
+
+  <div class="cursor-dot" id="cursorDot"></div>
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const mobilePanel = document.getElementById('mobilePanel');
+    menuBtn.addEventListener('click', () => {
+      const open = mobilePanel.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open);
+      menuBtn.textContent = open ? '×' : '☰';
+    });
+    mobilePanel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobilePanel.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.textContent = '☰';
+    }));
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold:.14});
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const countObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = Number(el.dataset.count || 0);
+        const start = performance.now();
+        const duration = 1100;
+        const tick = now => {
+          const p = Math.min((now-start)/duration,1);
+          const eased = 1-Math.pow(1-p,3);
+          el.textContent = Math.round(target*eased);
+          if(p<1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+        countObserver.unobserve(el);
+      });
+    }, {threshold:.6});
+    document.querySelectorAll('[data-count]').forEach(el => countObserver.observe(el));
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const cursorDot = document.getElementById('cursorDot');
+    if(window.matchMedia('(pointer:fine)').matches){
+      cursorDot.style.display='block';
+      window.addEventListener('mousemove', e => { cursorDot.style.left=e.clientX+'px'; cursorDot.style.top=e.clientY+'px'; });
+    }
+  </script>
+</body>
+</html>
