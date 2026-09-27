@@ -49,7 +49,17 @@
       height: 38px;
       display: flex;
       align-items: center;
-      background: linear-gradient(90deg, #082e1c, #0d3b25 72%, #0a496f);
+      background:
+  radial-gradient(
+    circle at 85% 20%,
+    rgba(92, 169, 214, .35),
+    transparent 32%
+  ),
+  linear-gradient(
+    135deg,
+    #245C35 0%,
+    #4F9560 42%
+  );
       color: #eaf6ec;
       font-size: 13px;
       transition: transform .28s ease;
@@ -70,7 +80,7 @@
     }
     .top-contact a { opacity: .9; transition: opacity .2s ease; }
     .top-contact a:hover { opacity: 1; }
-    .top-promise { color: #b9d3bf; }
+    .top-promise { color: #eaf6ec; }
 
     .navbar {
       position: fixed;
@@ -81,7 +91,12 @@
       height: 82px;
       display: flex;
       align-items: center;
-      background: linear-gradient(90deg, rgba(16,61,33,.98), rgba(18,82,58,.97) 62%, rgba(11,71,120,.96));
+      background: linear-gradient(
+  90deg,
+  #245C35,
+  #3F8050 60%,
+  #327DAA
+);
       color: var(--white);
       border-bottom: 1px solid rgba(255,255,255,.08);
       transition: background .25s ease, box-shadow .25s ease, color .25s ease, top .25s ease;
@@ -89,11 +104,18 @@
     }
     .navbar.scrolled {
       top: 38px;
-      background: rgba(255,255,255,.97);
+      background: #ffffff;
       color: #184c1f;
       box-shadow: 0 10px 32px rgba(0,0,0,.10);
       border-bottom-color: var(--border);
     }
+    .navbar.scrolled a {
+  color: #245C35;
+}
+
+.navbar.scrolled a:hover {
+  color: #327DAA;
+}
     .navbar.scrolled + .mobile-spacer { display: none; }
     .nav-inner {
       width: min(var(--max), calc(100% - 40px));
@@ -167,10 +189,18 @@
       align-items: center;
       padding: 180px 0 110px;
       background:
-        radial-gradient(circle at 82% 16%, rgba(25,151,213,.24), transparent 28%),
-        radial-gradient(circle at 56% 72%, rgba(60,180,113,.18), transparent 28%),
-        radial-gradient(circle at 5% 95%, rgba(92,179,125,.14), transparent 30%),
-        linear-gradient(135deg, #082e1c 0%, #103d21 42%, #155c3d 68%, #0b4f7c 100%);
+  radial-gradient(
+    circle at 85% 20%,
+    rgba(92, 169, 214, .35),
+    transparent 32%
+  ),
+  linear-gradient(
+    135deg,
+    #245C35 0%,
+    #4F9560 42%,
+    #78B98A 68%,
+    #5CA9D6 100%
+  );
       color: white;
     }
     .hero::before {
