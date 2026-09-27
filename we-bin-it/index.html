@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="We-bin-it Waste Services — reliable residential and commercial garbage collection across the USA." />
+  <title>We-bin-it Waste Services | Simple, Reliable Waste Collection</title>
+  <style>
+    :root {
+      --deep-green: #123d20;
+      --deep-green-2: #0d2f18;
+      --primary: #15522c;
+      --primary-dark: #0f3d20;
+      --green-2: #1d6a38;
+      --lime: #8cc63f;
+      --yellow: #fff200;
+      --cream: #f5f8f2;
+      --soft-green: #eaf2ea;
+      --text: #173121;
+      --muted: #68786d;
+      --white: #ffffff;
+      --border: #dfe8df;
+      --shadow: 0 18px 45px rgba(15, 61, 32, 0.10);
+      --shadow-lg: 0 30px 70px rgba(9, 39, 20, 0.16);
+      --radius: 20px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button, input { font: inherit; }
+
+    .topbar {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 1000;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      background: var(--deep-green-2);
+      color: #eaf6ec;
+      font-size: 13px;
+      transition: transform .28s ease;
+    }
+    .topbar__inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .top-contact {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .top-contact a { opacity: .9; transition: opacity .2s ease; }
+    .top-contact a:hover { opacity: 1; }
+    .top-promise { color: #b9d3bf; }
+
+    .navbar {
+      position: fixed;
+      top: 38px;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      height: 82px;
+      display: flex;
+      align-items: center;
+      background: rgba(18,61,32,.96);
+      color: var(--white);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      transition: background .25s ease, box-shadow .25s ease, color .25s ease, top .25s ease;
+      backdrop-filter: blur(12px);
+    }
+    .navbar.scrolled {
+      top: 38px;
+      background: rgba(255,255,255,.97);
+      color: #184c1f;
+      box-shadow: 0 10px 32px rgba(0,0,0,.10);
+      border-bottom-color: var(--border);
+    }
+    .navbar.scrolled + .mobile-spacer { display: none; }
+    .nav-inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      flex-shrink: 0;
+    }
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, #b4dd5a, #4f9a38);
+      color: #0b3518;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 7px 16px rgba(30,88,40,.24);
+      font-weight: 900;
+      font-size: 21px;
+    }
+    .brand-copy strong { display: block; font-size: 17px; letter-spacing: -.02em; }
+    .brand-copy span { display: block; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; opacity: .66; margin-top: -2px; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+    }
+    .nav-links a {
+      position: relative;
+      padding: 10px 13px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: color .2s ease, background .2s ease;
+    }
+    .nav-links a:hover { background: rgba(255,255,255,.09); }
+    .navbar.scrolled .nav-links a:hover { background: var(--soft-green); }
+    .nav-links a.active { color: var(--yellow); }
+    .navbar.scrolled .nav-links a.active { color: #184c1f; }
+
+    .nav-cta {
+      padding: 11px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 800;
+      color: #0d2d15;
+      background: var(--yellow);
+      box-shadow: 0 8px 18px rgba(255,242,0,.15);
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 22px rgba(255,242,0,.23); }
+    .navbar.scrolled .nav-cta { background: var(--primary); color: white; box-shadow: none; }
+
+    .nav-toggle { display: none; }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 760px;
+      display: flex;
+      align-items: center;
+      padding: 180px 0 110px;
+      background:
+        radial-gradient(circle at 80% 15%, rgba(141,198,63,.17), transparent 31%),
+        radial-gradient(circle at 5% 95%, rgba(57,128,73,.18), transparent 30%),
+        linear-gradient(135deg, #0d2f18 0%, #123d20 45%, #185027 100%);
+      color: white;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 560px;
+      height: 560px;
+      border-radius: 50%;
+      right: -150px;
+      bottom: -240px;
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 0 0 56px rgba(255,255,255,.025), 0 0 0 112px rgba(255,255,255,.02);
+    }
+    .hero-inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      align-items: center;
+      gap: 60px;
+      position: relative;
+      z-index: 1;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      border: 1px solid rgba(255,255,255,.17);
+      background: rgba(255,255,255,.06);
+      border-radius: 999px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-weight: 800;
+      color: #d4ecd6;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 999px; background: #a9df4e; box-shadow: 0 0 0 5px rgba(169,223,78,.10); }
+    .hero h1 {
+      margin: 20px 0 18px;
+      font-size: clamp(44px, 6vw, 76px);
+      line-height: .99;
+      letter-spacing: -.055em;
+      max-width: 750px;
+    }
+    .hero h1 span { color: #b4df67; }
+    .hero p {
+      margin: 0;
+      max-width: 620px;
+      color: #c7ddd0;
+      font-size: 18px;
+      line-height: 1.75;
+    }
+    .hero-actions { display: flex; gap: 13px; flex-wrap: wrap; margin-top: 30px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 49px;
+      padding: 0 20px;
+      border-radius: 13px;
+      font-weight: 800;
+      font-size: 14px;
+      border: 1px solid transparent;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn-primary { background: #b6df63; color: #113718; box-shadow: 0 12px 28px rgba(124,173,57,.21); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 30px rgba(124,173,57,.28); }
+    .btn-secondary { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); color: white; }
+    .btn-secondary:hover { background: rgba(255,255,255,.11); transform: translateY(-2px); }
+
+    .hero-stats { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 34px; }
+    .stat { min-width: 105px; }
+    .stat strong { display: block; font-size: 25px; letter-spacing: -.03em; }
+    .stat span { color: #a9c4b0; font-size: 12px; }
+
+    .hero-visual { position: relative; min-height: 500px; top:-30px}
+    .truck-card {
+      position: absolute;
+      inset: 34px 10px 20px 30px;
+      border-radius: 30px;
+      background: linear-gradient(155deg, rgba(255,255,255,.15), rgba(255,255,255,.055));
+      border: 1px solid rgba(255,255,255,.17);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+    .truck-card::before {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      top: -100px;
+      right: -40px;
+      background: rgba(174,223,99,.15);
+    }
+    .truck-scene { position: absolute; inset: 0; display: flex; align-items: end; justify-content: center; padding: 38px; }
+    .truck { width: 90%; max-width: 430px; filter: drop-shadow(0 28px 26px rgba(0,0,0,.23)); }
+    .floating-card {
+      position: absolute;
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 11px;
+      align-items: center;
+      background: white;
+      color: var(--text);
+      padding: 12px 16px 12px 12px;
+      border-radius: 16px;
+      box-shadow: 0 20px 45px rgba(4,25,12,.23);
+      border: 1px solid rgba(20,79,39,.08);
+    }
+    .floating-card.one { top: 0; right: 0; display: none;}
+    .floating-card.two { bottom: 0; left: 0; }
+    .float-icon { width: 44px; height: 44px; display:grid; place-items:center; border-radius: 13px; background: var(--soft-green); color: var(--primary); }
+    .floating-card strong { display: block; font-size: 14px; }
+    .floating-card small { display: block; color: var(--muted); font-size: 11px; margin-top: 1px; }
+
+    .section { padding: 100px 0; }
+    .section.alt { background: var(--cream); }
+    .container { width: min(var(--max), calc(100% - 40px)); margin: auto; }
+    .section-head { max-width: 700px; margin-bottom: 42px; }
+    .kicker { color: var(--green-2); font-weight: 900; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; }
+    .section h2 { margin: 10px 0 12px; font-size: clamp(32px,4.2vw,51px); line-height: 1.08; letter-spacing: -.04em; color: var(--primary); }
+    .section-head p { margin: 0; color: var(--muted); font-size: 16px; }
+
+    .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: white;
+      padding: 25px;
+      box-shadow: 0 10px 25px rgba(18,61,32,.04);
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: #caDACb; }
+    .icon-box { width: 54px; height: 54px; display: grid; place-items:center; border-radius: 15px; background: var(--soft-green); color: var(--primary); margin-bottom: 19px; }
+    .card h3 { margin: 0 0 8px; color: var(--primary); font-size: 19px; }
+    .card p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    .pricing-wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .price-card { position: relative; overflow: hidden; }
+    .price-card.featured { border-color: #8fbf66; box-shadow: 0 22px 50px rgba(35,98,50,.13); }
+    .badge { position:absolute; right:18px; top:18px; font-size:10px; text-transform: uppercase; letter-spacing: .12em; font-weight: 900; padding: 6px 9px; border-radius:999px; background: #e8f5dc; color: var(--primary); }
+    .price-label { color: var(--green-2); font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: .11em; }
+    .price { font-size: 42px; line-height: 1; color: var(--primary); letter-spacing: -.045em; margin: 12px 0 8px; }
+    .price small { font-size: 14px; letter-spacing: 0; color: var(--muted); }
+    .price-note { color: var(--muted); font-size: 13px; min-height: 42px; }
+    .features { padding: 18px 0 5px; margin-top: 13px; border-top: 1px solid var(--border); }
+    .features div { display:flex; gap:9px; font-size: 13px; color: #43584a; margin: 11px 0; }
+    .check { color: #4c983d; font-weight: 900; }
+    .price-card .btn { margin-top: 18px; width: 100%; }
+
+    .accepted-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 25px; align-items: stretch; }
+    .accepted-panel { background: var(--primary); color:white; border-radius: 27px; padding: 34px; position:relative; overflow:hidden; }
+    .accepted-panel::before { content:""; position:absolute; width:230px; height:230px; border-radius:50%; right:-75px; top:-85px; border: 1px solid rgba(255,255,255,.10); box-shadow: 0 0 0 32px rgba(255,255,255,.03), 0 0 0 64px rgba(255,255,255,.02); }
+    .accepted-panel h3 { margin:0 0 13px; font-size:25px; }
+    .accepted-panel p { margin:0; color:#c9dfcd; font-size:14px; }
+    .waste-list { display:grid; grid-template-columns: repeat(2, 1fr); gap: 11px; margin-top: 22px; }
+    .waste-item { display:flex; gap:9px; align-items:center; padding: 11px 12px; border-radius: 12px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.07); font-size:13px; }
+    .not-accepted { border: 1px dashed #cbd8ce; border-radius: 27px; padding: 32px; background:white; }
+    .not-accepted h3 { margin:0 0 15px; color:var(--primary); font-size:24px; }
+    .not-list { display:grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+    .not-list div { padding:13px 14px; background:#f7f8f7; border-radius:12px; color:#536359; font-size:13px; }
+
+    .about-grid { display:grid; grid-template-columns: .9fr 1.1fr; gap: 55px; align-items:center; }
+    .about-visual { min-height: 440px; border-radius: 28px; background: linear-gradient(145deg,#183f24,#2f7043); position:relative; overflow:hidden; box-shadow:var(--shadow-lg); }
+    .about-visual::before { content:""; position:absolute; inset: 28px; border:1px solid rgba(255,255,255,.13); border-radius: 21px; }
+    .about-bigtext { position:absolute; left:44px; right:44px; top:48px; color:rgba(255,255,255,.11); font-size:88px; font-weight:900; line-height:.87; letter-spacing:-.08em; }
+    .about-stat { position:absolute; left:44px; bottom:42px; color:white; }
+    .about-stat strong { display:block; font-size:46px; line-height:1; }
+    .about-stat span { color:#bdd4c3; font-size:13px; }
+    .about-copy h3 { margin:0 0 13px; color:var(--primary); font-size:27px; }
+    .about-copy p { color:var(--muted); font-size:15px; }
+    .about-points { display:grid; grid-template-columns: 1fr 1fr; gap: 14px 20px; margin-top:25px; }
+    .about-point { display:flex; gap:11px; align-items:flex-start; }
+    .about-point b { color:var(--primary); font-size:13px; display:block; }
+    .about-point span { color:var(--muted); font-size:12px; display:block; margin-top:2px; }
+
+    .cta { padding: 78px 0; }
+    .cta-box { border-radius: 26px; padding: 42px 46px; background: linear-gradient(130deg,#123d20,#1d6a38); color:white; display:flex; align-items:center; justify-content:space-between; gap:28px; box-shadow: var(--shadow-lg); }
+    .cta-box h2 { margin:0 0 9px; color:white; font-size:clamp(28px,3.8vw,44px); }
+    .cta-box p { margin:0; color:#cce0d1; max-width:650px; font-size:14px; }
+    .cta-box .btn { flex-shrink:0; min-width:155px; }
+
+    footer { background:#0d2c16; color:#dceadd; }
+    .footer-main { padding:64px 0 36px; }
+    .footer-grid { display:grid; grid-template-columns: 1.2fr .8fr .8fr 1fr; gap:38px; }
+    .footer-brand p { color:#a9c1af; max-width:320px; font-size:13px; }
+    .footer h4 { margin:0 0 13px; color:white; font-size:13px; letter-spacing:.08em; text-transform:uppercase; }
+    .footer a { display:block; color:#b9ccbD; font-size:13px; margin:9px 0; }
+    .footer a:hover { color:white; }
+    .footer-contact { display:flex; align-items:flex-start; gap:10px; margin: 10px 0; font-size:13px; color:#c3d4c7; }
+    .footer-bottom { border-top:1px solid rgba(255,255,255,.09); padding: 18px 0 24px; color:#95ad9b; font-size:11px; }
+    .footer-bottom-inner { width:min(var(--max), calc(100% - 40px)); margin:auto; display:flex; justify-content:space-between; gap:15px; flex-wrap:wrap; }
+
+    .reveal { opacity:0; transform: translateY(16px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity:1; transform:none; }
+
+    @media (max-width: 980px) {
+      .nav-inner { gap: 16px; }
+      .nav-links { gap: 2px; }
+      .nav-links a { padding: 10px 9px; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero { min-height: auto; padding-bottom: 90px; }
+      .hero-visual { min-height: 420px; max-width: 620px; width:100%; margin:auto; }
+      .service-grid, .pricing-wrap { grid-template-columns:1fr 1fr; }
+      .accepted-grid, .about-grid { grid-template-columns:1fr; }
+      .about-visual { min-height:340px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      .topbar { height: 34px; }
+      .topbar__inner { width: min(var(--max), calc(100% - 26px)); }
+      .top-contact { gap: 12px; }
+      .top-promise { display:none; }
+      .navbar { top:34px; height:70px; }
+      .navbar.scrolled { top:34px; }
+      .nav-inner { width: min(var(--max), calc(100% - 26px)); }
+      .brand-copy span { display:none; }
+      .brand-copy strong { font-size:15px; }
+      .brand-mark { width:38px; height:38px; }
+      .nav-links, .nav-cta { display:none; }
+      .nav-toggle { display:inline-flex; width:42px; height:42px; border:1px solid currentColor; background:transparent; color:inherit; border-radius:11px; align-items:center; justify-content:center; cursor:pointer; }
+      .mobile-menu { position:fixed; top:104px; left:13px; right:13px; z-index:1001; padding: 9px; border-radius:17px; background:white; border:1px solid var(--border); box-shadow:0 18px 40px rgba(10,34,17,.18); display:none; }
+      .mobile-menu.open { display:block; }
+      .mobile-menu a { display:block; padding:12px 13px; border-radius:10px; color:#184c1f; font-weight:800; font-size:14px; }
+      .mobile-menu a:hover,.mobile-menu a.active { background:#eef6ee; }
+      .hero { padding-top:145px; }
+      .hero h1 { font-size: clamp(42px, 12vw, 64px); }
+      .hero p { font-size:16px; }
+      .hero-visual { min-height: 340px; }
+      .truck-card { inset: 22px 0 16px 0; border-radius:22px; }
+      .truck-scene { padding:22px; }
+      .floating-card { transform: scale(.88); transform-origin:center; }
+      .floating-card.one { top:-8px; right:-6px; }
+      .floating-card.two { bottom:-5px; left:-7px; }
+      .section { padding:75px 0; }
+      .service-grid, .pricing-wrap { grid-template-columns:1fr; }
+      .waste-list, .not-list, .about-points { grid-template-columns:1fr; }
+      .cta { padding: 35px 0 75px; }
+      .cta-box { padding:30px; align-items:flex-start; flex-direction:column; }
+      .footer-grid { grid-template-columns:1fr; gap:28px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior:auto; }
+      *, *::before, *::after { animation:none !important; transition:none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar__inner">
+      <div class="top-contact">
+        <a href="tel:+18005550198">☎ 1-800-555-0198</a>
+        <a href="mailto:hello@we-bin-it.com">✉ hello@we-bin-it.com</a>
+      </div>
+      <div class="top-promise">Reliable pickup. Cleaner communities.</div>
+    </div>
+  </div>
+
+  <header class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a class="brand" href="#home" aria-label="We-bin-it Waste Services home">
+        <div class="brand-mark">G</div>
+        <div class="brand-copy">
+          <strong>We-bin-it</strong>
+          <span>Waste Services</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#home" class="active">Home</a>
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#accepted-waste">Accepted Waste</a>
+        <a href="#about">About Us</a>
+      </nav>
+      <a class="nav-cta" href="#contact">Get a Quote</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+    <a href="#home" class="active">Home</a>
+    <a href="#services">Services</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#accepted-waste">Accepted Waste</a>
+    <a href="#about">About Us</a>
+    <a href="#contact">Get a Quote</a>
+  </div>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-inner">
+        <div>
+          <div class="eyebrow"><span class="dot"></span> Smarter waste pickup for modern America</div>
+          <h1>Waste picked up right. <span>Every time.</span></h1>
+          <p>Residential and commercial garbage collection with dependable schedules, straightforward pricing, and a team that keeps your neighborhood moving.</p>
+          <div class="hero-actions">
+            <a href="#pricing" class="btn btn-primary">View Pricing <span>→</span></a>
+            <a href="#services" class="btn btn-secondary">Explore Services</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><strong>98%</strong><span>on-time pickup goal</span></div>
+            <div class="stat"><strong>24/7</strong><span>online service requests</span></div>
+            <div class="stat"><strong>50+</strong><span>service communities</span></div>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="floating-card one">
+            <div class="float-icon">✓</div>
+            <div><strong>Next pickup confirmed</strong><small>Thursday · 7:00–9:00 AM</small></div>
+          </div>
+          <div class="truck-card">
+            <div class="truck-scene">
+              <svg class="truck" viewBox="0 0 620 340" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of a modern garbage truck">
+                <rect x="50" y="90" width="400" height="160" rx="26" fill="#D8E7D7"/>
+                <path d="M440 141H512C530 141 544 153 552 169L583 229C586 235 581 242 574 242H450V141Z" fill="#9DCB69"/>
+                <path d="M482 157H511C519 157 525 162 530 171L544 193H475V157H482Z" fill="#1A5130"/>
+                <path d="M69 103H420C436 103 449 116 449 132V204H69V103Z" fill="#F2F6F0"/>
+                <path d="M68 205H449V231C449 241 441 250 429 250H91C78 250 68 240 68 227V205Z" fill="#2A7B41"/>
+                <rect x="92" y="125" width="210" height="53" rx="10" fill="#123D20" opacity=".92"/>
+                <text x="112" y="158" fill="#DDF1D2" font-size="25" font-family="Arial, sans-serif" font-weight="800">WE - BIN - IT</text>
+                <path d="M369 125H420C430 125 438 133 438 143V178H369V125Z" fill="#8DBE5B"/>
+                <circle cx="149" cy="256" r="36" fill="#0C2914"/>
+                <circle cx="149" cy="256" r="17" fill="#C5D7C6"/>
+                <circle cx="507" cy="256" r="36" fill="#0C2914"/>
+                <circle cx="507" cy="256" r="17" fill="#C5D7C6"/>
+                <rect x="30" y="224" width="30" height="21" rx="7" fill="#7B9B7E"/>
+                <path d="M49 91L92 55H405L452 91H49Z" fill="#235F33"/>
+                <rect x="51" y="90" width="398" height="13" rx="6" fill="#B2D76F"/>
+              </svg>
+            </div>
+          </div>
+          <div class="floating-card two">
+            <div class="float-icon">♻</div>
+            <div><strong>Cleaner by design</strong><small>Reuse & responsible recovery</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="kicker">Our services</div>
+          <h2>Collection made simple for every kind of customer.</h2>
+          <p>Choose the pickup service that fits your home, property, construction project, or business. We keep the process clear from booking to collection.</p>
+        </div>
+        <div class="service-grid">
+          <article class="card reveal">
+            <div class="icon-box">🏠</div>
+            <h3>Residential Pickup</h3>
+            <p>Weekly or biweekly curbside service with flexible schedule options for households and multifamily communities.</p>
+          </article>
+          <article class="card reveal">
+            <div class="icon-box">🏢</div>
+            <h3>Commercial Collection</h3>
+            <p>Reliable recurring pickups for offices, retail locations, restaurants, and small business properties.</p>
+          </article>
+          <article class="card reveal">
+            <div class="icon-box">🚛</div>
+            <h3>Roll-Off Containers</h3>
+            <p>Convenient container delivery and haul-away for renovations, cleanouts, construction, and larger jobs.</p>
+          </article>
+          <article class="card reveal">
+            <div class="icon-box">♻</div>
+            <h3>Recycling Support</h3>
+            <p>Practical separation guidance and collection options designed to help recover common recyclable materials.</p>
+          </article>
+          <article class="card reveal">
+            <div class="icon-box">🧹</div>
+            <h3>Property Cleanouts</h3>
+            <p>Easy removal for move-outs, estate cleanups, garage clear-outs, and other high-volume disposal needs.</p>
+          </article>
+          <article class="card reveal">
+            <div class="icon-box">⚙</div>
+            <h3>Scheduled Bulk Pickup</h3>
+            <p>Book larger-item collection in advance and get clear instructions on placement, timing, and preparation.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="pricing">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="kicker">Simple pricing</div>
+          <h2>Clear plans without complicated surprises.</h2>
+          <p>Sample pricing for this prototype. Rates can later be connected to your actual city, ZIP code, container size, and pickup frequency.</p>
+        </div>
+        <div class="pricing-wrap">
+          <article class="card price-card reveal">
+            <div class="price-label">Essential</div>
+            <div class="price">$24<small>/mo</small></div>
+            <div class="price-note">For smaller households with regular weekly pickup.</div>
+            <div class="features">
+              <div><span class="check">✓</span> 1 standard cart</div>
+              <div><span class="check">✓</span> Weekly collection</div>
+              <div><span class="check">✓</span> Email reminders</div>
+              <div><span class="check">✓</span> Online service requests</div>
+            </div>
+            <a href="#contact" class="btn btn-secondary" style="color:var(--primary);border-color:var(--border);">Choose Essential</a>
+          </article>
+
+          <article class="card price-card featured reveal">
+            <div class="badge">Most popular</div>
+            <div class="price-label">Everyday</div>
+            <div class="price">$34<small>/mo</small></div>
+            <div class="price-note">Balanced pickup coverage for growing households.</div>
+            <div class="features">
+              <div><span class="check">✓</span> 1 large cart</div>
+              <div><span class="check">✓</span> Weekly collection</div>
+              <div><span class="check">✓</span> 2 bulk pickups / year</div>
+              <div><span class="check">✓</span> Priority support</div>
+            </div>
+            <a href="#contact" class="btn btn-primary">Choose Everyday</a>
+          </article>
+
+          <article class="card price-card reveal">
+            <div class="price-label">Plus</div>
+            <div class="price">$49<small>/mo</small></div>
+            <div class="price-note">Extra flexibility for larger households and properties.</div>
+            <div class="features">
+              <div><span class="check">✓</span> 2 large carts</div>
+              <div><span class="check">✓</span> Weekly collection</div>
+              <div><span class="check">✓</span> 4 bulk pickups / year</div>
+              <div><span class="check">✓</span> Priority scheduling</div>
+            </div>
+            <a href="#contact" class="btn btn-secondary" style="color:var(--primary);border-color:var(--border);">Choose Plus</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="accepted-waste">
+      <div class="container">
+        <div class="accepted-grid">
+          <div class="accepted-panel reveal">
+            <div class="kicker" style="color:#cfe8b1;">Accepted waste</div>
+            <h3>Everyday materials, handled responsibly.</h3>
+            <p>Always follow local collection rules. For unusual items, contact the service team before placing them at the curb.</p>
+            <div class="waste-list">
+              <div class="waste-item">✓ Household trash</div>
+              <div class="waste-item">✓ Bagged waste</div>
+              <div class="waste-item">✓ Food scraps</div>
+              <div class="waste-item">✓ Yard waste*</div>
+              <div class="waste-item">✓ Cardboard</div>
+              <div class="waste-item">✓ Paper & mail</div>
+              <div class="waste-item">✓ Metal cans</div>
+              <div class="waste-item">✓ Rigid plastics*</div>
+            </div>
+            <p style="margin-top:18px;font-size:11px;color:#aecaB2;">*Accepted materials and preparation requirements vary by local program.</p>
+          </div>
+          <div class="not-accepted reveal">
+            <div class="kicker">Not accepted in standard service</div>
+            <h3>Some items need specialized handling.</h3>
+            <div class="not-list">
+              <div>✕ Batteries</div>
+              <div>✕ Paint & solvents</div>
+              <div>✕ Propane tanks</div>
+              <div>✕ Medical sharps</div>
+              <div>✕ Large appliances</div>
+              <div>✕ Tires</div>
+              <div>✕ E-waste*</div>
+              <div>✕ Hazardous chemicals</div>
+            </div>
+            <p style="margin:18px 0 0;color:var(--muted);font-size:12px;">Ask us about specialty disposal partners and approved drop-off options for restricted materials.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="about">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-visual reveal" aria-hidden="true">
+            <div class="about-bigtext">CLEAN<br>ROUTES</div>
+            <div class="about-stat"><strong>15+</strong><span>years of service-minded operations</span></div>
+          </div>
+          <div class="about-copy reveal">
+            <div class="kicker">About We-bin-it</div>
+            <h3>A better waste experience starts with reliability.</h3>
+            <p>We-bin-it is a prototype brand built around a simple idea: waste collection should be easy to understand, dependable to schedule, and respectful of the communities it serves.</p>
+            <p>Our service model combines clear communication, practical route planning, responsive customer care, and responsible material handling.</p>
+            <div class="about-points">
+              <div class="about-point"><div class="icon-box" style="width:38px;height:38px;margin:0;border-radius:10px;">✓</div><div><b>Dependable routes</b><span>Clear pickup windows and service notices.</span></div></div>
+              <div class="about-point"><div class="icon-box" style="width:38px;height:38px;margin:0;border-radius:10px;">♻</div><div><b>Responsible handling</b><span>Built around recovery and proper disposal.</span></div></div>
+              <div class="about-point"><div class="icon-box" style="width:38px;height:38px;margin:0;border-radius:10px;">☎</div><div><b>Human support</b><span>Easy ways to reach a real service team.</span></div></div>
+              <div class="about-point"><div class="icon-box" style="width:38px;height:38px;margin:0;border-radius:10px;">↗</div><div><b>Simple digital tools</b><span>Requests, updates, and account access online.</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="contact">
+      <div class="container">
+        <div class="cta-box reveal">
+          <div>
+            <div class="kicker" style="color:#cbe8ab;">Ready for easier collection?</div>
+            <h2>Let's keep your next pickup simple.</h2>
+            <p>Call <strong>1-800-555-0198</strong> or email <strong>hello@we-bin-it.com</strong> to request service. Demo contact details shown for this prototype.</p>
+          </div>
+          <a href="tel:+18005550198" class="btn btn-primary">Call We-bin-it ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-main">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a class="brand" href="#home">
+              <div class="brand-mark">G</div>
+              <div class="brand-copy"><strong style="color:white;">We-bin-it</strong><span style="color:#9fb6a5;">Waste Services</span></div>
+            </a>
+            <p>Reliable garbage collection designed around cleaner communities, clearer communication, and better service experiences.</p>
+          </div>
+          <div>
+            <h4>Company</h4>
+            <a href="#about">About Us</a>
+            <a href="#services">Services</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#accepted-waste">Accepted Waste</a>
+          </div>
+          <div>
+            <h4>Support</h4>
+            <a href="#contact">Get a Quote</a>
+            <a href="tel:+18005550198">Customer Service</a>
+            <a href="mailto:hello@we-bin-it.com">Email Support</a>
+            <a href="#home">Service Area</a>
+          </div>
+          <div>
+            <h4>Contact</h4>
+            <div class="footer-contact">☎ <span>1-800-555-0198</span></div>
+            <div class="footer-contact">✉ <span>hello@we-bin-it.com</span></div>
+            <div class="footer-contact">⌖ <span>Serving communities across the USA</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-inner">
+        <span>© 2026 We-bin-it Waste Services. Prototype website.</span>
+        <span>Privacy · Terms · Accessibility</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const navToggle = document.getElementById('navToggle');
+    const sections = document.querySelectorAll('main section[id]');
+    const desktopLinks = document.querySelectorAll('.nav-links a');
+    const mobileLinks = document.querySelectorAll('.mobile-menu a');
+
+    function syncNavbar() {
+      navbar.classList.toggle('scrolled', window.scrollY > 35);
+    }
+    syncNavbar();
+    window.addEventListener('scroll', syncNavbar, { passive: true });
+
+    navToggle.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(open));
+      navToggle.textContent = open ? '✕' : '☰';
+    });
+
+    [...mobileLinks].forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.textContent = '☰';
+      });
+    });
+
+    function setActive(id) {
+      [...desktopLinks, ...mobileLinks].forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+      });
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { rootMargin: '-42% 0px -48% 0px', threshold: 0 });
+    sections.forEach(section => observer.observe(section));
+
+    const revealObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>
