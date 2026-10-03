@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The Corner Cup — specialty coffee, handcrafted drinks, pastries, and easy online ordering." />
+  <title>The Corner Cup — Coffee, Comfort & Good Company</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --espresso:#231711;
+      --espresso-2:#34231b;
+      --coffee:#6f4128;
+      --caramel:#b87946;
+      --cream:#f7f2e9;
+      --latte:#eee2d2;
+      --white:#fffdf9;
+      --ink:#241d19;
+      --muted:#776e66;
+      --line:rgba(35,23,17,.10);
+      --shadow:0 20px 60px rgba(36,25,18,.12);
+      --radius:22px;
+      --bg-image:url("https://av-dev-24.github.io/coffeeshop_bg.jpg");
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:"DM Sans",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--ink);
+      background:var(--cream);
+      line-height:1.55;
+      overflow-x:hidden;
+    }
+    body.locked{overflow:hidden}
+    a{text-decoration:none;color:inherit}
+    button,input,select,textarea{font:inherit}
+    button{border:0;cursor:pointer}
+    img{max-width:100%;display:block}
+
+    .container{width:min(1180px,92%);margin:auto}
+
+    /* NAVBAR */
+    .navbar{
+      position:fixed;
+      inset:0 0 auto;
+      z-index:50;
+      transition:.3s ease;
+      color:#fff;
+      background:linear-gradient(to bottom,rgba(24,16,12,.72),rgba(24,16,12,0));
+    }
+    .navbar.scrolled{
+      color:var(--ink);
+      background:rgba(255,253,249,.93);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      box-shadow:0 8px 30px rgba(25,15,9,.08);
+    }
+    .nav-inner{
+      height:78px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+      letter-spacing:.2px;
+      white-space:nowrap;
+    }
+    .brand-mark{
+      width:40px;height:40px;border-radius:13px;
+      display:grid;place-items:center;
+      background:rgba(255,255,255,.13);
+      border:1px solid rgba(255,255,255,.18);
+      font-size:18px;
+      transition:.3s ease;
+    }
+    .navbar.scrolled .brand-mark{
+      background:var(--espresso);
+      color:#fff;
+      border-color:transparent;
+    }
+    .brand-name{font-size:18px}
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:26px;
+      font-size:14px;
+      font-weight:600;
+    }
+    .nav-links a{opacity:.9;transition:.2s}
+    .nav-links a:hover{opacity:1}
+    .nav-actions{display:flex;align-items:center;gap:10px}
+    .icon-btn{
+      width:42px;height:42px;border-radius:14px;
+      display:grid;place-items:center;
+      color:inherit;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.18);
+      position:relative;
+    }
+    .navbar.scrolled .icon-btn{
+      background:var(--white);
+      border-color:var(--line);
+    }
+    .cart-count{
+      position:absolute;
+      top:-5px;right:-4px;
+      min-width:19px;height:19px;padding:0 5px;
+      display:grid;place-items:center;
+      border-radius:20px;
+      font-size:10px;font-weight:700;
+      background:var(--caramel);color:#fff;
+      border:2px solid transparent;
+    }
+    .navbar.scrolled .cart-count{border-color:var(--white)}
+    .mobile-toggle{display:none}
+    .mobile-menu-panel{display:none}
+
+    /* HERO */
+    .hero{
+      min-height:760px;
+      color:#fff;
+      position:relative;
+      isolation:isolate;
+      display:flex;
+      align-items:center;
+      background:
+        linear-gradient(90deg,rgba(21,14,10,.85) 0%,rgba(21,14,10,.66) 42%,rgba(21,14,10,.12) 100%),
+        linear-gradient(180deg,rgba(18,13,10,.24),rgba(18,13,10,.15)),
+        var(--bg-image) center/cover no-repeat;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:auto 0 0;
+      height:180px;
+      background:linear-gradient(to top,var(--cream),transparent);
+      z-index:-1;
+    }
+    .hero-content{padding-top:76px;max-width:640px}
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      padding:8px 13px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.11);
+      border:1px solid rgba(255,255,255,.16);
+      backdrop-filter:blur(10px);
+    }
+    .eyebrow::before{
+      content:"";
+      width:7px;height:7px;border-radius:50%;
+      background:#d6a56f;
+      box-shadow:0 0 0 5px rgba(214,165,111,.12);
+    }
+    h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
+    .hero h1{
+      font-size:clamp(3.7rem,7vw,6.8rem);
+      line-height:.92;
+      letter-spacing:-.045em;
+      margin:22px 0 24px;
+      max-width:700px;
+    }
+    .hero h1 em{font-style:normal;color:#d7ab79}
+    .hero-copy{
+      max-width:575px;
+      color:rgba(255,255,255,.82);
+      font-size:17px;
+    }
+    .hero-buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+    .btn{
+      min-height:50px;
+      padding:0 20px;
+      display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      border-radius:15px;
+      font-weight:700;
+      transition:.2s ease;
+    }
+    .btn-primary{background:#d0a06f;color:#21150e;box-shadow:0 12px 24px rgba(0,0,0,.16)}
+    .btn-primary:hover{transform:translateY(-2px);filter:brightness(1.05)}
+    .btn-ghost{
+      color:#fff;background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.24);
+      backdrop-filter:blur(12px);
+    }
+    .btn-ghost:hover{background:rgba(255,255,255,.14)}
+    .hero-meta{
+      display:flex;gap:28px;flex-wrap:wrap;
+      margin-top:50px;padding-top:24px;
+      border-top:1px solid rgba(255,255,255,.16);
+    }
+    .meta-item strong{display:block;font-size:16px}
+    .meta-item span{font-size:12px;color:rgba(255,255,255,.62)}
+
+    /* QUICK ORDER STRIP */
+    .quick-order{
+      position:relative;
+      z-index:5;
+      margin-top:-56px;
+    }
+    .quick-card{
+      background:rgba(255,253,249,.96);
+      border:1px solid rgba(255,255,255,.8);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      padding:18px;
+      display:grid;
+      grid-template-columns:1.3fr .85fr .85fr auto;
+      align-items:center;
+      gap:12px;
+    }
+    .quick-cell{
+      min-height:60px;
+      padding:0 16px;
+      display:flex;align-items:center;gap:11px;
+      border-right:1px solid var(--line);
+    }
+    .quick-cell:last-of-type{border-right:0}
+    .quick-icon{
+      width:40px;height:40px;border-radius:13px;
+      flex:0 0 auto;
+      background:var(--latte);color:var(--coffee);
+      display:grid;place-items:center;font-size:17px;
+    }
+    .quick-cell small{display:block;color:var(--muted);font-size:11px;margin-bottom:2px}
+    .quick-cell strong{font-size:14px}
+    .quick-card .btn{white-space:nowrap;padding:0 18px}
+
+    /* SHARED SECTION */
+    section{padding:105px 0}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:34px}
+    .kicker{
+      font-size:12px;font-weight:800;letter-spacing:.14em;
+      text-transform:uppercase;color:var(--coffee);
+      margin-bottom:10px;
+    }
+    .section-title{
+      font-size:clamp(2.3rem,4vw,4rem);
+      line-height:1.05;
+      letter-spacing:-.04em;
+    }
+    .section-copy{max-width:510px;color:var(--muted);font-size:15px}
+
+    /* MENU */
+    .menu-section{background:var(--white)}
+    .category-tabs{
+      display:flex;gap:9px;flex-wrap:wrap;
+      margin-bottom:26px;
+    }
+    .category-tab{
+      padding:10px 15px;border-radius:999px;
+      color:var(--muted);background:transparent;
+      border:1px solid var(--line);
+      font-weight:600;font-size:13px;
+      transition:.2s;
+    }
+    .category-tab.active,.category-tab:hover{
+      color:#fff;background:var(--espresso);border-color:var(--espresso);
+    }
+    .product-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+    }
+    .product-card{
+      border:1px solid var(--line);
+      border-radius:22px;
+      overflow:hidden;
+      background:#fff;
+      transition:.25s ease;
+      display:flex;
+      flex-direction:column;
+    }
+    .product-card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(32,20,13,.10)}
+    .product-media{
+      aspect-ratio:1/.82;
+      background:
+        radial-gradient(circle at 30% 20%,rgba(255,255,255,.8),transparent 28%),
+        linear-gradient(145deg,#e9d8c4,#c49c79);
+      display:grid;place-items:center;
+      position:relative;overflow:hidden;
+    }
+    .product-media .cup{
+      width:122px;height:92px;
+      border-radius:0 0 46px 46px;
+      background:linear-gradient(145deg,#fff,#dcd8d1);
+      box-shadow:0 17px 22px rgba(50,32,21,.19);
+      position:relative;
+    }
+    .product-media .cup::before{
+      content:"";
+      position:absolute;left:13px;right:13px;top:10px;height:22px;
+      border-radius:50%;background:#4d2918;
+      box-shadow:inset 0 6px 12px rgba(255,255,255,.10);
+    }
+    .product-media .cup::after{
+      content:"";
+      position:absolute;right:-24px;top:22px;
+      width:32px;height:40px;border:10px solid #e2dfda;
+      border-left:0;border-radius:0 20px 20px 0;
+    }
+    .product-badge{
+      position:absolute;left:12px;top:12px;
+      padding:6px 8px;border-radius:999px;
+      font-size:10px;font-weight:800;
+      background:rgba(255,253,249,.84);
+      backdrop-filter:blur(8px);
+      color:var(--coffee);
+    }
+    .product-info{padding:18px;display:flex;flex-direction:column;gap:9px;flex:1}
+    .product-top{display:flex;justify-content:space-between;gap:10px}
+    .product-name{font-family:"Playfair Display",Georgia,serif;font-size:20px}
+    .product-price{font-weight:800;white-space:nowrap}
+    .product-desc{font-size:12px;color:var(--muted);line-height:1.45}
+    .add-product{
+      width:42px;height:42px;border-radius:14px;
+      align-self:flex-end;
+      background:var(--espresso);color:#fff;
+      display:grid;place-items:center;
+      font-size:21px;line-height:1;
+      transition:.2s;
+    }
+    .add-product:hover{background:var(--coffee);transform:translateY(-1px)}
+
+    /* EXPERIENCE / ABOUT */
+    .experience{
+      background:
+        radial-gradient(circle at 0% 10%,rgba(184,121,70,.10),transparent 35%),
+        var(--cream);
+    }
+    .experience-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:70px;
+      align-items:center;
+    }
+    .story-card{
+      min-height:520px;
+      border-radius:30px;
+      overflow:hidden;
+      color:#fff;
+      padding:42px;
+      display:flex;flex-direction:column;justify-content:end;
+      background:
+        linear-gradient(to top,rgba(21,13,8,.88),rgba(21,13,8,.08)),
+        var(--bg-image) 75% center/cover;
+      box-shadow:var(--shadow);
+    }
+    .story-card p{color:rgba(255,255,255,.72);max-width:500px}
+    .story-card .mini-label{
+      width:max-content;
+      padding:7px 10px;border-radius:999px;
+      background:rgba(255,255,255,.11);
+      border:1px solid rgba(255,255,255,.16);
+      font-size:11px;margin-bottom:12px;
+    }
+    .story-card h3{font-size:35px;margin-bottom:12px}
+    .values{display:grid;gap:16px;margin-top:28px}
+    .value{
+      display:flex;gap:15px;padding:16px 0;
+      border-bottom:1px solid var(--line);
+    }
+    .value-icon{
+      width:46px;height:46px;flex:0 0 auto;
+      border-radius:15px;
+      background:var(--white);
+      box-shadow:0 8px 20px rgba(35,23,17,.07);
+      display:grid;place-items:center;color:var(--coffee)
+    }
+    .value h4{font-size:14px;margin-bottom:4px}
+    .value p{font-size:12px;color:var(--muted)}
+
+    /* ORDER */
+    .order-section{background:var(--espresso);color:#fff}
+    .order-layout{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:52px;align-items:start
+    }
+    .order-section .kicker{color:#d5a979}
+    .order-section .section-copy{color:rgba(255,255,255,.60)}
+    .steps{display:grid;gap:13px;margin-top:30px}
+    .step{
+      display:flex;gap:14px;align-items:flex-start;
+      padding:14px 0;
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .step-num{
+      width:34px;height:34px;border-radius:11px;
+      display:grid;place-items:center;
+      background:rgba(255,255,255,.09);
+      color:#d6aa79;font-weight:800;font-size:12px;
+      flex:0 0 auto
+    }
+    .step strong{display:block;margin-bottom:3px}
+    .step span{font-size:12px;color:rgba(255,255,255,.56)}
+    .order-box{
+      background:#fff;
+      color:var(--ink);
+      border-radius:28px;
+      padding:24px;
+      box-shadow:0 25px 60px rgba(0,0,0,.24);
+    }
+    .order-head{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:16px}
+    .order-head h3{font-size:28px}
+    .order-mode{
+      display:flex;gap:7px;padding:4px;
+      background:#f3eee7;border-radius:13px;
+    }
+    .mode-btn{
+      padding:8px 10px;border-radius:10px;
+      background:transparent;color:var(--muted);
+      font-size:11px;font-weight:700
+    }
+    .mode-btn.active{background:#fff;color:var(--espresso);box-shadow:0 4px 12px rgba(0,0,0,.08)}
+    .order-list{display:grid;gap:9px;margin:15px 0}
+    .empty-order{
+      padding:24px;border:1px dashed var(--line);
+      border-radius:17px;text-align:center;
+      font-size:13px;color:var(--muted);
+    }
+    .order-item{
+      display:flex;justify-content:space-between;gap:10px;
+      align-items:center;padding:11px 0;
+      border-bottom:1px solid var(--line);
+    }
+    .order-item-info strong{display:block;font-size:13px}
+    .order-item-info span{font-size:11px;color:var(--muted)}
+    .qty-controls{display:flex;align-items:center;gap:8px}
+    .qty-btn{
+      width:27px;height:27px;border-radius:9px;
+      background:#f2eee8;color:var(--espresso);font-weight:800;
+    }
+    .order-summary{padding-top:8px;display:grid;gap:7px}
+    .summary-row{display:flex;justify-content:space-between;font-size:13px}
+    .summary-row.total{font-size:17px;font-weight:800;padding-top:8px;border-top:1px solid var(--line)}
+    .checkout-btn{width:100%;margin-top:17px;background:var(--espresso);color:#fff}
+    .checkout-btn:disabled{opacity:.35;cursor:not-allowed}
+
+    /* REVIEW / FOOTER */
+    .review-section{background:var(--white)}
+    .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .review{
+      padding:25px;border:1px solid var(--line);
+      border-radius:23px;background:var(--cream)
+    }
+    .stars{letter-spacing:2px;color:var(--caramel);margin-bottom:16px}
+    .review p{font-family:"Playfair Display",Georgia,serif;font-size:20px;line-height:1.35}
+    .review small{display:block;color:var(--muted);margin-top:19px}
+    footer{background:#1b120d;color:#fff;padding:62px 0 25px}
+    .footer-grid{display:grid;grid-template-columns:1.4fr .8fr .8fr .9fr;gap:34px}
+    .footer-brand p{max-width:310px;color:rgba(255,255,255,.55);font-size:13px;margin-top:14px}
+    .footer-title{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:#d3a675;margin-bottom:13px;font-weight:800}
+    .footer-links{display:grid;gap:9px;font-size:13px;color:rgba(255,255,255,.65)}
+    .footer-bottom{
+      margin-top:44px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);
+      display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+      font-size:11px;color:rgba(255,255,255,.40)
+    }
+
+    /* CHAT */
+    .chat-button{
+      position:fixed;right:24px;bottom:24px;z-index:70;
+      width:60px;height:60px;border-radius:20px;
+      display:grid;place-items:center;
+      background:var(--espresso);color:#fff;
+      box-shadow:0 15px 36px rgba(32,19,12,.28);
+      transition:.25s;
+    }
+    .chat-button:hover{transform:translateY(-3px);background:var(--coffee)}
+    .chat-button::after{
+      content:"";
+      position:absolute;inset:-5px;border-radius:24px;
+      border:1px solid rgba(111,65,40,.26);
+      animation:pulse 2.4s infinite;
+    }
+    @keyframes pulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.08);opacity:0}}
+    .chat-panel{
+      position:fixed;right:24px;bottom:98px;z-index:71;
+      width:min(360px,calc(100vw - 30px));
+      background:#fff;color:var(--ink);
+      border-radius:24px;overflow:hidden;
+      box-shadow:0 25px 70px rgba(0,0,0,.22);
+      transform:translateY(14px) scale(.97);
+      opacity:0;pointer-events:none;
+      transition:.2s ease;
+    }
+    .chat-panel.open{transform:none;opacity:1;pointer-events:auto}
+    .chat-top{padding:17px 18px;background:var(--espresso);color:#fff;display:flex;align-items:center;justify-content:space-between}
+    .chat-agent{display:flex;gap:10px;align-items:center}
+    .agent-dot{width:36px;height:36px;border-radius:12px;background:#d3a675;color:#24180f;display:grid;place-items:center;font-weight:800}
+    .chat-top strong{font-size:13px;display:block}
+    .chat-top small{font-size:10px;color:rgba(255,255,255,.6)}
+    .chat-close{color:#fff;background:transparent;font-size:20px}
+    .chat-body{padding:16px;background:#f8f5f0;min-height:180px;display:grid;align-content:end;gap:10px}
+    .bubble{max-width:84%;padding:10px 12px;border-radius:14px;font-size:12px;line-height:1.45}
+    .bubble.agent{justify-self:start;background:#fff}
+    .bubble.you{justify-self:end;background:var(--espresso);color:#fff}
+    .chat-form{padding:11px;border-top:1px solid var(--line);display:flex;gap:8px}
+    .chat-form input{min-width:0;flex:1;border:0;outline:0;padding:10px;border-radius:12px;background:#f5f1eb}
+    .chat-form button{width:40px;border-radius:12px;background:var(--espresso);color:#fff}
+
+    /* CHECKOUT MODAL */
+    .modal-backdrop{
+      position:fixed;inset:0;z-index:100;
+      background:rgba(20,12,8,.62);
+      backdrop-filter:blur(8px);
+      opacity:0;pointer-events:none;transition:.2s
+    }
+    .modal-backdrop.open{opacity:1;pointer-events:auto}
+    .modal{
+      position:absolute;left:50%;top:50%;
+      width:min(860px,calc(100vw - 28px));
+      max-height:calc(100vh - 28px);
+      overflow:auto;
+      transform:translate(-50%,-47%) scale(.98);
+      background:var(--white);
+      border-radius:28px;
+      box-shadow:0 30px 100px rgba(0,0,0,.25);
+      transition:.22s;
+    }
+    .modal-backdrop.open .modal{transform:translate(-50%,-50%) scale(1)}
+    .modal-head{padding:24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:20px}
+    .modal-head h3{font-size:30px}
+    .modal-close{width:38px;height:38px;border-radius:12px;background:#f1ede7;color:var(--espresso)}
+    .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;padding:24px}
+    .form-stack{display:grid;gap:12px}
+    .field label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+    .field input,.field select{
+      width:100%;height:46px;border:1px solid var(--line);border-radius:12px;padding:0 13px;outline:0;background:#fff
+    }
+    .field input:focus,.field select:focus{border-color:rgba(111,65,40,.45);box-shadow:0 0 0 4px rgba(111,65,40,.08)}
+    .modal-summary{background:#f6f1ea;border-radius:19px;padding:18px}
+    .modal-summary h4{font-family:"Playfair Display",Georgia,serif;font-size:21px;margin-bottom:12px}
+    .modal-items{display:grid;gap:8px;max-height:250px;overflow:auto}
+    .modal-item{display:flex;justify-content:space-between;gap:12px;font-size:12px}
+    .success{
+      padding:42px;text-align:center;
+      display:none;
+    }
+    .success.show{display:block}
+    .success-icon{width:64px;height:64px;border-radius:20px;background:#efe0ce;margin:0 auto 18px;display:grid;place-items:center;font-size:26px}
+    .success h3{font-size:34px}
+    .success p{color:var(--muted);max-width:450px;margin:10px auto 20px}
+
+    /* MOBILE */
+    @media (max-width: 980px){
+      .nav-links{
+        position:absolute;
+        left:4%;
+        right:4%;
+        top:calc(100% + 10px);
+        display:flex;
+        flex-direction:column;
+        align-items:stretch;
+        gap:4px;
+        padding:10px;
+        border-radius:20px;
+        background:rgba(255,253,249,.97);
+        color:var(--ink);
+        border:1px solid rgba(35,23,17,.08);
+        box-shadow:0 18px 44px rgba(30,18,11,.14);
+        backdrop-filter:blur(18px);
+        -webkit-backdrop-filter:blur(18px);
+        opacity:0;
+        visibility:hidden;
+        pointer-events:none;
+        transform:translateY(-8px) scale(.985);
+        transform-origin:top center;
+        transition:opacity .22s ease, transform .22s ease, visibility 0s linear .22s;
+      }
+      .nav-links.mobile-open{
+        opacity:1;
+        visibility:visible;
+        pointer-events:auto;
+        transform:translateY(0) scale(1);
+        transition:opacity .22s ease, transform .22s ease, visibility 0s linear 0s;
+      }
+      .nav-links a{
+        padding:13px 14px;
+        border-radius:13px;
+        color:var(--ink);
+        font-size:14px;
+        font-weight:700;
+      }
+      .nav-links a:hover{background:#f4eee6}
+      .mobile-toggle{
+        display:grid;
+        transition:transform .2s ease, background .2s ease;
+      }
+      .mobile-toggle.is-open{
+        background:var(--espresso);
+        color:#fff;
+        transform:rotate(0deg);
+      }
+      .mobile-toggle .menu-bars{display:inline}
+      .mobile-toggle .menu-close{display:none}
+      .mobile-toggle.is-open .menu-bars{display:none}
+      .mobile-toggle.is-open .menu-close{display:inline}
+      .quick-card{grid-template-columns:1fr 1fr}
+      .quick-cell:nth-child(2){border-right:0}
+      .quick-card .btn{grid-column:1/-1}
+      .product-grid{grid-template-columns:repeat(2,1fr)}
+      .experience-grid,.order-layout{grid-template-columns:1fr;gap:30px}
+      .story-card{min-height:460px}
+      .footer-grid{grid-template-columns:1.3fr 1fr 1fr}
+    }
+    @media (max-width: 680px){
+      .nav-inner{height:70px}
+      .brand-name{font-size:16px}
+      .brand-mark{width:37px;height:37px;border-radius:12px}
+      .nav-actions .icon-btn:first-child{display:none}
+      .hero{min-height:720px;background-position:64% center}
+      .hero-content{padding-top:60px}
+      .hero h1{font-size:clamp(3.2rem,16vw,5rem)}
+      .hero-copy{font-size:15px}
+      .hero-meta{gap:19px}
+      .quick-order{margin-top:-46px}
+      .quick-card{grid-template-columns:1fr}
+      .quick-cell{border-right:0;border-bottom:1px solid var(--line);padding:4px 6px 14px}
+      .quick-cell:last-of-type{border-bottom:0;padding-bottom:3px}
+      .quick-card .btn{grid-column:auto;width:100%}
+      section{padding:78px 0}
+      .section-head{display:block}
+      .section-copy{margin-top:12px}
+      .product-grid{grid-template-columns:1fr 1fr;gap:11px}
+      .product-info{padding:14px}
+      .product-name{font-size:17px}
+      .product-price{font-size:13px}
+      .product-desc{font-size:11px}
+      .product-media .cup{transform:scale(.82)}
+      .story-card{padding:27px;min-height:420px}
+      .story-card h3{font-size:29px}
+      .review-grid{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr 1fr}
+      .footer-brand{grid-column:1/-1}
+      .modal-grid{grid-template-columns:1fr}
+      .modal-summary{order:-1}
+      .chat-button{right:16px;bottom:16px}
+      .chat-panel{right:14px;bottom:88px}
+    }
+    @media (max-width: 420px){
+      .product-grid{grid-template-columns:1fr}
+      .hero-buttons .btn{width:100%}
+      .footer-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- FIXED NAVIGATION -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="#home" aria-label="The Corner Cup home">
+        <span class="brand-mark">☕</span>
+        <span class="brand-name">The Corner Cup</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#menu">Menu</a>
+        <a href="#experience">Our Story</a>
+        <a href="#order">Order Online</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="icon-btn" id="menuJump" aria-label="Jump to menu">⌕</button>
+        <button class="icon-btn" id="cartButton" aria-label="Open cart">
+          🛒
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="icon-btn mobile-toggle" id="mobileMenu" aria-label="Open menu" aria-expanded="false">
+          <span class="menu-bars">☰</span>
+          <span class="menu-close">✕</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <span class="eyebrow">Specialty coffee • Freshly baked • Cozy corner</span>
+          <h1>Your daily cup of <em>comfort.</em></h1>
+          <p class="hero-copy">
+            Slow mornings, good conversations, and beautifully crafted coffee.
+            The Corner Cup is your neighborhood café for espresso, pastries, and little moments worth staying for.
+          </p>
+
+          <div class="hero-buttons">
+            <a class="btn btn-primary" href="#order">Order online →</a>
+            <a class="btn btn-ghost" href="#menu">Explore the menu</a>
+          </div>
+
+          <div class="hero-meta">
+            <div class="meta-item">
+              <strong>7:00 AM – 9:00 PM</strong>
+              <span>Mon – Sun</span>
+            </div>
+            <div class="meta-item">
+              <strong>Pickup in ~15 min</strong>
+              <span>Hot & ready when you arrive</span>
+            </div>
+            <div class="meta-item">
+              <strong>Free Wi‑Fi</strong>
+              <span>Stay a little longer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK ORDER -->
+    <section class="quick-order">
+      <div class="container">
+        <div class="quick-card">
+          <div class="quick-cell">
+            <span class="quick-icon">☕</span>
+            <div><small>Today's favorite</small><strong>Brown Sugar Oat Latte</strong></div>
+          </div>
+          <div class="quick-cell">
+            <span class="quick-icon">⚡</span>
+            <div><small>Fast pickup</small><strong>Ready in ~15 minutes</strong></div>
+          </div>
+          <div class="quick-cell">
+            <span class="quick-icon">✦</span>
+            <div><small>House special</small><strong>12 oz • $5.90</strong></div>
+          </div>
+          <button class="btn btn-primary" id="quickAdd">Add favorite</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- MENU -->
+    <section class="menu-section" id="menu">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">The menu</div>
+            <h2 class="section-title">Made to be enjoyed slowly.</h2>
+          </div>
+          <p class="section-copy">
+            A thoughtfully curated café menu with familiar favorites, seasonal specials,
+            and something sweet for every kind of coffee break.
+          </p>
+        </div>
+
+        <div class="category-tabs" id="categoryTabs">
+          <button class="category-tab active" data-filter="all">All</button>
+          <button class="category-tab" data-filter="coffee">Coffee</button>
+          <button class="category-tab" data-filter="noncoffee">Non-Coffee</button>
+          <button class="category-tab" data-filter="pastry">Pastries</button>
+          <button class="category-tab" data-filter="food">Brunch</button>
+        </div>
+
+        <div class="product-grid" id="productGrid"></div>
+      </div>
+    </section>
+
+    <!-- STORY -->
+    <section class="experience" id="experience">
+      <div class="container experience-grid">
+        <div class="story-card">
+          <span class="mini-label">A neighborhood ritual</span>
+          <h3>Good coffee tastes better when there’s room to breathe.</h3>
+          <p>
+            We built The Corner Cup around a simple idea: make excellent coffee,
+            keep the space warm, and make everyone feel like a regular.
+          </p>
+        </div>
+
+        <div>
+          <div class="kicker">Why people come back</div>
+          <h2 class="section-title">A little corner made for your everyday.</h2>
+          <p class="section-copy" style="margin-top:16px">
+            Whether you're catching up with a friend, opening your laptop, or just
+            taking ten quiet minutes for yourself, our café is designed to feel easy and welcoming.
+          </p>
+
+          <div class="values">
+            <div class="value">
+              <div class="value-icon">✦</div>
+              <div>
+                <h4>Specialty beans</h4>
+                <p>Small-batch beans roasted for sweetness, balance, and clarity.</p>
+              </div>
+            </div>
+            <div class="value">
+              <div class="value-icon">♡</div>
+              <div>
+                <h4>Made with care</h4>
+                <p>Every cup is dialed in and finished with the details that matter.</p>
+              </div>
+            </div>
+            <div class="value">
+              <div class="value-icon">⌁</div>
+              <div>
+                <h4>Stay awhile</h4>
+                <p>Comfortable seating, warm light, Wi‑Fi, and no pressure to rush.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ORDER -->
+    <section class="order-section" id="order">
+      <div class="container order-layout">
+        <div>
+          <div class="kicker">Order online</div>
+          <h2 class="section-title">Your coffee, your way.</h2>
+          <p class="section-copy" style="margin-top:16px">
+            Build your order in a few clicks. Choose pickup or delivery,
+            then we’ll have your favorites ready with a little less waiting.
+          </p>
+
+          <div class="steps">
+            <div class="step">
+              <span class="step-num">01</span>
+              <div><strong>Choose your favorites</strong><span>Add coffee, drinks, food, and pastries.</span></div>
+            </div>
+            <div class="step">
+              <span class="step-num">02</span>
+              <div><strong>Select pickup or delivery</strong><span>Tell us where and when.</span></div>
+            </div>
+            <div class="step">
+              <span class="step-num">03</span>
+              <div><strong>Relax — we’ve got the rest</strong><span>Your order is confirmed instantly.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="order-box" aria-label="Your order">
+          <div class="order-head">
+            <div><h3>Your order</h3><span style="font-size:11px;color:var(--muted)">Prototype checkout</span></div>
+            <div class="order-mode">
+              <button class="mode-btn active" data-mode="pickup">Pickup</button>
+              <button class="mode-btn" data-mode="delivery">Delivery</button>
+            </div>
+          </div>
+
+          <div class="order-list" id="orderList">
+            <div class="empty-order">Your cart is empty. Add something delicious from the menu.</div>
+          </div>
+
+          <div class="order-summary">
+            <div class="summary-row"><span>Subtotal</span><strong id="subtotal">$0.00</strong></div>
+            <div class="summary-row"><span id="feeLabel">Pickup fee</span><strong id="fee">$0.00</strong></div>
+            <div class="summary-row total"><span>Total</span><strong id="total">$0.00</strong></div>
+          </div>
+
+          <button class="btn checkout-btn" id="checkoutBtn" disabled>Continue to checkout</button>
+        </aside>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="review-section" id="reviews">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Loved locally</div>
+            <h2 class="section-title">The kind of place you tell a friend about.</h2>
+          </div>
+          <p class="section-copy">Sample testimonials for this prototype website.</p>
+        </div>
+        <div class="review-grid">
+          <article class="review">
+            <div class="stars">★★★★★</div>
+            <p>“The brown sugar oat latte is dangerously good. I came for one coffee and stayed for three hours.”</p>
+            <small>— Maya R.</small>
+          </article>
+          <article class="review">
+            <div class="stars">★★★★★</div>
+            <p>“Beautiful space, quick pickup, and the pastries are always fresh. This feels like a real neighborhood café.”</p>
+            <small>— Jordan T.</small>
+          </article>
+          <article class="review">
+            <div class="stars">★★★★★</div>
+            <p>“Exactly the cozy coffee shop I want on a slow Sunday morning. Great coffee without the fuss.”</p>
+            <small>— Alex P.</small>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand"><span class="brand-mark">☕</span><span class="brand-name">The Corner Cup</span></div>
+          <p>Specialty coffee, warm pastries, and a cozy place to land. Prototype café website for demonstration.</p>
+        </div>
+        <div>
+          <div class="footer-title">Visit</div>
+          <div class="footer-links">
+            <span>18 Corner Street</span>
+            <span>Downtown District</span>
+            <span>Mon – Sun · 7 AM – 9 PM</span>
+          </div>
+        </div>
+        <div>
+          <div class="footer-title">Contact</div>
+          <div class="footer-links">
+            <a href="tel:+15550192417">+1 (555) 019-2417</a>
+            <a href="mailto:hello@thecornercup.example">hello@thecornercup.example</a>
+            <a href="#order">Order online</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-title">Follow</div>
+          <div class="footer-links">
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="#">TikTok</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 The Corner Cup. Prototype content.</span>
+        <span>Crafted for a premium café experience.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING CHAT -->
+  <button class="chat-button" id="chatButton" aria-label="Open live chat">💬</button>
+
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-top">
+      <div class="chat-agent">
+        <div class="agent-dot">CC</div>
+        <div><strong>The Corner Cup</strong><small>Usually replies in a few minutes</small></div>
+      </div>
+      <button class="chat-close" id="chatClose" aria-label="Close chat">×</button>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="bubble agent">Hi there 👋 How can we help with your order today?</div>
+    </div>
+    <form class="chat-form" id="chatForm">
+      <input id="chatInput" type="text" placeholder="Type a message..." autocomplete="off" />
+      <button type="submit" aria-label="Send message">➤</button>
+    </form>
+  </div>
+
+  <!-- CHECKOUT MODAL -->
+  <div class="modal-backdrop" id="checkoutModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+      <div class="modal-head">
+        <div><div class="kicker">Secure prototype checkout</div><h3 id="checkoutTitle">Finish your order</h3></div>
+        <button class="modal-close" id="modalClose" aria-label="Close checkout">×</button>
+      </div>
+
+      <div class="modal-grid" id="checkoutGrid">
+        <form class="form-stack" id="checkoutForm">
+          <div class="field">
+            <label for="customerName">Full name</label>
+            <input id="customerName" required placeholder="Alex Morgan" />
+          </div>
+          <div class="field">
+            <label for="customerPhone">Phone</label>
+            <input id="customerPhone" required placeholder="+1 (555) 000-0000" />
+          </div>
+          <div class="field">
+            <label for="fulfillment">Fulfillment</label>
+            <select id="fulfillment">
+              <option value="pickup">Pickup — ready in ~15 min</option>
+              <option value="delivery">Delivery — ~35–45 min</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="address">Address / pickup note</label>
+            <input id="address" required placeholder="Enter address or pickup note" />
+          </div>
+          <div class="field">
+            <label for="payment">Payment</label>
+            <select id="payment">
+              <option>Card on pickup / delivery</option>
+              <option>Cash</option>
+              <option>Prototype online payment</option>
+            </select>
+          </div>
+          <button class="btn checkout-btn" type="submit">Place prototype order</button>
+        </form>
+
+        <aside class="modal-summary">
+          <h4>Your items</h4>
+          <div class="modal-items" id="modalItems"></div>
+          <div class="order-summary" style="margin-top:15px">
+            <div class="summary-row"><span>Subtotal</span><strong id="modalSubtotal">$0.00</strong></div>
+            <div class="summary-row"><span>Service fee</span><strong id="modalFee">$0.00</strong></div>
+            <div class="summary-row total"><span>Total</span><strong id="modalTotal">$0.00</strong></div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="success" id="successState">
+        <div class="success-icon">✓</div>
+        <h3>Order received!</h3>
+        <p id="successMessage">Your prototype order has been submitted successfully.</p>
+        <button class="btn btn-primary" id="doneButton">Back to The Corner Cup</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const products = [
+      {id:1,name:"Brown Sugar Oat Latte",category:"coffee",price:5.90,desc:"Espresso, oat milk, brown sugar, cinnamon.",badge:"Best seller"},
+      {id:2,name:"Velvet Americano",category:"coffee",price:4.40,desc:"Double espresso, chilled or hot, silky finish.",badge:"Classic"},
+      {id:3,name:"Vanilla Cloud Cold Brew",category:"coffee",price:5.50,desc:"Slow-steeped cold brew with house vanilla cream.",badge:"Popular"},
+      {id:4,name:"Matcha Cream Latte",category:"noncoffee",price:5.70,desc:"Ceremonial-style matcha, milk, soft vanilla cream.",badge:"New"},
+      {id:5,name:"Iced Chocolate",category:"noncoffee",price:5.20,desc:"Dark cocoa, milk, espresso optional, finished silky.",badge:"Cozy"},
+      {id:6,name:"Butter Croissant",category:"pastry",price:3.60,desc:"Flaky, buttery layers baked fresh every morning.",badge:"Fresh daily"},
+      {id:7,name:"Cinnamon Morning Roll",category:"pastry",price:4.10,desc:"Warm cinnamon swirl with a light cream glaze.",badge:"Favorite"},
+      {id:8,name:"Avocado Toast",category:"food",price:9.80,desc:"Sourdough, smashed avocado, herbs, chili flakes.",badge:"Brunch"},
+      {id:9,name:"Breakfast Grilled Cheese",category:"food",price:10.50,desc:"Sourdough, three-cheese blend, tomato jam.",badge:"Hearty"},
+      {id:10,name:"Strawberry Cream Latte",category:"noncoffee",price:5.80,desc:"Cold milk, strawberry cream, espresso, berry finish.",badge:"Seasonal"},
+      {id:11,name:"Espresso Tonic",category:"coffee",price:5.30,desc:"Sparkling tonic, double espresso, orange peel.",badge:"Bright"},
+      {id:12,name:"Lemon Loaf",category:"pastry",price:3.90,desc:"Soft lemon cake with a glossy citrus drizzle.",badge:"Sweet"}
+    ];
+
+    const state = {
+      cart: {},
+      filter: "all",
+      mode: "pickup"
+    };
+
+    const currency = value => `$${value.toFixed(2)}`;
+
+    function renderProducts(){
+      const grid = document.getElementById("productGrid");
+      const visible = products.filter(p => state.filter === "all" || p.category === state.filter);
+
+      grid.innerHTML = visible.map(p => `
+        <article class="product-card">
+          <div class="product-media">
+            <span class="product-badge">${p.badge}</span>
+            <div class="cup" aria-hidden="true"></div>
+          </div>
+          <div class="product-info">
+            <div class="product-top">
+              <h3 class="product-name">${p.name}</h3>
+              <span class="product-price">${currency(p.price)}</span>
+            </div>
+            <p class="product-desc">${p.desc}</p>
+            <button class="add-product" data-add="${p.id}" aria-label="Add ${p.name} to cart">+</button>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function addToCart(id, qty=1){
+      state.cart[id] = (state.cart[id] || 0) + qty;
+      renderOrder();
+    }
+
+    function changeQty(id, delta){
+      state.cart[id] = (state.cart[id] || 0) + delta;
+      if(state.cart[id] <= 0) delete state.cart[id];
+      renderOrder();
+    }
+
+    function getCartEntries(){
+      return Object.entries(state.cart).map(([id,qty]) => {
+        const product = products.find(p => p.id === Number(id));
+        return {product,qty};
+      }).filter(x => x.product);
+    }
+
+    function totals(){
+      const subtotal = getCartEntries().reduce((sum,{product,qty}) => sum + product.price * qty, 0);
+      const fee = state.mode === "delivery" && subtotal > 0 ? 3.50 : 0;
+      return {subtotal, fee, total: subtotal + fee};
+    }
+
+    function renderOrder(){
+      const entries = getCartEntries();
+      const list = document.getElementById("orderList");
+      const count = entries.reduce((sum,x) => sum + x.qty, 0);
+
+      document.getElementById("cartCount").textContent = count;
+
+      if(!entries.length){
+        list.innerHTML = `<div class="empty-order">Your cart is empty. Add something delicious from the menu.</div>`;
+      } else {
+        list.innerHTML = entries.map(({product,qty}) => `
+          <div class="order-item">
+            <div class="order-item-info">
+              <strong>${product.name}</strong>
+              <span>${currency(product.price)} each</span>
+            </div>
+            <div class="qty-controls">
+              <button class="qty-btn" data-minus="${product.id}" aria-label="Decrease quantity">−</button>
+              <strong>${qty}</strong>
+              <button class="qty-btn" data-plus="${product.id}" aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      const {subtotal,fee,total} = totals();
+      document.getElementById("subtotal").textContent = currency(subtotal);
+      document.getElementById("fee").textContent = currency(fee);
+      document.getElementById("feeLabel").textContent = state.mode === "delivery" ? "Delivery fee" : "Pickup fee";
+      document.getElementById("total").textContent = currency(total);
+      document.getElementById("checkoutBtn").disabled = entries.length === 0;
+    }
+
+    function renderModalSummary(){
+      const entries = getCartEntries();
+      const box = document.getElementById("modalItems");
+      box.innerHTML = entries.map(({product,qty}) => `
+        <div class="modal-item">
+          <span>${product.name} × ${qty}</span>
+          <strong>${currency(product.price*qty)}</strong>
+        </div>
+      `).join("");
+
+      const {subtotal,fee,total} = totals();
+      document.getElementById("modalSubtotal").textContent = currency(subtotal);
+      document.getElementById("modalFee").textContent = currency(fee);
+      document.getElementById("modalTotal").textContent = currency(total);
+    }
+
+    // Sticky navbar
+    const navbar = document.getElementById("navbar");
+    window.addEventListener("scroll", () => {
+      navbar.classList.toggle("scrolled", window.scrollY > 35);
+    });
+
+    // Category filtering
+    document.getElementById("categoryTabs").addEventListener("click", e => {
+      const btn = e.target.closest("[data-filter]");
+      if(!btn) return;
+      document.querySelectorAll(".category-tab").forEach(x => x.classList.remove("active"));
+      btn.classList.add("active");
+      state.filter = btn.dataset.filter;
+      renderProducts();
+    });
+
+    // Add to cart
+    document.getElementById("productGrid").addEventListener("click", e => {
+      const btn = e.target.closest("[data-add]");
+      if(btn) addToCart(Number(btn.dataset.add));
+    });
+
+    // Order quantities
+    document.getElementById("orderList").addEventListener("click", e => {
+      const plus = e.target.closest("[data-plus]");
+      const minus = e.target.closest("[data-minus]");
+      if(plus) changeQty(Number(plus.dataset.plus), 1);
+      if(minus) changeQty(Number(minus.dataset.minus), -1);
+    });
+
+    // Favorite quick add
+    document.getElementById("quickAdd").addEventListener("click", () => {
+      addToCart(1);
+      document.getElementById("order").scrollIntoView({behavior:"smooth"});
+    });
+
+    // Header cart
+    document.getElementById("cartButton").addEventListener("click", () => {
+      document.getElementById("order").scrollIntoView({behavior:"smooth"});
+    });
+
+    document.getElementById("menuJump").addEventListener("click", () => {
+      document.getElementById("menu").scrollIntoView({behavior:"smooth"});
+    });
+
+    // Mobile navigation: compact dropdown with fade/slide motion
+    const mobileMenuButton = document.getElementById("mobileMenu");
+    const navLinks = document.querySelector(".nav-links");
+
+    function closeMobileMenu(){
+      if(window.innerWidth > 980) return;
+      navLinks.classList.remove("mobile-open");
+      mobileMenuButton.classList.remove("is-open");
+      mobileMenuButton.setAttribute("aria-expanded", "false");
+      mobileMenuButton.setAttribute("aria-label", "Open menu");
+    }
+
+    function toggleMobileMenu(){
+      if(window.innerWidth > 980) return;
+      const open = navLinks.classList.toggle("mobile-open");
+      mobileMenuButton.classList.toggle("is-open", open);
+      mobileMenuButton.setAttribute("aria-expanded", String(open));
+      mobileMenuButton.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    }
+
+    mobileMenuButton.addEventListener("click", toggleMobileMenu);
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => closeMobileMenu());
+    });
+
+    document.addEventListener("click", e => {
+      if(window.innerWidth > 980) return;
+      if(navLinks.classList.contains("mobile-open") && !navLinks.contains(e.target) && !mobileMenuButton.contains(e.target)){
+        closeMobileMenu();
+      }
+    });
+
+    document.addEventListener("keydown", e => {
+      if(e.key === "Escape") closeMobileMenu();
+    });
+
+    window.addEventListener("resize", () => {
+      if(window.innerWidth > 980){
+        navLinks.classList.remove("mobile-open");
+        mobileMenuButton.classList.remove("is-open");
+        mobileMenuButton.setAttribute("aria-expanded", "false");
+        mobileMenuButton.setAttribute("aria-label", "Open menu");
+      }
+    });
+
+    // Pickup / delivery
+    document.querySelector(".order-mode").addEventListener("click", e => {
+      const btn = e.target.closest(".mode-btn");
+      if(!btn) return;
+      document.querySelectorAll(".mode-btn").forEach(x => x.classList.remove("active"));
+      btn.classList.add("active");
+      state.mode = btn.dataset.mode;
+      document.getElementById("fulfillment").value = state.mode;
+      renderOrder();
+    });
+
+    // Checkout
+    const modal = document.getElementById("checkoutModal");
+    function openModal(){
+      if(!getCartEntries().length) return;
+      renderModalSummary();
+      modal.classList.add("open");
+      document.body.classList.add("locked");
+    }
+    function closeModal(){
+      modal.classList.remove("open");
+      document.body.classList.remove("locked");
+    }
+
+    document.getElementById("checkoutBtn").addEventListener("click", openModal);
+    document.getElementById("modalClose").addEventListener("click", closeModal);
+    modal.addEventListener("click", e => { if(e.target === modal) closeModal(); });
+    document.addEventListener("keydown", e => { if(e.key === "Escape") closeModal(); });
+
+    document.getElementById("fulfillment").addEventListener("change", e => {
+      state.mode = e.target.value;
+      document.querySelectorAll(".mode-btn").forEach(btn => btn.classList.toggle("active", btn.dataset.mode === state.mode));
+      renderOrder();
+      renderModalSummary();
+    });
+
+    document.getElementById("checkoutForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const name = document.getElementById("customerName").value.trim() || "Guest";
+      const {total} = totals();
+      document.getElementById("checkoutGrid").style.display = "none";
+      document.querySelector(".modal-head").style.display = "none";
+      document.getElementById("successMessage").textContent =
+        `Thanks, ${name}! Your prototype ${state.mode} order for ${currency(total)} has been received.`;
+      document.getElementById("successState").classList.add("show");
+      state.cart = {};
+      renderOrder();
+    });
+
+    document.getElementById("doneButton").addEventListener("click", () => {
+      document.querySelector(".modal-head").style.display = "";
+      document.getElementById("checkoutGrid").style.display = "";
+      document.getElementById("successState").classList.remove("show");
+      document.getElementById("checkoutForm").reset();
+      state.mode = "pickup";
+      closeModal();
+      document.getElementById("home").scrollIntoView({behavior:"smooth"});
+    });
+
+    // Chat
+    const chatPanel = document.getElementById("chatPanel");
+    document.getElementById("chatButton").addEventListener("click", () => chatPanel.classList.toggle("open"));
+    document.getElementById("chatClose").addEventListener("click", () => chatPanel.classList.remove("open"));
+
+    document.getElementById("chatForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const input = document.getElementById("chatInput");
+      const value = input.value.trim();
+      if(!value) return;
+      const body = document.getElementById("chatBody");
+      body.insertAdjacentHTML("beforeend", `<div class="bubble you">${value}</div>`);
+      input.value = "";
+      setTimeout(() => {
+        body.insertAdjacentHTML("beforeend", `<div class="bubble agent">Thanks! This is a prototype chat, but a real live-support integration can be connected here.</div>`);
+        body.scrollTop = body.scrollHeight;
+      }, 450);
+      body.scrollTop = body.scrollHeight;
+    });
+
+    renderProducts();
+    renderOrder();
+  </script>
+</body>
+</html>
